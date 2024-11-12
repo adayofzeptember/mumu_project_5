@@ -1,0 +1,1 @@
+String api_url = "https://mumu.uat.compattana.com/api/";
