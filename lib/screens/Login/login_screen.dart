@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mumu_project/ETC/colors_palette.dart';
 import 'package:mumu_project/ETC/mediaQuery_set.dart';
 import 'package:mumu_project/ETC/progessHUD.dart';
+import 'package:mumu_project/ETC/x.dart';
 import 'package:mumu_project/bloc/Login_Greetings/login_bloc.dart';
-import 'package:mumu_project/screens/Trim%20Department/main_trim.dart';
 import 'package:page_transition/page_transition.dart';
 
 var usernameController = TextEditingController();
@@ -211,6 +211,8 @@ class Login_Screen extends StatelessWidget {
                                     context: context,
                                     getUsername: 'mobile',
                                     getPassword: 'password'));
+
+                              
                               },
                               child: Padding(
                                 padding: const EdgeInsets.all(15.0),
@@ -244,7 +246,7 @@ class Login_Screen extends StatelessWidget {
                                   PageTransition(
                                       duration: Duration(milliseconds: 500),
                                       type: PageTransitionType.rightToLeft,
-                                      child: Main_Trim()),
+                                      child: DynamicTextFieldPage()),
                                 );
                               },
                               child: Padding(

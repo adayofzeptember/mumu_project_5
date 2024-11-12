@@ -3,8 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mumu_project/ETC/colors_palette.dart';
 import 'package:mumu_project/ETC/mediaQuery_set.dart';
-import 'package:mumu_project/screens/Slaughter%20Department/Import/page2.dart';
 import 'package:sliding_switch/sliding_switch.dart';
+import '../../../ETC/Components/customBox_component.dart';
 
 class Head_Page1 extends StatelessWidget {
   Head_Page1({super.key});

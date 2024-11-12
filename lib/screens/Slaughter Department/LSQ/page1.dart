@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mumu_project/ETC/colors_palette.dart';
 import 'package:mumu_project/ETC/mediaQuery_set.dart';
 import 'package:mumu_project/bloc/Slaughter/LSQ/lsq_bloc.dart';
-import 'package:mumu_project/screens/Slaughter%20Department/Import/page2.dart';
+import 'package:mumu_project/screens/Trim%20Department/1.%20Cold%20Part%20Weight/page1.dart';
 import 'package:sliding_switch/sliding_switch.dart';
 
 class LSQ_Page1 extends StatefulWidget {
@@ -417,30 +417,28 @@ class _LSQ_Page1State extends State<LSQ_Page1> {
                         SizedBox(height: setHeight(context, 0.01)),
                         Row(
                           children: [
-                            Expanded(
-                              child: SlidingSwitch(
-                                value: true,
-                                onChanged: (bool value) {
-                                  setState(() {
-                                    _tailPart = value;
-                                  });
-                                },
-                                width: setWidth(context, 0.44),
-                                height: setHeight(context, 0.06),
-                                animationDuration:
-                                    const Duration(milliseconds: 400),
-                                onTap: () {},
-                                onDoubleTap: () {},
-                                onSwipe: () {},
-                                textOff: "ไม่ใช่",
-                                textOn: "ใช่",
-                                contentSize: setFontSize(context, 0.03),
-                                colorOn: Palette.mainRed,
-                                colorOff: Palette.mainRed,
-                                background: const Color(0xffe4e5eb),
-                                buttonColor: const Color(0xfff7f5f7),
-                                inactiveColor: const Color(0xff636f7b),
-                              ),
+                            SlidingSwitch(
+                              value: true,
+                              onChanged: (bool value) {
+                                setState(() {
+                                  _tailPart = value;
+                                });
+                              },
+                              width: setWidth(context, 0.4),
+                              height: setHeight(context, 0.06),
+                              animationDuration:
+                                  const Duration(milliseconds: 400),
+                              onTap: () {},
+                              onDoubleTap: () {},
+                              onSwipe: () {},
+                              textOff: "ไม่ใช่",
+                              textOn: "ใช่",
+                              contentSize: setFontSize(context, 0.03),
+                              colorOn: Palette.mainRed,
+                              colorOff: Palette.mainRed,
+                              background: const Color(0xffe4e5eb),
+                              buttonColor: const Color(0xfff7f5f7),
+                              inactiveColor: const Color(0xff636f7b),
                             ),
                             SizedBox(
                               width: setWidth(context, 0.02),

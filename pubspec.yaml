@@ -32,7 +32,6 @@ dependencies:
   expandable: ^5.0.1
   intl: ^0.18.0
   http: ^1.0.0 
- 
   geolocator: ^10.1.0
   permission_handler: ^11.0.0 
   dropdown_button2: ^2.0.0

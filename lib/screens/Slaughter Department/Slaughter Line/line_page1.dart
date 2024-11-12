@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:mumu_project/ETC/colors_palette.dart';
 import 'package:mumu_project/ETC/mediaQuery_set.dart';
+import 'package:mumu_project/ETC/progessHUD.dart';
 import 'package:mumu_project/bloc/Slaughter/Line%20Slaughter/line_bloc.dart';
 
 class Line_Page1 extends StatefulWidget {
@@ -45,6 +46,17 @@ class _Line_Page1State extends State<Line_Page1> {
 
   @override
   Widget build(BuildContext context) {
+    return BlocBuilder<LineBloc, LineState>(
+      builder: (context, state) {
+        return ProgressHUD(
+            child: _uiLinePage1(context),
+            inAsyncCall: state.isLoading,
+            opacity: 0.3);
+      },
+    );
+  }
+
+  Widget _uiLinePage1(BuildContext context) {
     return Container(
         decoration: BoxDecoration(
             color: Colors.white,
@@ -160,51 +172,56 @@ class _Line_Page1State extends State<Line_Page1> {
                         SizedBox(
                           height: setHeight(context, 0.01),
                         ),
-                        Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey.shade400),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(8),
-                              )),
-                          child: Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButton2(
-                                alignment: AlignmentDirectional.center,
-                                hint: Text('เลือก Lot'),
-                                style: TextStyle(
-                                    fontSize: setFontSize(context, 0.025),
-                                    fontFamily: 'Prompt'),
-                                items: ['test lot no.']
-                                    .map((item) => DropdownMenuItem<String>(
-                                          value: item,
-                                          child: Text(
-                                            item,
-                                            style: const TextStyle(
-                                                fontFamily: 'Prompt',
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 25,
-                                                color: Palette.mainRed),
-                                          ),
-                                        ))
-                                    .toList(),
-                                onChanged: (value) {
-                                  setState(() {
-                                    _lotNoController = value;
-                                  });
-                                },
-                                buttonStyleData: const ButtonStyleData(
-                                  height: 40,
-                                  width: 120,
-                                ),
-                                value: _lotNoController,
-                                menuItemStyleData: const MenuItemStyleData(
-                                  height: 40,
+                        BlocBuilder<LineBloc, LineState>(
+                          builder: (context, state) {
+                            return Container(
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                  border:
+                                      Border.all(color: Colors.grey.shade400),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(8),
+                                  )),
+                              child: Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: DropdownButtonHideUnderline(
+                                  child: DropdownButton2(
+                                    
+                                    alignment: AlignmentDirectional.center,
+                                    style: TextStyle(
+                                        fontSize: setFontSize(context, 0.025),
+                                        fontFamily: 'Prompt'),
+                                    items: state.lineLot_dropDown
+                                        .map((item) => DropdownMenuItem<String>(
+                                              value: item,
+                                              child: Text(
+                                                item,
+                                                style: const TextStyle(
+                                                    fontFamily: 'Prompt',
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 25,
+                                                    color: Palette.mainRed),
+                                              ),
+                                            ))
+                                        .toList(),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        _lotNoController = value;
+                                      });
+                                    },
+                                    buttonStyleData: const ButtonStyleData(
+                                      height: 40,
+                                      width: 120,
+                                    ),
+                                    value: _lotNoController,
+                                    menuItemStyleData: const MenuItemStyleData(
+                                      height: 40,
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
-                          ),
+                            );
+                          },
                         ),
                         SizedBox(height: setHeight(context, 0.02)),
                         Text(
@@ -216,52 +233,57 @@ class _Line_Page1State extends State<Line_Page1> {
                         SizedBox(
                           height: setHeight(context, 0.01),
                         ),
-                        Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey.shade400),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(8),
-                              )),
-                          child: Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButton2(
-                                alignment: AlignmentDirectional.center,
-                                hint: Text('เลือกฟาร์ม'),
-                                style: TextStyle(
-                                    fontSize: setFontSize(context, 0.025),
-                                    fontFamily: 'Prompt'),
-                                items: ['farm  name']
-                                    .map((item) => DropdownMenuItem<String>(
-                                          value: item,
-                                          child: Text(
-                                            item,
-                                            style: const TextStyle(
-                                                fontFamily: 'Prompt',
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 25,
-                                                color: Palette.mainRed),
-                                          ),
-                                        ))
-                                    .toList(),
-                                onChanged: (value) {
-                                  setState(() {
-                                    _farmNameController = value;
-                                  });
-                                },
-                                buttonStyleData: const ButtonStyleData(
-                                  height: 40,
-                                  width: 120,
-                                ),
-                                value: _farmNameController,
-                                // value: _farmNameController.text,
-                                menuItemStyleData: const MenuItemStyleData(
-                                  height: 40,
+                        BlocBuilder<LineBloc, LineState>(
+                          builder: (context, state) {
+                            return Container(
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                  border:
+                                      Border.all(color: Colors.grey.shade400),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(8),
+                                  )),
+                              child: Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: DropdownButtonHideUnderline(
+                                  child: DropdownButton2(
+                                    alignment: AlignmentDirectional.center,
+
+                                    style: TextStyle(
+                                        fontSize: setFontSize(context, 0.025),
+                                        fontFamily: 'Prompt'),
+                                    items: state.farmName_dropDown
+                                        .map((item) => DropdownMenuItem<String>(
+                                              value: item,
+                                              child: Text(
+                                                item,
+                                                style: const TextStyle(
+                                                    fontFamily: 'Prompt',
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 25,
+                                                    color: Palette.mainRed),
+                                              ),
+                                            ))
+                                        .toList(),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        _farmNameController = value;
+                                      });
+                                    },
+                                    buttonStyleData: const ButtonStyleData(
+                                      height: 40,
+                                      width: 120,
+                                    ),
+                                    value: _farmNameController,
+                                    // value: _farmNameController.text,
+                                    menuItemStyleData: const MenuItemStyleData(
+                                      height: 40,
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
-                          ),
+                            );
+                          },
                         ),
                         SizedBox(
                           height: setHeight(context, 0.02),
@@ -420,7 +442,7 @@ class _Line_Page1State extends State<Line_Page1> {
                                     MainAxisAlignment.spaceAround,
                                 children: [
                                   FloatingActionButton(
-                                      heroTag: '2',
+                                      heroTag: '113',
                                       onPressed: () {
                                         setState(() {
                                           _insensibleCount =
@@ -455,7 +477,7 @@ class _Line_Page1State extends State<Line_Page1> {
                                     ),
                                   ),
                                   FloatingActionButton(
-                                      heroTag: '1',
+                                      heroTag: '444',
                                       onPressed: () {
                                         setState(() {
                                           _insensibleCount =
@@ -538,7 +560,7 @@ class _Line_Page1State extends State<Line_Page1> {
                                     MainAxisAlignment.spaceAround,
                                 children: [
                                   FloatingActionButton(
-                                      heroTag: '2',
+                                      heroTag: '212',
                                       onPressed: () {
                                         setState(() {
                                           _stabCount = _stabCount - 1;
@@ -572,7 +594,7 @@ class _Line_Page1State extends State<Line_Page1> {
                                     ),
                                   ),
                                   FloatingActionButton(
-                                      heroTag: '1',
+                                      heroTag: '13',
                                       onPressed: () {
                                         setState(() {
                                           _stabCount = _stabCount + 1;
@@ -654,7 +676,7 @@ class _Line_Page1State extends State<Line_Page1> {
                                     MainAxisAlignment.spaceAround,
                                 children: [
                                   FloatingActionButton(
-                                      heroTag: '2',
+                                      heroTag: '21',
                                       onPressed: () {
                                         setState(() {
                                           _temperValue = _temperValue - 1;
@@ -688,7 +710,7 @@ class _Line_Page1State extends State<Line_Page1> {
                                     ),
                                   ),
                                   FloatingActionButton(
-                                      heroTag: '1',
+                                      heroTag: '11',
                                       onPressed: () {
                                         setState(() {
                                           _temperValue = _temperValue + 1;
@@ -752,25 +774,25 @@ class _Line_Page1State extends State<Line_Page1> {
                                   borderRadius: BorderRadius.circular(10),
                                 )),
                             onPressed: () {
-                              print(_isOmega);
+                              // print(_selectedStab[0].toString() +
+                              //     _selectedInsensible[0].toString() +
+                              //     _selectedTemperature[0].toString());
 
                               context.read<LineBloc>().add(SaveLine_UI291(
+                                  context: context,
                                   get_pig_arrival_id: 1,
                                   get_insensible: _selectedInsensible[0],
                                   get_insensible_value: _insensibleCount,
                                   get_stab: _selectedStab[0],
-                                  get_stab_value: _stabCount,
+                                  get_stab_value: 111,
                                   get_temperature: _selectedTemperature[0],
                                   get_temperature_value:
                                       double.parse(_temperValue.toString()),
                                   get_remark: _remarkController.text));
 
-                              // print('-----------' +
-                              //     _selectedInsensible[0].toString());
-                              // print(
-                              //     '-----------' + _selectedStab[0].toString());
-                              // print('-----------' +
-                              //     _selectedTemperature[0].toString());
+                              context
+                                  .read<LineBloc>()
+                                  .add(FetchHistory_UI292());
                             },
                             child: Padding(
                               padding: const EdgeInsets.all(15.0),

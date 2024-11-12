@@ -1,12 +1,19 @@
 // ignore_for_file: camel_case_types
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mumu_project/ETC/colors_palette.dart';
 import 'package:mumu_project/ETC/mediaQuery_set.dart';
+import 'package:mumu_project/bloc/Slaughter/Line%20Slaughter/line_bloc.dart';
 
-class Line_Page2 extends StatelessWidget {
+class Line_Page2 extends StatefulWidget {
   const Line_Page2({super.key});
 
+  @override
+  State<Line_Page2> createState() => _Line_Page2State();
+}
+
+class _Line_Page2State extends State<Line_Page2> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -30,22 +37,17 @@ class Line_Page2 extends StatelessWidget {
                           children: [
                             Column(
                               children: [
-                                Text(
-                                  "รายละเอียดการชั่ง: x",
-                                  style: TextStyle(
-                                      color: Palette.someGrey,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: setFontSize(context, 0.03)),
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                Text(
-                                  "หมายเลขเครื่องชั่ง: x",
-                                  style: TextStyle(
-                                      color: Palette.someGrey,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: setFontSize(context, 0.03)),
+                                BlocBuilder<LineBloc, LineState>(
+                                  builder: (context, state) {
+                                    return Text(
+                                      "Lot No: " +
+                                          state.lotNumHistory.toString(),
+                                      style: TextStyle(
+                                          color: Palette.someGrey,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: setFontSize(context, 0.03)),
+                                    );
+                                  },
                                 ),
                               ],
                             ),
@@ -96,7 +98,6 @@ class Line_Page2 extends StatelessWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                
                                 Text(
                                   'ลำดับ',
                                   style: TextStyle(
@@ -104,19 +105,7 @@ class Line_Page2 extends StatelessWidget {
                                       fontSize: setFontSize(context, 0.025)),
                                 ),
                                 Text(
-                                  'จุดตรวจหน้าเครื่อง',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: setFontSize(context, 0.025)),
-                                ),
-                                Text(
-                                  'ผลการสังเกต',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: setFontSize(context, 0.025)),
-                                ),
-                                Text(
-                                  'จำนวน',
+                                  'วันเวลาที่บันทึก',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: setFontSize(context, 0.025)),
@@ -127,9 +116,68 @@ class Line_Page2 extends StatelessWidget {
                                       fontWeight: FontWeight.bold,
                                       fontSize: setFontSize(context, 0.025)),
                                 ),
+                                Text(
+                                  'จัดการข้อมูล',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: setFontSize(context, 0.025)),
+                                ),
                               ],
                             ),
                           ),
+                        ),
+                        BlocBuilder<LineBloc, LineState>(
+                          builder: (context, state) {
+                            return ListView.builder(
+                              primary: true,
+                              itemCount: state.lineHistory.length,
+                              shrinkWrap: true,
+                              physics: const ClampingScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(10),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          state.lineHistory[index].order
+                                              .toString(),
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize:
+                                                  setFontSize(context, 0.025)),
+                                        ),
+                                        Text(
+                                          state.lineHistory[index].date
+                                              .toString(),
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize:
+                                                  setFontSize(context, 0.025)),
+                                        ),
+                                        Text(
+                                          state.lineHistory[index].remark,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize:
+                                                  setFontSize(context, 0.025)),
+                                        ),
+                                        Text(
+                                          'จัดการข้อมูล',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize:
+                                                  setFontSize(context, 0.025)),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                          },
                         )
                       ])),
             )));

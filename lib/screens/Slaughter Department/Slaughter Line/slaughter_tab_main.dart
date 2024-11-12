@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mumu_project/ETC/colors_palette.dart';
 import 'package:mumu_project/ETC/mediaQuery_set.dart';
-import 'package:mumu_project/screens/Slaughter%20Department/Slaughter%20Line/page1.dart';
-import 'package:mumu_project/screens/Slaughter%20Department/Slaughter%20Line/page2.dart';
+import 'package:mumu_project/screens/Slaughter%20Department/Slaughter%20Line/line_page1.dart';
+import 'package:mumu_project/screens/Slaughter%20Department/Slaughter%20Line/line_page2.dart';
 
 class Line_Tab extends StatefulWidget {
   const Line_Tab({super.key});
@@ -71,7 +71,7 @@ class _Line_TabState extends State<Line_Tab>
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(
-                  20,
+                  30,
                 ),
               ),
               child: Padding(
@@ -89,7 +89,7 @@ class _Line_TabState extends State<Line_Tab>
                   unselectedLabelColor: Palette.mainRed,
                   indicatorSize: TabBarIndicatorSize.tab,
                   indicator: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(30),
                       color: Palette.mainRed),
                   tabs: const [
                     Tab(

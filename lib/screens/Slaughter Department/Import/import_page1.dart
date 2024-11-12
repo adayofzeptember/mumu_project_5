@@ -1,12 +1,12 @@
 import 'dart:io';
-
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mumu_project/ETC/Components/date_time_component.dart';
+import 'package:mumu_project/ETC/Components/image_picker_component.dart';
 import 'package:mumu_project/ETC/colors_palette.dart';
-import 'package:mumu_project/ETC/date_time_component.dart';
 import 'package:mumu_project/ETC/mediaQuery_set.dart';
 import 'package:mumu_project/bloc/Slaughter/Import/import_bloc.dart';
 
@@ -1608,7 +1608,10 @@ class _Import_Page1State extends State<Import_Page1> {
                                       borderRadius: BorderRadius.circular(5),
                                     )),
                                 onPressed: () {
-                                  _getGallery();
+                                  ImagePickerHelper_Component.getGalleryImages(
+                                      context: context,
+                                      setState: setState,
+                                      selectedImages: selectedImages);
                                 },
                                 child: Padding(
                                   padding: const EdgeInsets.all(10.0),
@@ -1635,7 +1638,10 @@ class _Import_Page1State extends State<Import_Page1> {
                                       borderRadius: BorderRadius.circular(5),
                                     )),
                                 onPressed: () {
-                                  _getCamera();
+                                  ImagePickerHelper_Component.getCameraImage(
+                                      context: context,
+                                      setState: setState,
+                                      selectedImages: selectedImages);
                                 },
                                 child: Padding(
                                   padding: const EdgeInsets.all(10.0),
@@ -1655,11 +1661,11 @@ class _Import_Page1State extends State<Import_Page1> {
                         ),
                         Container(
                           decoration: selectedImages.isEmpty
-                          ? null
-                          :BoxDecoration(
-                              border: Border.all(color: Colors.grey),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
+                              ? null
+                              : BoxDecoration(
+                                  border: Border.all(color: Colors.grey),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10))),
                           width: double.infinity,
                           child: SizedBox(
                             child: selectedImages.isEmpty
@@ -1729,52 +1735,4 @@ class _Import_Page1State extends State<Import_Page1> {
           ),
         ));
   }
-
-  Future _getCamera() async {
-    try {
-      // Pick an image from the camera
-      final pickedFile = await picker.pickImage(
-        source: ImageSource.camera,
-        imageQuality: 100, // You can adjust quality
-        maxHeight: 1000,
-        maxWidth: 1000,
-      );
-
-      // If an image is selected, store it in the selectedImages list
-      if (pickedFile != null) {
-        setState(() {
-          selectedImages.add(File(pickedFile.path));
-        });
-      } else {
-        // If no image is picked, show a message
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('ไม่ได้เลือกรูป')),
-        );
-      }
-    } catch (e) {
-      // Handle any errors that might occur
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('เกิดข้อผิดพลาด: $e')),
-      );
-    }
-  }
-
-  Future _getGallery() async {
-    dynamic pickedFile = await picker.pickMultiImage(
-        imageQuality: 100, maxHeight: 1000, maxWidth: 1000);
-    List<XFile> xfilePick = pickedFile;
-    setState(
-      () {
-        if (xfilePick.isNotEmpty) {
-          for (var i = 0; i < xfilePick.length; i++) {
-            selectedImages.add(File(xfilePick[i].path));
-          }
-        } else {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(const SnackBar(content: Text('ไม่ได้เลือกรูป')));
-        }
-      },
-    );
-  }
 }
-//!

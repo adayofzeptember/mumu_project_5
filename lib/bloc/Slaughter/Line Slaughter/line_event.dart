@@ -10,6 +10,7 @@ sealed class LineEvent extends Equatable {
 }
 
 class SaveLine_UI291 extends LineEvent {
+  var context;
   int get_pig_arrival_id, get_insensible_value, get_stab_value;
 
   double get_temperature_value;
@@ -22,6 +23,7 @@ class SaveLine_UI291 extends LineEvent {
     required this.get_insensible,
     required this.get_insensible_value,
     required this.get_stab,
+    required this.context,
     required this.get_stab_value,
     required this.get_temperature,
     required this.get_temperature_value,
@@ -31,4 +33,8 @@ class SaveLine_UI291 extends LineEvent {
 
 class FetchHistory_UI292 extends LineEvent {
   FetchHistory_UI292();
+}
+
+class FetchLine_Lot extends LineEvent {
+  FetchLine_Lot();
 }

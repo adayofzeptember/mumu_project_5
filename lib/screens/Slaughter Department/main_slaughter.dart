@@ -5,8 +5,10 @@ import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mumu_project/ETC/colors_palette.dart';
 import 'package:mumu_project/ETC/mediaQuery_set.dart';
+
 import 'package:mumu_project/bloc/Login_Greetings/login_bloc.dart';
-import 'package:mumu_project/screens/Slaughter%20Department/Import/import_tab_main.dart';
+import 'package:mumu_project/bloc/Slaughter/Line%20Slaughter/line_bloc.dart';
+import 'package:mumu_project/screens/Slaughter%20Department/Import/tab_main.dart';
 import 'package:mumu_project/screens/Slaughter%20Department/LSQ/lsq_tab_main.dart';
 import 'package:mumu_project/screens/Slaughter%20Department/Slaughter%20Line/slaughter_tab_main.dart';
 import 'package:mumu_project/screens/Slaughter%20Department/Weight%20Head%20Parts/head_tab_main.dart';
@@ -22,10 +24,15 @@ class Main_Slaughter extends StatefulWidget {
 class _Main_SlaughterState extends State<Main_Slaughter> {
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      pigsImportNoti(context);
-    });
     super.initState();
+
+    context.read<LoginBloc>().add(Load_GreetingBoard(context: context));
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Future.delayed(Duration(seconds: 1), () {
+        pigsImportNoti(context);
+      });
+    });
   }
 
   @override
@@ -69,11 +76,10 @@ class _Main_SlaughterState extends State<Main_Slaughter> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'รจเรข พินสายออ',
+                          'ชชช ฟฟฟ',
                           style: TextStyle(
                             color: Palette.mainRed,
                             fontWeight: FontWeight.bold,
-                          
                           ),
                         ),
                         Row(
@@ -89,7 +95,6 @@ class _Main_SlaughterState extends State<Main_Slaughter> {
                               'แผนกเชือด', // User's role or position
                               style: TextStyle(
                                 color: Colors.grey,
-                                 
                               ),
                             ),
                           ],
@@ -118,13 +123,15 @@ class _Main_SlaughterState extends State<Main_Slaughter> {
                 },
                 child: Text(
                   'ออกจากระบบ',
-                  style: TextStyle(color: Palette.mainRed,fontWeight: FontWeight.bold, fontSize: 18),
+                  style: TextStyle(
+                      color: Palette.mainRed,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18),
                 ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
                   side: BorderSide(
-                      color: Palette.mainRed,
-                      width: 1), // Border style
+                      color: Palette.mainRed, width: 1), // Border style
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20), // Rounded corners
                   ),
@@ -217,6 +224,9 @@ class _Main_SlaughterState extends State<Main_Slaughter> {
                                     duration: Duration(milliseconds: 300),
                                     type: PageTransitionType.fade,
                                     child: Line_Tab()));
+
+                            context.read<LineBloc>().add(FetchHistory_UI292());
+                            context.read<LineBloc>().add(FetchLine_Lot());
                           },
                           child: Image.asset(
                             'assets/images/slaughter4.png',
@@ -327,74 +337,74 @@ Future pigsImportNoti(var context) async {
                       ),
                     ),
                     SizedBox(height: 15.0),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Text(
-                          '08 : 35',
-                          style: TextStyle(
-                            fontSize: setFontSize(context, 0.03),
-                          ),
-                        ),
-                        Text(
-                          'ฟาร์มหมูเจริญ',
-                          style: TextStyle(
-                            fontSize: setFontSize(context, 0.03),
-                          ),
-                        ),
-                        Text(
-                          '120 ตัว',
-                          style: TextStyle(
-                            fontSize: setFontSize(context, 0.03),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 10.0),
-                    // Details
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Text(
-                          '10 : 25',
-                          style: TextStyle(
-                            fontSize: setFontSize(context, 0.03),
-                          ),
-                        ),
-                        Text(
-                          'ฟาร์มหมู',
-                          style: TextStyle(
-                            fontSize: setFontSize(context, 0.03),
-                          ),
-                        ),
-                        Text(
-                          '100 ตัว',
-                          style: TextStyle(
-                            fontSize: setFontSize(context, 0.03),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 15.0),
-                    SizedBox(
-                      height: setHeight(context, 0.05),
-                      width: setWidth(context, 0.2),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: Text(
-                          'ปิด',
-                          style:
-                              TextStyle(fontSize: setFontSize(context, 0.03)),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                        ),
-                      ),
-                    ),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    //   children: [
+                    //     Text(
+                    //       '08 : 35',
+                    //       style: TextStyle(
+                    //         fontSize: setFontSize(context, 0.03),
+                    //       ),
+                    //     ),
+                    //     Text(
+                    //       'ฟาร์มหมูเจริญ',
+                    //       style: TextStyle(
+                    //         fontSize: setFontSize(context, 0.03),
+                    //       ),
+                    //     ),
+                    //     Text(
+                    //       '120 ตัว',
+                    //       style: TextStyle(
+                    //         fontSize: setFontSize(context, 0.03),
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
+                    // SizedBox(height: 10.0),
+                    // // Details
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    //   children: [
+                    //     Text(
+                    //       '10 : 25',
+                    //       style: TextStyle(
+                    //         fontSize: setFontSize(context, 0.03),
+                    //       ),
+                    //     ),
+                    //     Text(
+                    //       'ฟาร์มหมู',
+                    //       style: TextStyle(
+                    //         fontSize: setFontSize(context, 0.03),
+                    //       ),
+                    //     ),
+                    //     Text(
+                    //       '100 ตัว',
+                    //       style: TextStyle(
+                    //         fontSize: setFontSize(context, 0.03),
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
+                    // SizedBox(height: 15.0),
+                    // SizedBox(
+                    //   height: setHeight(context, 0.05),
+                    //   width: setWidth(context, 0.2),
+                    //   child: ElevatedButton(
+                    //     onPressed: () {
+                    //       Navigator.of(context).pop();
+                    //     },
+                    //     child: Text(
+                    //       'ปิด',
+                    //       style:
+                    //           TextStyle(fontSize: setFontSize(context, 0.03)),
+                    //     ),
+                    //     style: ElevatedButton.styleFrom(
+                    //       shape: RoundedRectangleBorder(
+                    //         borderRadius: BorderRadius.circular(30),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 );
               },

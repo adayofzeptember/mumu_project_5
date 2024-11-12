@@ -3,8 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:mumu_project/ETC/colors_palette.dart';
 import 'package:mumu_project/ETC/mediaQuery_set.dart';
 import 'package:mumu_project/screens/Slaughter%20Department/Import/import_page1.dart';
-import 'package:mumu_project/screens/Slaughter%20Department/Import/page2.dart';
-import 'package:mumu_project/screens/Slaughter%20Department/Import/page3.dart';
+import 'package:mumu_project/screens/Slaughter%20Department/Import/import_page2.dart';
+import 'package:mumu_project/screens/Slaughter%20Department/Import/import_page3.dart';
 
 class Import_Tab extends StatefulWidget {
   const Import_Tab({super.key});
@@ -93,7 +93,7 @@ class _Import_TabState extends State<Import_Tab>
                         text: 'ตรวจรับก่อนเชือด',
                       ),
                       Tab(
-                        text: 'ชั่งน้ำหนักสุกร',
+                        text: 'บันทึกการแปรสภาพ',
                       ),
                       Tab(
                         text: 'ประวัติการชั่ง',
