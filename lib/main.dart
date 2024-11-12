@@ -75,8 +75,7 @@ class _MumuSplashPageState extends State<MumuSplashPage> {
     ));
     return Scaffold(
       backgroundColor: Palette.mainRed,
-      body:
-      Column(
+      body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Center(
