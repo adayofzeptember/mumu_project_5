@@ -1,34 +1,27 @@
-// ignore_for_file: camel_case_types
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:mumu_project/ETC/colors_palette.dart';
 import 'package:mumu_project/ETC/mediaQuery_set.dart';
-import 'package:mumu_project/screens/Slaughter%20Department/Weight%20Head%20Parts/import_tab/tab_main_import_weight.dart';
-import 'package:mumu_project/screens/Slaughter%20Department/Weight%20Head%20Parts/page2.dart';
-import 'package:mumu_project/screens/Slaughter%20Department/Weight%20Head%20Parts/page3.dart';
+import 'package:mumu_project/screens/StockDepartment/Disbursement/reportor/inside/page_report_disbursement.dart';
+import 'package:mumu_project/screens/StockDepartment/Disbursement/reportor/inside/page_save_disbursement_inside.dart';
 import 'package:mumu_project/screens/Trim%20Department/main_trim.dart';
 
-class Head_tab extends StatefulWidget {
-  const Head_tab({super.key});
+class TabDisbursement extends StatefulWidget {
+  const TabDisbursement({Key? key}) : super(key: key);
+
   @override
-  State<Head_tab> createState() => _Head_tabState();
+  _TabDisbursementState createState() => _TabDisbursementState();
 }
 
-class _Head_tabState extends State<Head_tab> with SingleTickerProviderStateMixin {
+class _TabDisbursementState extends State<TabDisbursement> with SingleTickerProviderStateMixin {
   late TabController _tabController;
   @override
   void initState() {
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 2, vsync: this);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: Colors.white, // Set the status bar color to white
-      statusBarIconBrightness: Brightness.dark, // Set status bar icons to dark (to be visible on white background)
-    ));
-
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -39,29 +32,32 @@ class _Head_tabState extends State<Head_tab> with SingleTickerProviderStateMixin
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween, // Align items to the right
           children: [
-            Row(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: Palette.mainRed,
-                    borderRadius: BorderRadius.circular(10),
+            GestureDetector(
+              onTap: () => Navigator.pop(context),
+              child: Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: Palette.mainRed,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: const Icon(
+                      Icons.house,
+                      color: Colors.white,
+                      size: 40,
+                    ),
                   ),
-                  child: const Icon(
-                    Icons.house,
-                    color: Colors.white,
-                    size: 40,
+                  const SizedBox(width: 8),
+                  const Text(
+                    "เบิกจ่ายสินค้า",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                const SizedBox(width: 8),
-                const Text(
-                  "บันทึกน้ำหนักหัวหมู/เครื่องใน ",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
             Row(
               children: [
@@ -120,13 +116,13 @@ class _Head_tabState extends State<Head_tab> with SingleTickerProviderStateMixin
           ],
         ),
       ),
-      backgroundColor: const Color(0xFFF5F5F5),
+      backgroundColor: const Color(0xFFF7F7F7),
       body: Column(
         children: [
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 18),
             decoration: const BoxDecoration(
-              color: Color(0xFFF5F5F5),
+              color: Color(0xFFF7F7F7),
             ),
             child: TabBar(
               unselectedLabelColor: Palette.mainRed,
@@ -136,7 +132,7 @@ class _Head_tabState extends State<Head_tab> with SingleTickerProviderStateMixin
                 color: Palette.mainRed,
               ),
               labelStyle: TextStyle(
-                fontSize: setFontSize(context, 0.022),
+                fontSize: setFontSize(context, 0.025),
                 fontWeight: FontWeight.bold,
                 fontFamily: 'Prompt',
               ),
@@ -152,7 +148,7 @@ class _Head_tabState extends State<Head_tab> with SingleTickerProviderStateMixin
                   child: Container(
                     alignment: Alignment.center,
                     height: setHeight(context, 0.05),
-                    width: setWidth(context, 0.3),
+                    width: setWidth(context, 0.5),
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(30),
@@ -161,7 +157,7 @@ class _Head_tabState extends State<Head_tab> with SingleTickerProviderStateMixin
                         width: 2.0,
                       ),
                     ),
-                    child: const Text("นำเข้าสินค้าเพื่อแปรสภาพ"),
+                    child: const Text("บันทึกการเบิกจ่ายสินค้า"),
                   ),
                 ),
                 Tab(
@@ -169,7 +165,7 @@ class _Head_tabState extends State<Head_tab> with SingleTickerProviderStateMixin
                   child: Container(
                     alignment: Alignment.center,
                     height: setHeight(context, 0.05),
-                    width: setWidth(context, 0.3),
+                    width: setWidth(context, 0.5),
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(30),
@@ -178,45 +174,20 @@ class _Head_tabState extends State<Head_tab> with SingleTickerProviderStateMixin
                         width: 2.0,
                       ),
                     ),
-                    child: const Text("บันทึกการแปรสภาพสินค้า"),
-                  ),
-                ),
-                Tab(
-                  height: setHeight(context, 0.05),
-                  child: Container(
-                    alignment: Alignment.center,
-                    height: setHeight(context, 0.05),
-                    width: setWidth(context, 0.3),
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      border: Border.all(
-                        color: Palette.mainRed,
-                        width: 2.0,
-                      ),
-                    ),
-                    child: const Text("ประวัติการแปรสภาพสินค้า"),
+                    child: const Text("รายงานการเบิกจ่ายสินค้า"),
                   ),
                 ),
               ],
             ),
           ),
           Expanded(
-            child: Container(
-              padding: const EdgeInsets.only(top: 30),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: TabBarView(
-                physics: const NeverScrollableScrollPhysics(),
-                controller: _tabController,
-                children: [
-                  TabMainImportWeight(),
-                  Head_Page2(),
-                  Head_Page3(),
-                ],
-              ),
+            child: TabBarView(
+              physics: const NeverScrollableScrollPhysics(),
+              controller: _tabController,
+              children: [
+                PageSaveDisbursementInside(),
+                PageReportDisbursement(),
+              ],
             ),
           ),
         ],

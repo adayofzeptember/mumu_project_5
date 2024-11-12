@@ -1,20 +1,18 @@
-// ignore_for_file: camel_case_types
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:mumu_project/ETC/colors_palette.dart';
 import 'package:mumu_project/ETC/mediaQuery_set.dart';
-import 'package:mumu_project/screens/Slaughter%20Department/Weight%20Head%20Parts/import_tab/tab_main_import_weight.dart';
-import 'package:mumu_project/screens/Slaughter%20Department/Weight%20Head%20Parts/page2.dart';
-import 'package:mumu_project/screens/Slaughter%20Department/Weight%20Head%20Parts/page3.dart';
+import 'package:mumu_project/screens/CartDepartment/Reporter/Internal_use/internal_tab.dart';
+import 'package:mumu_project/screens/CartDepartment/Reporter/cart_in/cart_tab.dart';
+import 'package:mumu_project/screens/CartDepartment/Reporter/report_cart_all/page_report_cart_all.dart';
 import 'package:mumu_project/screens/Trim%20Department/main_trim.dart';
 
-class Head_tab extends StatefulWidget {
-  const Head_tab({super.key});
+class MainCartReporter extends StatefulWidget {
+  const MainCartReporter({Key? key}) : super(key: key);
   @override
-  State<Head_tab> createState() => _Head_tabState();
+  State<MainCartReporter> createState() => _MainCartReporterState();
 }
 
-class _Head_tabState extends State<Head_tab> with SingleTickerProviderStateMixin {
+class _MainCartReporterState extends State<MainCartReporter> with SingleTickerProviderStateMixin {
   late TabController _tabController;
   @override
   void initState() {
@@ -24,12 +22,8 @@ class _Head_tabState extends State<Head_tab> with SingleTickerProviderStateMixin
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: Colors.white, // Set the status bar color to white
-      statusBarIconBrightness: Brightness.dark, // Set status bar icons to dark (to be visible on white background)
-    ));
-
     return Scaffold(
+      // backgroundColor: Palette.greyBackground,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         elevation: 0,
@@ -55,8 +49,8 @@ class _Head_tabState extends State<Head_tab> with SingleTickerProviderStateMixin
                 ),
                 const SizedBox(width: 8),
                 const Text(
-                  "บันทึกน้ำหนักหัวหมู/เครื่องใน ",
-                  style: TextStyle(
+                  "รับตะกร้าเข้า",
+                  style: const TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
                   ),
@@ -120,13 +114,13 @@ class _Head_tabState extends State<Head_tab> with SingleTickerProviderStateMixin
           ],
         ),
       ),
-      backgroundColor: const Color(0xFFF5F5F5),
+      backgroundColor: const Color(0xFFE7EBEF),
       body: Column(
         children: [
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 18),
             decoration: const BoxDecoration(
-              color: Color(0xFFF5F5F5),
+              color: Color(0xFFE7EBEF),
             ),
             child: TabBar(
               unselectedLabelColor: Palette.mainRed,
@@ -136,7 +130,7 @@ class _Head_tabState extends State<Head_tab> with SingleTickerProviderStateMixin
                 color: Palette.mainRed,
               ),
               labelStyle: TextStyle(
-                fontSize: setFontSize(context, 0.022),
+                fontSize: setFontSize(context, 0.025),
                 fontWeight: FontWeight.bold,
                 fontFamily: 'Prompt',
               ),
@@ -161,7 +155,7 @@ class _Head_tabState extends State<Head_tab> with SingleTickerProviderStateMixin
                         width: 2.0,
                       ),
                     ),
-                    child: const Text("นำเข้าสินค้าเพื่อแปรสภาพ"),
+                    child: const Text("รับตะกร้าเข้า"),
                   ),
                 ),
                 Tab(
@@ -178,7 +172,7 @@ class _Head_tabState extends State<Head_tab> with SingleTickerProviderStateMixin
                         width: 2.0,
                       ),
                     ),
-                    child: const Text("บันทึกการแปรสภาพสินค้า"),
+                    child: const Text("การใช้งานภายใน"),
                   ),
                 ),
                 Tab(
@@ -195,7 +189,7 @@ class _Head_tabState extends State<Head_tab> with SingleTickerProviderStateMixin
                         width: 2.0,
                       ),
                     ),
-                    child: const Text("ประวัติการแปรสภาพสินค้า"),
+                    child: const Text("รายงานตะกร้าทั้งหมด"),
                   ),
                 ),
               ],
@@ -203,21 +197,20 @@ class _Head_tabState extends State<Head_tab> with SingleTickerProviderStateMixin
           ),
           Expanded(
             child: Container(
-              padding: const EdgeInsets.only(top: 30),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: TabBarView(
-                physics: const NeverScrollableScrollPhysics(),
-                controller: _tabController,
-                children: [
-                  TabMainImportWeight(),
-                  Head_Page2(),
-                  Head_Page3(),
-                ],
-              ),
-            ),
+                padding: const EdgeInsets.only(top: 30),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: TabBarView(
+                  physics: const NeverScrollableScrollPhysics(),
+                  controller: _tabController,
+                  children: [
+                    CartTab(),
+                    InternalTab(),
+                    PageReportCartAll(),
+                  ],
+                )),
           ),
         ],
       ),

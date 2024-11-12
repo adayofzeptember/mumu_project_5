@@ -18,8 +18,7 @@ class Login_Screen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<LoginBloc, LoginState>(
       builder: (context, state) {
-        return ProgressHUD(
-            child: _uiLogin(context), inAsyncCall: state.loading, opacity: 0.3);
+        return ProgressHUD(child: _uiLogin(context), inAsyncCall: state.loading, opacity: 0.3);
       },
     );
   }
@@ -33,9 +32,7 @@ class Login_Screen extends StatelessWidget {
           child: Container(
             height: MediaQuery.of(context).size.height,
             width: double.infinity,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(50)),
-                color: Colors.white),
+            decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(50)), color: Colors.white),
             child: Padding(
               padding: EdgeInsets.all(50),
               child: Column(
@@ -71,10 +68,8 @@ class Login_Screen extends StatelessWidget {
                             alignment: Alignment.bottomLeft,
                             child: Text(
                               'ชื่อผู้ใช้',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w900,
-                                  fontSize: setFontSize(context, 0.025),
-                                  color: Colors.black),
+                              style:
+                                  TextStyle(fontWeight: FontWeight.w900, fontSize: setFontSize(context, 0.025), color: Colors.black),
                             ),
                           ),
                           const SizedBox(
@@ -85,9 +80,7 @@ class Login_Screen extends StatelessWidget {
                             textAlign: TextAlign.left,
                             //  initialValue: 'mobile',
                             autofocus: false,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: setFontSize(context, 0.025)),
+                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: setFontSize(context, 0.025)),
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return 'โปรดกรอกชื่อบัญชี';
@@ -97,24 +90,17 @@ class Login_Screen extends StatelessWidget {
                             keyboardType: TextInputType.text,
                             decoration: InputDecoration(
                                 hintText: 'กรอกชื่อผู้ใช้',
-                                labelStyle: TextStyle(
-                                    fontSize: setFontSize(context, 0.04)),
+                                labelStyle: TextStyle(fontSize: setFontSize(context, 0.04)),
                                 focusedBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        color:
-                                            Color.fromARGB(255, 211, 211, 211)),
+                                    borderSide: const BorderSide(color: Color.fromARGB(255, 211, 211, 211)),
                                     borderRadius: BorderRadius.circular(10)),
                                 filled: true,
                                 fillColor: Colors.white,
                                 border: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        color:
-                                            Color.fromARGB(255, 211, 211, 211)),
+                                    borderSide: const BorderSide(color: Color.fromARGB(255, 211, 211, 211)),
                                     borderRadius: BorderRadius.circular(10)),
                                 enabledBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        color:
-                                            Color.fromARGB(255, 211, 211, 211)),
+                                    borderSide: const BorderSide(color: Color.fromARGB(255, 211, 211, 211)),
                                     borderRadius: BorderRadius.circular(10))),
                           ),
                           const SizedBox(
@@ -124,10 +110,8 @@ class Login_Screen extends StatelessWidget {
                             alignment: Alignment.topLeft,
                             child: Text(
                               'รหัสผ่าน',
-                              style: TextStyle(
-                                  fontSize: setFontSize(context, 0.025),
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black),
+                              style:
+                                  TextStyle(fontSize: setFontSize(context, 0.025), fontWeight: FontWeight.bold, color: Colors.black),
                             ),
                           ),
                           const SizedBox(
@@ -139,9 +123,7 @@ class Login_Screen extends StatelessWidget {
                             // obscureText: state.obscurePass,
                             textAlign: TextAlign.left,
                             autofocus: false,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: setFontSize(context, 0.025)),
+                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: setFontSize(context, 0.025)),
 
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -168,21 +150,15 @@ class Login_Screen extends StatelessWidget {
                                 hintText: 'กรอกรหัสผ่าน',
                                 labelStyle: const TextStyle(fontSize: 15),
                                 focusedBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        color:
-                                            Color.fromARGB(255, 211, 211, 211)),
+                                    borderSide: const BorderSide(color: Color.fromARGB(255, 211, 211, 211)),
                                     borderRadius: BorderRadius.circular(10)),
                                 filled: true,
                                 fillColor: Colors.white,
                                 border: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        color:
-                                            Color.fromARGB(255, 211, 211, 211)),
+                                    borderSide: const BorderSide(color: Color.fromARGB(255, 211, 211, 211)),
                                     borderRadius: BorderRadius.circular(10)),
                                 enabledBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        color:
-                                            Color.fromARGB(255, 211, 211, 211)),
+                                    borderSide: const BorderSide(color: Color.fromARGB(255, 211, 211, 211)),
                                     borderRadius: BorderRadius.circular(10))),
                           ),
                           SizedBox(
@@ -192,7 +168,7 @@ class Login_Screen extends StatelessWidget {
                             height: setHeight(context, 0.059),
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                  primary: Palette.mainRed,
+                                  backgroundColor: Palette.mainRed,
                                   elevation: 0,
                                   // side: BorderSide(color: Colors.white),
                                   shape: RoundedRectangleBorder(
@@ -207,10 +183,9 @@ class Login_Screen extends StatelessWidget {
                                 //       getPassword: passwordController.text));
                                 // }
 
-                                context.read<LoginBloc>().add(Login_Casual(
-                                    context: context,
-                                    getUsername: 'mobile',
-                                    getPassword: 'password'));
+                                context
+                                    .read<LoginBloc>()
+                                    .add(Login_Casual(context: context, getUsername: 'mobile', getPassword: 'password'));
                               },
                               child: Padding(
                                 padding: const EdgeInsets.all(15.0),
@@ -220,9 +195,7 @@ class Login_Screen extends StatelessWidget {
                                   child: Text(
                                     "เข้าสู่ระบบ",
                                     style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white,
-                                        fontSize: setFontSize(context, 0.03)),
+                                        fontWeight: FontWeight.bold, color: Colors.white, fontSize: setFontSize(context, 0.03)),
                                   ),
                                 ),
                               ),
@@ -232,7 +205,7 @@ class Login_Screen extends StatelessWidget {
                             height: setHeight(context, 0.059),
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                  primary: Palette.mainRed,
+                                  backgroundColor: Palette.mainRed,
                                   elevation: 0,
                                   // side: BorderSide(color: Colors.white),
                                   shape: RoundedRectangleBorder(
@@ -255,9 +228,7 @@ class Login_Screen extends StatelessWidget {
                                   child: Text(
                                     "ตัดแต่ง",
                                     style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white,
-                                        fontSize: setFontSize(context, 0.03)),
+                                        fontWeight: FontWeight.bold, color: Colors.white, fontSize: setFontSize(context, 0.03)),
                                   ),
                                 ),
                               ),

@@ -11,6 +11,7 @@ import 'package:mumu_project/bloc/Slaughter/LSQ/lsq_bloc.dart';
 import 'package:mumu_project/bloc/Slaughter/Line%20Slaughter/line_bloc.dart';
 import 'package:mumu_project/screens/Login/login_screen.dart';
 import 'package:mumu_project/screens/Slaughter%20Department/main_slaughter.dart';
+import 'package:mumu_project/select_role.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -18,8 +19,7 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: Palette.mainRed, // Set the status bar color to white
-    statusBarIconBrightness: Brightness
-        .light, // Set status bar icons to dark (to be visible on white background)
+    statusBarIconBrightness: Brightness.light, // Set status bar icons to dark (to be visible on white background)
   ));
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then(
     (value) => runApp(
@@ -42,8 +42,7 @@ class MumuProject extends StatelessWidget {
       ],
       child: MaterialApp(
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(
-              seedColor: Palette.mainRed, primary: Palette.mainRed),
+          colorScheme: ColorScheme.fromSeed(seedColor: Palette.mainRed, primary: Palette.mainRed),
           useMaterial3: false,
           fontFamily: 'Prompt',
         ),
@@ -70,22 +69,17 @@ class _MumuSplashPageState extends State<MumuSplashPage> {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Palette.mainRed, // Set the status bar color to white
-      statusBarIconBrightness: Brightness
-          .light, // Set status bar icons to dark (to be visible on white background)
+      statusBarIconBrightness: Brightness.light, // Set status bar icons to dark (to be visible on white background)
     ));
     return Scaffold(
       backgroundColor: Palette.mainRed,
-      body:
-      Column(
+      body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Center(
             child: Text(
               'หมูหมู 🐷🪓🩸',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: setWidth(context, 0.05),
-                  fontWeight: FontWeight.bold),
+              style: TextStyle(color: Colors.white, fontSize: setWidth(context, 0.05), fontWeight: FontWeight.bold),
             ),
           ),
         ],
@@ -97,22 +91,27 @@ class _MumuSplashPageState extends State<MumuSplashPage> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? tokenAuth = prefs.getString('userToken').toString();
     print('stored token: ' + tokenAuth);
+//king
+    // Navigator.push(
+    //   context,
+    //   PageTransition(
+    //     duration: const Duration(milliseconds: 500),
+    //     type: PageTransitionType.fade,
+    //     child: SelectRole(),
+    //   ),
+    // );
+//end
+
     await Future.delayed(const Duration(seconds: 2), () {
       if (tokenAuth == '' || tokenAuth == 'null')
         Navigator.pushReplacement(
           context,
-          PageTransition(
-              duration: const Duration(milliseconds: 500),
-              type: PageTransitionType.fade,
-              child: Login_Screen()),
+          PageTransition(duration: const Duration(milliseconds: 500), type: PageTransitionType.fade, child: Login_Screen()),
         );
       else
         Navigator.pushReplacement(
           context,
-          PageTransition(
-              duration: const Duration(milliseconds: 500),
-              type: PageTransitionType.rightToLeft,
-              child: Main_Slaughter()),
+          PageTransition(duration: const Duration(milliseconds: 500), type: PageTransitionType.rightToLeft, child: Main_Slaughter()),
         );
     });
   }

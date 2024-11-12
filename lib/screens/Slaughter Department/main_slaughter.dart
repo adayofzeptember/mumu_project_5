@@ -32,8 +32,7 @@ class _Main_SlaughterState extends State<Main_Slaughter> {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.white, // Set the status bar color to white
-      statusBarIconBrightness: Brightness
-          .dark, // Set status bar icons to dark (to be visible on white background)
+      statusBarIconBrightness: Brightness.dark, // Set status bar icons to dark (to be visible on white background)
     ));
 
     return Scaffold(
@@ -44,8 +43,7 @@ class _Main_SlaughterState extends State<Main_Slaughter> {
 
         title: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment:
-              MainAxisAlignment.spaceBetween, // Align items to the right
+          mainAxisAlignment: MainAxisAlignment.spaceBetween, // Align items to the right
           children: [
             Row(
               children: [
@@ -73,7 +71,6 @@ class _Main_SlaughterState extends State<Main_Slaughter> {
                           style: TextStyle(
                             color: Palette.mainRed,
                             fontWeight: FontWeight.bold,
-                          
                           ),
                         ),
                         Row(
@@ -89,7 +86,6 @@ class _Main_SlaughterState extends State<Main_Slaughter> {
                               'แผนกเชือด', // User's role or position
                               style: TextStyle(
                                 color: Colors.grey,
-                                 
                               ),
                             ),
                           ],
@@ -118,13 +114,11 @@ class _Main_SlaughterState extends State<Main_Slaughter> {
                 },
                 child: Text(
                   'ออกจากระบบ',
-                  style: TextStyle(color: Palette.mainRed,fontWeight: FontWeight.bold, fontSize: 18),
+                  style: TextStyle(color: Palette.mainRed, fontWeight: FontWeight.bold, fontSize: 18),
                 ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
-                  side: BorderSide(
-                      color: Palette.mainRed,
-                      width: 1), // Border style
+                  side: BorderSide(color: Palette.mainRed, width: 1), // Border style
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20), // Rounded corners
                   ),
@@ -140,9 +134,7 @@ class _Main_SlaughterState extends State<Main_Slaughter> {
             padding: const EdgeInsets.all(50),
             child: Container(
               width: double.infinity,
-              decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(50)),
-                  color: Colors.white),
+              decoration: const BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(50)), color: Colors.white),
               child: Padding(
                 padding: const EdgeInsets.all(20),
                 child: Column(
@@ -165,9 +157,7 @@ class _Main_SlaughterState extends State<Main_Slaughter> {
                             Navigator.push(
                               context,
                               PageTransition(
-                                  duration: Duration(milliseconds: 300),
-                                  type: PageTransitionType.fade,
-                                  child: Import_Tab()),
+                                  duration: Duration(milliseconds: 300), type: PageTransitionType.fade, child: Import_Tab()),
                             );
                           },
                           child: Image.asset(
@@ -180,9 +170,7 @@ class _Main_SlaughterState extends State<Main_Slaughter> {
                             Navigator.push(
                                 context,
                                 PageTransition(
-                                    duration: Duration(milliseconds: 300),
-                                    type: PageTransitionType.fade,
-                                    child: Head_tab()));
+                                    duration: Duration(milliseconds: 300), type: PageTransitionType.fade, child: Head_tab()));
                           },
                           child: Image.asset(
                             'assets/images/slaughter2.png',
@@ -198,10 +186,7 @@ class _Main_SlaughterState extends State<Main_Slaughter> {
                           onTap: () {
                             Navigator.push(
                               context,
-                              PageTransition(
-                                  duration: Duration(milliseconds: 300),
-                                  type: PageTransitionType.fade,
-                                  child: LSQ_Tab()),
+                              PageTransition(duration: Duration(milliseconds: 300), type: PageTransitionType.fade, child: LSQ_Tab()),
                             );
                           },
                           child: Image.asset(
@@ -214,9 +199,7 @@ class _Main_SlaughterState extends State<Main_Slaughter> {
                             Navigator.push(
                                 context,
                                 PageTransition(
-                                    duration: Duration(milliseconds: 300),
-                                    type: PageTransitionType.fade,
-                                    child: Line_Tab()));
+                                    duration: Duration(milliseconds: 300), type: PageTransitionType.fade, child: Line_Tab()));
                           },
                           child: Image.asset(
                             'assets/images/slaughter4.png',
@@ -231,20 +214,16 @@ class _Main_SlaughterState extends State<Main_Slaughter> {
                         height: setHeight(context, 0.08),
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                              primary: Colors.white,
+                              backgroundColor: Colors.white,
                               elevation: 0,
-                              side: const BorderSide(
-                                  color: Palette.mainRed, width: 5),
+                              side: const BorderSide(color: Palette.mainRed, width: 5),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20),
                               )),
                           onPressed: () {
                             Navigator.push(
                               context,
-                              PageTransition(
-                                  duration: Duration(milliseconds: 300),
-                                  type: PageTransitionType.fade,
-                                  child: LSQ_Tab()),
+                              PageTransition(duration: Duration(milliseconds: 300), type: PageTransitionType.fade, child: LSQ_Tab()),
                             );
                           },
                           child: Padding(
@@ -264,9 +243,7 @@ class _Main_SlaughterState extends State<Main_Slaughter> {
                                   Text(
                                     "ดูรายละเอียดสินค้า",
                                     style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Palette.mainRed,
-                                        fontSize: setFontSize(context, 0.03)),
+                                        fontWeight: FontWeight.bold, color: Palette.mainRed, fontSize: setFontSize(context, 0.03)),
                                   ),
                                 ],
                               ),
@@ -385,8 +362,7 @@ Future pigsImportNoti(var context) async {
                         },
                         child: Text(
                           'ปิด',
-                          style:
-                              TextStyle(fontSize: setFontSize(context, 0.03)),
+                          style: TextStyle(fontSize: setFontSize(context, 0.03)),
                         ),
                         style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
@@ -421,18 +397,14 @@ Future logoutAlert(
         titlePadding: EdgeInsets.all(30), // Set p
         title: Text(
           'ต้องการออกจากระบบหรือไม่?',
-          style: TextStyle(
-              color: Palette.mainRed,
-              fontSize: setFontSize(context, 0.03),
-              fontWeight: FontWeight.bold),
+          style: TextStyle(color: Palette.mainRed, fontSize: setFontSize(context, 0.03), fontWeight: FontWeight.bold),
         ),
         actions: <Widget>[
           Padding(
             padding: const EdgeInsets.only(bottom: 10),
             child: TextButton(
               style: TextButton.styleFrom(
-                foregroundColor:
-                    const Color.fromARGB(255, 235, 116, 108), // Splash color
+                foregroundColor: const Color.fromARGB(255, 235, 116, 108), // Splash color
               ),
               child: Text(
                 'ยกเลิก',
@@ -451,8 +423,7 @@ Future logoutAlert(
             padding: const EdgeInsets.only(bottom: 10),
             child: TextButton(
               style: TextButton.styleFrom(
-                foregroundColor:
-                    const Color.fromARGB(255, 138, 206, 140), // Splash color
+                foregroundColor: const Color.fromARGB(255, 138, 206, 140), // Splash color
               ),
               child: Text(
                 'ยืนยัน',
