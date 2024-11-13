@@ -5,8 +5,9 @@ import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mumu_project/ETC/colors_palette.dart';
 import 'package:mumu_project/ETC/mediaQuery_set.dart';
-
+import 'package:mumu_project/bloc/Arrival%20Daily/arrival_daily_bloc.dart';
 import 'package:mumu_project/bloc/Login_Greetings/login_bloc.dart';
+import 'package:mumu_project/bloc/Slaughter/LSQ/lsq_bloc.dart';
 import 'package:mumu_project/bloc/Slaughter/Line%20Slaughter/line_bloc.dart';
 import 'package:mumu_project/screens/Slaughter%20Department/Import/tab_main.dart';
 import 'package:mumu_project/screens/Slaughter%20Department/LSQ/lsq_tab_main.dart';
@@ -24,15 +25,23 @@ class Main_Slaughter extends StatefulWidget {
 class _Main_SlaughterState extends State<Main_Slaughter> {
   @override
   void initState() {
-    super.initState();
-
     context.read<LoginBloc>().add(Load_GreetingBoard(context: context));
+    //*LSQ
+    context.read<LsqBloc>().add(Fetch_CarcassHistory());
+    context.read<LsqBloc>().add(Fetch_LSQHistory());
+    context.read<LsqBloc>().add(Fetch_LastedBody());
+    //*
+
+    context.read<LineBloc>().add(FetchLine_Lot());
+
+    context.read<ArrivalDailyBloc>().add(Fetch_DailyArrival());
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Future.delayed(Duration(seconds: 1), () {
         pigsImportNoti(context);
       });
     });
+    super.initState();
   }
 
   @override
@@ -226,7 +235,6 @@ class _Main_SlaughterState extends State<Main_Slaughter> {
                                     child: Line_Tab()));
 
                             context.read<LineBloc>().add(FetchHistory_UI292());
-                            context.read<LineBloc>().add(FetchLine_Lot());
                           },
                           child: Image.asset(
                             'assets/images/slaughter4.png',

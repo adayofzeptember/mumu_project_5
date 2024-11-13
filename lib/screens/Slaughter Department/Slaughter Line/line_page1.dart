@@ -186,7 +186,6 @@ class _Line_Page1State extends State<Line_Page1> {
                                 padding: const EdgeInsets.all(12.0),
                                 child: DropdownButtonHideUnderline(
                                   child: DropdownButton2(
-                                    
                                     alignment: AlignmentDirectional.center,
                                     style: TextStyle(
                                         fontSize: setFontSize(context, 0.025),
@@ -790,9 +789,9 @@ class _Line_Page1State extends State<Line_Page1> {
                                       double.parse(_temperValue.toString()),
                                   get_remark: _remarkController.text));
 
-                              context
-                                  .read<LineBloc>()
-                                  .add(FetchHistory_UI292());
+                              // context
+                              //     .read<LineBloc>()
+                              //     .add(FetchHistory_UI292());
                             },
                             child: Padding(
                               padding: const EdgeInsets.all(15.0),

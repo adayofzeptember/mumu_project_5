@@ -44,12 +44,13 @@ class LineBloc extends Bloc<LineEvent, LineState> {
             ),
             data: formData);
 
-        print('___________post status_______________' +
+        print('___________post LINE status_______________' +
             response.statusCode.toString());
 
         if (response.statusCode == 200) {
           emit(state.copyWith(isLoading: false));
           SuccessMessage_Dialog(event.context, 'เพิ่มรายการเสร็จสิ้น');
+          add(FetchHistory_UI292());
         } else {
           emit(state.copyWith(isLoading: false));
         }
@@ -129,7 +130,7 @@ class LineBloc extends Bloc<LineEvent, LineState> {
               state.farmName_dropDown.add(farmName);
             }
           }
-          print(state.farmName_dropDown.length);
+          //  print(state.lineLot_dropDown[0]);
         } else {
           print('error status != 200');
         }

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mumu_project/ETC/colors_palette.dart';
 import 'package:mumu_project/ETC/mediaQuery_set.dart';
-import 'package:mumu_project/screens/Slaughter%20Department/LSQ/page1.dart';
-import 'package:mumu_project/screens/Slaughter%20Department/LSQ/page2.dart';
-import 'package:mumu_project/screens/Slaughter%20Department/LSQ/page3.dart';
+import 'package:mumu_project/screens/Slaughter%20Department/LSQ/lsq_page1.dart';
+import 'package:mumu_project/screens/Slaughter%20Department/LSQ/lsq_page2.dart';
+import 'package:mumu_project/screens/Slaughter%20Department/LSQ/lsq_page3.dart';
 
 class LSQ_Tab extends StatefulWidget {
   const LSQ_Tab({super.key});

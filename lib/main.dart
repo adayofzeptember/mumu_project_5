@@ -5,6 +5,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:mumu_project/ETC/colors_palette.dart';
 import 'package:mumu_project/ETC/mediaQuery_set.dart';
+import 'package:mumu_project/bloc/Arrival%20Daily/arrival_daily_bloc.dart';
 import 'package:mumu_project/bloc/Login_Greetings/login_bloc.dart';
 import 'package:mumu_project/bloc/Slaughter/Import/import_bloc.dart';
 import 'package:mumu_project/bloc/Slaughter/LSQ/lsq_bloc.dart';
@@ -39,6 +40,8 @@ class MumuProject extends StatelessWidget {
         BlocProvider(create: (context) => ImportBloc()),
         BlocProvider(create: (context) => LineBloc()),
         BlocProvider(create: (context) => LsqBloc()),
+        BlocProvider(create: (context) => ArrivalDailyBloc()),
+
       ],
       child: MaterialApp(
         theme: ThemeData(
