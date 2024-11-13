@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:mumu_project/ETC/colors_palette.dart';
 import 'package:mumu_project/ETC/mediaQuery_set%202.dart';
 
 class ListAddLast extends StatelessWidget {
@@ -23,7 +24,7 @@ class ListAddLast extends StatelessWidget {
             fontSize: setFontSize(context, 0.025),
             fontWeight: FontWeight.bold,
             fontFamily: 'Prompt',
-            color: const Color(0xFF637D92),
+            color: Palette.greyText,
           ),
         ),
         const SizedBox(height: 8),

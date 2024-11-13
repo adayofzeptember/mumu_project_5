@@ -1,5 +1,6 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:mumu_project/ETC/colors_palette.dart';
 import 'package:mumu_project/ETC/mediaQuery_set.dart';
 
 class FormDropdown extends StatelessWidget {
@@ -33,7 +34,7 @@ class FormDropdown extends StatelessWidget {
               fontSize: setFontSize(context, 0.025),
               fontWeight: FontWeight.bold,
               fontFamily: 'Prompt',
-              color: titleColor ?? const Color(0xFF637D92),
+              color: titleColor ?? Palette.greyText,
             ),
             children: <TextSpan>[
               TextSpan(text: title2, style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.red)),

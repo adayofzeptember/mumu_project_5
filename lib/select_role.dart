@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mumu_project/screens/CartDepartment/Inspactor/main_cart_inspacetor.dart';
+import 'package:mumu_project/screens/CartDepartment/inspector/main_cart_inspacetor.dart';
 import 'package:mumu_project/screens/CartDepartment/Reporter/main_cart_reporter.dart';
 import 'package:mumu_project/screens/StockDepartment/main_stock_department.dart';
 import 'package:page_transition/page_transition.dart';

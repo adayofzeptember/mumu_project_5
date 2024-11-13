@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:mumu_project/ETC/FormSearch.dart';
+import 'package:mumu_project/ETC/colors_palette.dart';
 import 'package:mumu_project/ETC/mediaQuery_set.dart';
 import 'package:mumu_project/ETC/section_count.dart';
-import 'package:mumu_project/screens/CartDepartment/Inspactor/list_cart_in/page_edit_cart_in.dart';
+import 'package:mumu_project/screens/CartDepartment/inspector/list_cart_in/page_edit_cart_in.dart';
 import 'package:page_transition/page_transition.dart';
 
 class PageListCartIn extends StatefulWidget {
@@ -108,14 +110,7 @@ class _PageListCartInState extends State<PageListCartIn> {
                   alignment: Alignment.centerRight,
                   child: SizedBox(
                     width: setWidth(context, 0.45),
-                    child: TextField(
-                      decoration: const InputDecoration(
-                        hintText: 'ค้นหา',
-                        suffixIcon: Icon(Icons.search),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        ),
-                      ),
+                    child: FormSearch(
                       onChanged: (value) => _filterData(value),
                     ),
                   ),
@@ -185,7 +180,7 @@ class _PageListCartInState extends State<PageListCartIn> {
                                 height: setWidth(context, 0.05),
                                 width: setWidth(context, 0.05),
                                 decoration: BoxDecoration(
-                                  color: const Color(0xFF1890FF),
+                                  color: Palette.blue,
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: Icon(

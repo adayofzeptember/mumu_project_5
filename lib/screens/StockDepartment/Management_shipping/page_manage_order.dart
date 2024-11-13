@@ -2,6 +2,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:mumu_project/ETC/FormSearch.dart';
 import 'package:mumu_project/ETC/colors_palette.dart';
 import 'package:mumu_project/ETC/mediaQuery_set.dart';
 import 'package:mumu_project/ETC/section_count.dart';
@@ -119,7 +120,7 @@ class _PageManageOrderState extends State<PageManageOrder> {
                             style: TextStyle(
                               fontSize: setFontSize(context, 0.015),
                               fontWeight: FontWeight.bold,
-                              color: const Color(0xFF1890FF),
+                              color: Palette.blue,
                             ),
                           ),
                         ],
@@ -142,7 +143,7 @@ class _PageManageOrderState extends State<PageManageOrder> {
                               fontStyle: FontStyle.normal,
                               fontSize: setFontSize(context, 0.014),
                               fontWeight: FontWeight.bold,
-                              color: const Color(0xFF637D92),
+                              color: Palette.greyText,
                             ),
                             dataTextStyle: TextStyle(fontSize: setFontSize(context, 0.014)),
                             columnSpacing: 18,
@@ -191,14 +192,14 @@ class _PageManageOrderState extends State<PageManageOrder> {
                                                       text: TextSpan(
                                                         text: 'ทั้งหมด(กก.): ',
                                                         style: TextStyle(
-                                                          color: const Color(0xFF637D92),
+                                                          color: Palette.greyText,
                                                           fontSize: setFontSize(context, 0.014),
                                                         ),
                                                         children: [
                                                           TextSpan(
                                                             text: "1,000",
                                                             style: TextStyle(
-                                                              color: const Color(0xFF1890FF),
+                                                              color: Palette.blue,
                                                               fontSize: setFontSize(context, 0.014),
                                                             ),
                                                           ),
@@ -209,14 +210,7 @@ class _PageManageOrderState extends State<PageManageOrder> {
                                                 ),
                                                 SizedBox(
                                                   width: 250,
-                                                  child: TextField(
-                                                    decoration: const InputDecoration(
-                                                      hintText: 'ค้นหา',
-                                                      suffixIcon: Icon(Icons.search),
-                                                      border: OutlineInputBorder(
-                                                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                                                      ),
-                                                    ),
+                                                  child: FormSearch(
                                                     onChanged: (value) {},
                                                   ),
                                                 ),
@@ -237,7 +231,7 @@ class _PageManageOrderState extends State<PageManageOrder> {
                                                     fontStyle: FontStyle.normal,
                                                     fontSize: setFontSize(context, 0.014),
                                                     fontWeight: FontWeight.bold,
-                                                    color: const Color(0xFF637D92),
+                                                    color: Palette.greyText,
                                                   ),
                                                   dataTextStyle:
                                                       TextStyle(fontSize: setFontSize(context, 0.013), fontWeight: FontWeight.bold),
@@ -411,21 +405,21 @@ class _PageManageOrderState extends State<PageManageOrder> {
                                         ? const Color(0xFF52C41A)
                                         : (int.parse(needController.text) > int.parse(recommendController.text))
                                             ? const Color(0xFFFF4D4F)
-                                            : const Color(0xFF1890FF),
+                                            : Palette.blue,
                                 fillColor: (needController.text.isEmpty)
                                     ? null
                                     : (int.parse(needController.text) == int.parse(recommendController.text))
                                         ? const Color(0xFFEAFFE0)
                                         : (int.parse(needController.text) > int.parse(recommendController.text))
                                             ? const Color(0xFFFFDFDF)
-                                            : const Color(0xFFE6F3FF),
+                                            : Palette.lightBlue,
                                 borderColor: (needController.text.isEmpty)
                                     ? null
                                     : (int.parse(needController.text) == int.parse(recommendController.text))
                                         ? const Color(0xFF52C41A)
                                         : (int.parse(needController.text) > int.parse(recommendController.text))
                                             ? const Color(0xFFFF4D4F)
-                                            : const Color(0xFF1890FF),
+                                            : Palette.blue,
                               ),
                             ),
                           ],
@@ -487,7 +481,7 @@ class _PageManageOrderState extends State<PageManageOrder> {
                                           });
                                         },
                                         checkColor: Colors.white,
-                                        activeColor: const Color(0xFF1890FF),
+                                        activeColor: Palette.blue,
                                         side: const BorderSide(
                                           width: 0.5, // ความหนาของขอบ (ปรับค่าได้ตามต้องการ)
                                           color: Color(0xFFDAE1E7),
@@ -647,10 +641,10 @@ class _PageManageOrderState extends State<PageManageOrder> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    backgroundColor: const Color(0xFF1890FF),
+                    backgroundColor: Palette.blue,
                     side: const BorderSide(
                       width: 2.0,
-                      color: Color(0xFF1890FF),
+                      color: Palette.blue,
                     ),
                   ),
                   onPressed: () {},
@@ -685,17 +679,17 @@ class _PageManageOrderState extends State<PageManageOrder> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      backgroundColor: const Color(0xFFE6F3FF),
+                      backgroundColor: Palette.lightBlue,
                       side: const BorderSide(
                         width: 2.0,
-                        color: Color(0xFF1890FF),
+                        color: Palette.blue,
                       ),
                     ),
                     onPressed: () {},
                     child: const Icon(
                       Icons.qr_code_scanner,
                       size: 50,
-                      color: Color(0xFF1890FF),
+                      color: Palette.blue,
                     ),
                   ),
                 ),
@@ -759,7 +753,7 @@ class FormManaget extends StatelessWidget {
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: setFontSize(context, 0.015),
-            color: valueColor ?? const Color(0xFF637D92),
+            color: valueColor ?? Palette.greyText,
           ),
           controller: controller,
           validator: (value) => value == null || value.isEmpty ? 'Please select a date and time' : null,

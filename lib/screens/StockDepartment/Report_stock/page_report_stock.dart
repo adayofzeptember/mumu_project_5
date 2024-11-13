@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mumu_project/ETC/FormSearch.dart';
 import 'package:mumu_project/ETC/colors_palette.dart';
 import 'package:mumu_project/ETC/mediaQuery_set.dart';
 import 'package:mumu_project/screens/Trim%20Department/main_trim.dart';
@@ -142,16 +143,7 @@ class _PageReportStockState extends State<PageReportStock> {
                 const SizedBox(width: 20),
                 SizedBox(
                   width: setWidth(context, 0.4),
-                  child: TextField(
-                    decoration: const InputDecoration(
-                      fillColor: Colors.white,
-                      filled: true,
-                      hintText: 'ค้นหา',
-                      suffixIcon: Icon(Icons.search),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      ),
-                    ),
+                  child: FormSearch(
                     onChanged: (value) {},
                   ),
                 ),

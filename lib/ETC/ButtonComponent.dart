@@ -9,18 +9,21 @@ class ButtonComponent extends StatelessWidget {
     required this.bg,
     this.textStyle,
     required this.onPressed,
+    this.side,
   });
   final Widget? icon;
   final String title;
   final Color bg;
   final TextStyle? textStyle;
   final Function()? onPressed;
+  final BorderSide? side;
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
+          side: side ?? BorderSide.none,
         ),
         minimumSize: const Size(double.infinity, 70),
         backgroundColor: bg,
@@ -38,6 +41,50 @@ class ButtonComponent extends StatelessWidget {
                   fontSize: setFontSize(context, 0.03),
                   fontWeight: FontWeight.bold,
                 ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class CancelButtonComponent extends StatelessWidget {
+  const CancelButtonComponent({
+    super.key,
+    required this.onPressed,
+  });
+  final Function()? onPressed;
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        minimumSize: const Size(double.infinity, 70),
+        backgroundColor: const Color(0xFFF7F5F5),
+        side: const BorderSide(
+          width: 2.0,
+          color: Color(0xFF757575),
+        ),
+      ),
+      onPressed: onPressed,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(
+            Icons.close,
+            size: 35,
+            color: Color(0xFF757575),
+          ),
+          const SizedBox(width: 8),
+          Text(
+            "ยกเลิก",
+            style: TextStyle(
+              fontSize: setFontSize(context, 0.03),
+              fontWeight: FontWeight.bold,
+              color: const Color(0xFF757575),
+            ),
           ),
         ],
       ),

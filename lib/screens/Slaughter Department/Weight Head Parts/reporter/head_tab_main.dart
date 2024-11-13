@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mumu_project/ETC/colors_palette.dart';
 import 'package:mumu_project/ETC/mediaQuery_set.dart';
-import 'package:mumu_project/screens/Slaughter%20Department/Weight%20Head%20Parts/import_tab/tab_main_import_weight.dart';
-import 'package:mumu_project/screens/Slaughter%20Department/Weight%20Head%20Parts/page2.dart';
-import 'package:mumu_project/screens/Slaughter%20Department/Weight%20Head%20Parts/page3.dart';
+import 'package:mumu_project/screens/Slaughter%20Department/Weight%20Head%20Parts/reporter/history_weight/tab_main_history_weight.dart';
+import 'package:mumu_project/screens/Slaughter%20Department/Weight%20Head%20Parts/reporter/process_report/page_process_report.dart';
+import 'package:mumu_project/screens/Slaughter%20Department/Weight%20Head%20Parts/reporter/save_weight_head_tab/tab_main_save_weight_head.dart';
 import 'package:mumu_project/screens/Trim%20Department/main_trim.dart';
 
 class Head_tab extends StatefulWidget {
@@ -41,16 +41,21 @@ class _Head_tabState extends State<Head_tab> with SingleTickerProviderStateMixin
           children: [
             Row(
               children: [
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: Palette.mainRed,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: const Icon(
-                    Icons.house,
-                    color: Colors.white,
-                    size: 40,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: Palette.mainRed,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: const Icon(
+                      Icons.house,
+                      color: Colors.white,
+                      size: 40,
+                    ),
                   ),
                 ),
                 const SizedBox(width: 8),
@@ -136,7 +141,7 @@ class _Head_tabState extends State<Head_tab> with SingleTickerProviderStateMixin
                 color: Palette.mainRed,
               ),
               labelStyle: TextStyle(
-                fontSize: setFontSize(context, 0.022),
+                fontSize: setFontSize(context, 0.02),
                 fontWeight: FontWeight.bold,
                 fontFamily: 'Prompt',
               ),
@@ -161,7 +166,7 @@ class _Head_tabState extends State<Head_tab> with SingleTickerProviderStateMixin
                         width: 2.0,
                       ),
                     ),
-                    child: const Text("นำเข้าสินค้าเพื่อแปรสภาพ"),
+                    child: const Text("บันทึกน้ำหนักหัวหมู/เครื่องใน"),
                   ),
                 ),
                 Tab(
@@ -178,7 +183,7 @@ class _Head_tabState extends State<Head_tab> with SingleTickerProviderStateMixin
                         width: 2.0,
                       ),
                     ),
-                    child: const Text("บันทึกการแปรสภาพสินค้า"),
+                    child: const Text("ประวัติการชั่ง"),
                   ),
                 ),
                 Tab(
@@ -195,7 +200,7 @@ class _Head_tabState extends State<Head_tab> with SingleTickerProviderStateMixin
                         width: 2.0,
                       ),
                     ),
-                    child: const Text("ประวัติการแปรสภาพสินค้า"),
+                    child: const Text("รายงานกระบวนการชำแหละ"),
                   ),
                 ),
               ],
@@ -212,9 +217,9 @@ class _Head_tabState extends State<Head_tab> with SingleTickerProviderStateMixin
                 physics: const NeverScrollableScrollPhysics(),
                 controller: _tabController,
                 children: [
-                  TabMainImportWeight(),
-                  Head_Page2(),
-                  Head_Page3(),
+                  TabMainSaveWeightHead(),
+                  TabMainHistoryWeight(),
+                  PageProcessReport(),
                 ],
               ),
             ),

@@ -6,9 +6,13 @@ class FormShowDialog extends StatelessWidget {
     super.key,
     required this.onTap,
     this.children,
+    this.value,
+    this.valueColor,
   });
   final Function()? onTap;
   final List<Widget>? children;
+  final String? value;
+  final Color? valueColor;
 
   @override
   Widget build(BuildContext context) {
@@ -25,25 +29,37 @@ class FormShowDialog extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            (children != null)
-                ? Expanded(
-                    child: Wrap(
-                      // ใช้ Wrap แทน Row
-                      crossAxisAlignment: WrapCrossAlignment.start,
-                      spacing: 8.0, // กำหนดระยะห่างระหว่างแต่ละ item
-                      runSpacing: 8.0, // ระยะห่างระหว่างบรรทัด
-                      children: children ?? [],
+            Expanded(
+              child: Row(
+                children: [
+                  if (valueColor != null)
+                    CircleAvatar(
+                      radius: 20,
+                      backgroundColor: valueColor,
                     ),
-                  )
-                : Text(
-                    "เลือก",
-                    style: TextStyle(
-                      fontSize: setFontSize(context, 0.025),
-                      fontWeight: FontWeight.bold,
-                      color: const Color(0xFF92A5B5),
-                    ),
-                  ),
-            const Icon(Icons.arrow_drop_down, color: Color(0xFF92A5B5)),
+                  const SizedBox(width: 10),
+                  (children != null)
+                      ? Expanded(
+                          child: Wrap(
+                            // ใช้ Wrap แทน Row
+                            crossAxisAlignment: WrapCrossAlignment.start,
+                            spacing: 8.0, // กำหนดระยะห่างระหว่างแต่ละ item
+                            runSpacing: 8.0, // ระยะห่างระหว่างบรรทัด
+                            children: children ?? [],
+                          ),
+                        )
+                      : Text(
+                          value ?? "เลือก",
+                          style: TextStyle(
+                            fontSize: setFontSize(context, 0.025),
+                            fontWeight: FontWeight.bold,
+                            color: value != null ? Colors.black : const Color(0xFF757575),
+                          ),
+                        ),
+                ],
+              ),
+            ),
+            const Icon(Icons.arrow_drop_down, color: Color(0xFF757575)),
           ],
         ),
       ),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mumu_project/ETC/FormSearch.dart';
+import 'package:mumu_project/ETC/colors_palette.dart';
 import 'package:mumu_project/ETC/mediaQuery_set.dart';
 import 'package:mumu_project/screens/StockDepartment/Management_shipping/page_all_order_customer.dart';
 
@@ -40,17 +42,8 @@ class _PageSummaryOrderState extends State<PageSummaryOrder> {
                   const SizedBox(width: 20),
                   SizedBox(
                     width: setWidth(context, 0.25),
-                    child: TextField(
-                      decoration: const InputDecoration(
-                        fillColor: Colors.white,
-                        filled: true,
-                        hintText: 'ค้นหา',
-                        suffixIcon: Icon(Icons.search),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        ),
-                      ),
-                      // onChanged: (value) => _filterData(value),
+                    child: FormSearch(
+                      onChanged: (value) {},
                     ),
                   ),
                 ],
@@ -85,7 +78,7 @@ class _PageSummaryOrderState extends State<PageSummaryOrder> {
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: setHeight(context, 0.02),
-                                color: const Color(0xFF1890FF),
+                                color: Palette.blue,
                                 // overflow: TextOverflow.visible,
                               ),
                               // maxLines: 2,
@@ -111,7 +104,7 @@ class _PageSummaryOrderState extends State<PageSummaryOrder> {
                                   fontStyle: FontStyle.normal,
                                   fontSize: setFontSize(context, 0.014),
                                   fontWeight: FontWeight.bold,
-                                  color: const Color(0xFF637D92),
+                                  color: Palette.greyText,
                                 ),
                                 dataTextStyle: TextStyle(fontSize: setFontSize(context, 0.013), fontWeight: FontWeight.bold),
                                 // columnSpacing: 50,

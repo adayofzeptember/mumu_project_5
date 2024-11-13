@@ -9,7 +9,7 @@ import 'package:mumu_project/bloc/Login_Greetings/login_bloc.dart';
 import 'package:mumu_project/screens/Slaughter%20Department/Import/import_tab_main.dart';
 import 'package:mumu_project/screens/Slaughter%20Department/LSQ/lsq_tab_main.dart';
 import 'package:mumu_project/screens/Slaughter%20Department/Slaughter%20Line/slaughter_tab_main.dart';
-import 'package:mumu_project/screens/Slaughter%20Department/Weight%20Head%20Parts/head_tab_main.dart';
+import 'package:mumu_project/screens/Slaughter%20Department/Weight%20Head%20Parts/reporter/head_tab_main.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

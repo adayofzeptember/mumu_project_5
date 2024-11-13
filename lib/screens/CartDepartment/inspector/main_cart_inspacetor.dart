@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mumu_project/ETC/colors_palette.dart';
 import 'package:mumu_project/ETC/mediaQuery_set.dart';
-import 'package:mumu_project/screens/CartDepartment/Inspactor/list_cart_in/page_list_cart_in.dart';
-import 'package:mumu_project/screens/CartDepartment/Inspactor/list_internal_use/page_list_internal_use.dart';
+import 'package:mumu_project/screens/CartDepartment/inspector/list_cart_in/page_list_cart_in.dart';
+import 'package:mumu_project/screens/CartDepartment/inspector/list_internal_use/page_list_internal_use.dart';
 import 'package:mumu_project/screens/CartDepartment/Reporter/report_cart_all/page_report_cart_all.dart';
 import 'package:mumu_project/screens/Trim%20Department/main_trim.dart';
 

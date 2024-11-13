@@ -3,11 +3,15 @@ import 'package:mumu_project/ETC/ButtonComponent.dart';
 import 'package:mumu_project/ETC/FormShowDialog.dart';
 import 'package:mumu_project/ETC/SlideSwitchComponent.dart';
 import 'package:mumu_project/ETC/TextFormFieldComponent.dart';
-import 'package:mumu_project/ETC/colors_palette%202.dart';
+import 'package:mumu_project/ETC/colors_palette.dart';
 import 'package:mumu_project/ETC/formdropdown.dart';
 import 'package:mumu_project/ETC/listAddLast.dart';
 import 'package:mumu_project/ETC/mediaQuery_set.dart';
 import 'package:mumu_project/ETC/section_count.dart';
+import 'package:mumu_project/alert_components/color_cart.dart';
+import 'package:mumu_project/alert_components/multi_section.dart';
+import 'package:mumu_project/alert_components/note_send_edit.dart';
+import 'package:mumu_project/alert_components/showImageGirdForSelect.dart';
 
 class PageHeadOffal extends StatefulWidget {
   const PageHeadOffal({Key? key}) : super(key: key);
@@ -18,7 +22,7 @@ class PageHeadOffal extends StatefulWidget {
 
 class _PageHeadOffalState extends State<PageHeadOffal> {
   String? lotNo, weightNo, secType;
-  String? colorSizeCart;
+  Map<String, dynamic>? colorSizeCart;
   int countCart = 0;
   String? nameProduct;
   int countHead = 0;
@@ -68,10 +72,10 @@ class _PageHeadOffalState extends State<PageHeadOffal> {
                   SizedBox(
                     width: setWidth(context, 0.45),
                     child: FormDropdown(
-                      title: 'หมายเลขเครื่องชั่ง',
+                      title: 'เลขเครื่องชั่ง',
                       title2: '',
                       titleColor: Colors.black,
-                      hintText: weightNo ?? 'เลือกแผนก',
+                      hintText: weightNo ?? 'เลขที่เครื่องชั่ง',
                       value: weightNo,
                       items: const ['test1', 'test2', 'test3'],
                       onChanged: (value) {
@@ -84,44 +88,58 @@ class _PageHeadOffalState extends State<PageHeadOffal> {
                 ],
               ),
               const SizedBox(height: 28),
-              FormDropdown(
-                title: 'ส่วนรองพื้น (ถ้ามี)',
-                title2: '',
-                titleColor: Colors.black,
-                hintText: secType ?? 'เลือกประเภทส่วนรองพื้น',
-                value: secType,
-                items: const ['test1', 'test2', 'test3'],
-                onChanged: (value) {
-                  setState(() {
-                    secType = value;
-                  });
-                },
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "ส่วนรองพื้น (ถ้ามี)",
+                    style: TextStyle(
+                      fontSize: setFontSize(context, 0.025),
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  FormShowDialog(
+                    onTap: () async {
+                      secType = await showImageGirdForSelect(context, "เลือกส่วนรองพื้น (ถ้ามี)");
+                      setState(() {});
+                    },
+                    value: secType,
+                  ),
+                ],
               ),
               const SizedBox(height: 28),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   SizedBox(
-                    width: setWidth(context, 0.45),
-                    child: FormDropdown(
-                      title: 'สี/ขนาดตะกร้า',
-                      title2: '',
-                      titleColor: Colors.black,
-                      hintText: 'เลือกแผนก',
-                      value: "test1",
-                      items: const ['test1', 'test2', 'test3'],
-                      colorCode: const [
-                        "0xFFF44336",
-                        "0xFF4CAF50",
-                        "0xFF2196F3",
+                    width: setWidth(context, 0.5),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "สี/ขนาดตะกร้า",
+                          style: TextStyle(
+                            fontSize: setFontSize(context, 0.025),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        FormShowDialog(
+                          valueColor: colorSizeCart != null ? colorSizeCart!['color'] : null,
+                          value: colorSizeCart != null ? "${colorSizeCart!['name']} - ${colorSizeCart!['size']}" : null,
+                          onTap: () async {
+                            colorSizeCart = await showColorCart(context, colorSizeCart);
+                            if (colorSizeCart != null) print(colorSizeCart);
+
+                            setState(() {});
+                          },
+                        ),
                       ],
-                      onChanged: (value) {
-                        setState(() {});
-                      },
                     ),
                   ),
-                  SizedBox(
-                    width: setWidth(context, 0.45),
+                  const SizedBox(width: 20),
+                  Expanded(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -159,23 +177,32 @@ class _PageHeadOffalState extends State<PageHeadOffal> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   SizedBox(
-                    width: setWidth(context, 0.45),
-                    child: FormDropdown(
-                      title: 'ชื่อสินค้า',
-                      title2: '',
-                      titleColor: Colors.black,
-                      hintText: nameProduct ?? '',
-                      value: nameProduct,
-                      items: const ['test1', 'test2', 'test3'],
-                      onChanged: (value) {
-                        setState(() {
-                          nameProduct = value;
-                        });
-                      },
+                    width: setWidth(context, 0.5),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "ชื่อสินค้า",
+                          style: TextStyle(
+                            fontSize: setFontSize(context, 0.025),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        FormShowDialog(
+                          value: nameProduct,
+                          onTap: () async {
+                            nameProduct = await showImageGirdForSelect(context, "สินค้า");
+                            print(nameProduct);
+
+                            setState(() {});
+                          },
+                        ),
+                      ],
                     ),
                   ),
-                  SizedBox(
-                    width: setWidth(context, 0.45),
+                  const SizedBox(width: 20),
+                  Expanded(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -213,14 +240,14 @@ class _PageHeadOffalState extends State<PageHeadOffal> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   SizedBox(
-                    width: setWidth(context, 0.45),
+                    width: setWidth(context, 0.5),
                     child: FormDropdown(
                       title: 'ขนาดถุง',
                       title2: '',
                       titleColor: Colors.black,
                       hintText: sizeBag ?? 'เลือกขนาดถุง',
                       value: sizeBag,
-                      items: const ['test1', 'test2', 'test3'],
+                      items: const ['49', '52', '54'],
                       onChanged: (value) {
                         setState(() {
                           sizeBag = value;
@@ -228,8 +255,8 @@ class _PageHeadOffalState extends State<PageHeadOffal> {
                       },
                     ),
                   ),
-                  SizedBox(
-                    width: setWidth(context, 0.45),
+                  const SizedBox(width: 20),
+                  Expanded(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -530,7 +557,9 @@ class _PageHeadOffalState extends State<PageHeadOffal> {
               ),
               const SizedBox(height: 28),
               ButtonComponent(
-                onPressed: () {},
+                onPressed: () {
+                  showNoteSendEdit(context);
+                },
                 title: "แจ้งแก้ไขรายการล่าสุด",
                 bg: const Color(0xFFF1B44C),
                 icon: const ImageIcon(
@@ -568,7 +597,7 @@ class _PageHeadOffalState extends State<PageHeadOffal> {
           child: ButtonComponent(
             onPressed: () {},
             title: "เพิ่ม",
-            bg: const Color(0xFF1890FF),
+            bg: Palette.blue,
             icon: const Icon(Icons.add_circle_outline, size: 35, color: Colors.white),
             textStyle: TextStyle(
               fontSize: setFontSize(context, 0.03),
@@ -580,95 +609,4 @@ class _PageHeadOffalState extends State<PageHeadOffal> {
       ),
     );
   }
-}
-
-Future<List<String>?> multiSelect(context, getSelected) async {
-  List<String> options = ['Option 1', 'Option 2', 'Option 3', 'Option 4'];
-  List<String> selectedOptions = getSelected;
-
-  final result = await showModalBottomSheet<List<String>>(
-    context: context,
-    isScrollControlled: true,
-    isDismissible: false,
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-    ),
-    builder: (context) {
-      return StatefulBuilder(
-        builder: (BuildContext context, StateSetter setState) {
-          return SizedBox(
-            height: setHeight(context, 0.6),
-            child: Padding(
-              padding: const EdgeInsets.all(30),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'ลักษณะที่เสียหาย',
-                    style: TextStyle(fontSize: setFontSize(context, 0.03), fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 10),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: options.length,
-                      itemBuilder: (context, index) {
-                        return CheckboxListTile(
-                          checkColor: Colors.white,
-                          activeColor: Palette.mainRed,
-                          title: Text(
-                            options[index],
-                            style: TextStyle(
-                              fontSize: setFontSize(context, 0.025),
-                            ),
-                          ),
-                          value: selectedOptions.contains(options[index]),
-                          onChanged: (bool? value) {
-                            setState(() {
-                              if (value == true) {
-                                selectedOptions.add(options[index]);
-                              } else {
-                                selectedOptions.remove(options[index]);
-                              }
-                            });
-                          },
-                        );
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(vertical: 15),
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        backgroundColor: const Color(0xFFE6F3FF),
-                        side: const BorderSide(
-                          width: 2.0,
-                          color: Color(0xFF1890FF),
-                        ),
-                      ),
-                      onPressed: () {
-                        Navigator.pop(context, selectedOptions);
-                      },
-                      child: Text(
-                        'ยืนยัน',
-                        style: TextStyle(
-                          fontSize: setFontSize(context, 0.03),
-                          color: const Color(0xFF1890FF),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
-        },
-      );
-    },
-  );
-  return result;
 }

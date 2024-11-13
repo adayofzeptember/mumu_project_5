@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mumu_project/ETC/colors_palette.dart';
 import 'package:mumu_project/ETC/formdropdown.dart';
 import 'package:mumu_project/ETC/listAddLast.dart';
 import 'package:mumu_project/ETC/mediaQuery_set.dart';
@@ -84,7 +85,7 @@ class _PageSaveInternalUseState extends State<PageSaveInternalUse> {
                               fontSize: setFontSize(context, 0.025),
                               fontWeight: FontWeight.bold,
                               fontFamily: 'Prompt',
-                              color: const Color(0xFF637D92),
+                              color: Palette.greyText,
                             ),
                           ),
                           const SizedBox(height: 8),
@@ -150,7 +151,7 @@ class _PageSaveInternalUseState extends State<PageSaveInternalUse> {
                         fontSize: setFontSize(context, 0.025),
                         fontWeight: FontWeight.bold,
                         fontFamily: 'Prompt',
-                        color: const Color(0xFF637D92),
+                        color: Palette.greyText,
                       ),
                     ),
                     const SizedBox(height: 8),
@@ -192,7 +193,7 @@ class _PageSaveInternalUseState extends State<PageSaveInternalUse> {
                         fontSize: setFontSize(context, 0.025),
                         fontWeight: FontWeight.bold,
                         fontFamily: 'Prompt',
-                        color: const Color(0xFF637D92),
+                        color: Palette.greyText,
                       ),
                     ),
                     const SizedBox(height: 8),
@@ -315,7 +316,7 @@ class _PageSaveInternalUseState extends State<PageSaveInternalUse> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
               ),
-              backgroundColor: const Color(0xFF1890FF),
+              backgroundColor: Palette.blue,
             ),
             onPressed: () {
               if (_selectedDepartment == null) {

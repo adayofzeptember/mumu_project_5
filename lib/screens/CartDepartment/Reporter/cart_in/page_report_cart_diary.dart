@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mumu_project/ETC/FormSearch.dart';
 import 'package:mumu_project/ETC/mediaQuery_set.dart';
 
 class PageReportCartDiary extends StatefulWidget {
@@ -85,14 +86,7 @@ class _PageReportCartDiaryState extends State<PageReportCartDiary> {
                 alignment: Alignment.centerRight,
                 child: SizedBox(
                   width: setWidth(context, 0.45),
-                  child: TextField(
-                    decoration: const InputDecoration(
-                      hintText: 'ค้นหา',
-                      suffixIcon: Icon(Icons.search),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      ),
-                    ),
+                  child: FormSearch(
                     onChanged: (value) => _filterData(value),
                   ),
                 ),

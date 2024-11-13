@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:mumu_project/ETC/colors_palette.dart';
 import 'package:mumu_project/ETC/formdropdown.dart';
 import 'package:mumu_project/ETC/mediaQuery_set.dart';
 
@@ -306,7 +307,7 @@ class _PageSaveDisbursementInsideState extends State<PageSaveDisbursementInside>
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
               ),
-              backgroundColor: const Color(0xFF1890FF),
+              backgroundColor: Palette.blue,
             ),
             onPressed: () {
               // ฟังก์ชันแปลงข้อมูลเป็น JSON

@@ -21,7 +21,7 @@ class PageReportCartAll extends StatelessWidget {
                 borderRadius: BorderRadius.circular(16),
                 gradient: const LinearGradient(
                   colors: [
-                    Color(0xFF1890FF),
+                    Palette.blue,
                     Color(0xFF0065C3),
                   ],
                   begin: Alignment.centerLeft,
@@ -98,7 +98,7 @@ class PageReportCartAll extends StatelessWidget {
               "ตะกร้าที่ใช้ภายใน",
               style: TextStyle(
                 fontSize: setFontSize(context, 0.035),
-                color: const Color(0xFF637D92),
+                color: Palette.greyText,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -134,7 +134,7 @@ class PageReportCartAll extends StatelessWidget {
               "ตะกร้าตามขนส่งและคลังภายนอก",
               style: TextStyle(
                 fontSize: setFontSize(context, 0.035),
-                color: const Color(0xFF637D92),
+                color: Palette.greyText,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -263,7 +263,7 @@ class CartListReport extends StatelessWidget {
                   style: TextStyle(
                     fontSize: setFontSize(context, 0.06),
                     fontWeight: FontWeight.bold,
-                    color: const Color(0xFF637D92),
+                    color: Palette.greyText,
                   ),
                 ),
                 Text(

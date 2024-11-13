@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:mumu_project/ETC/mediaQuery_set%202.dart';
-import 'package:mumu_project/screens/Slaughter%20Department/Weight%20Head%20Parts/import_tab/page_head_offal.dart';
+import 'package:mumu_project/screens/Slaughter%20Department/Weight%20Head%20Parts/reporter/save_weight_head_tab/page_donate.dart';
+import 'package:mumu_project/screens/Slaughter%20Department/Weight%20Head%20Parts/reporter/save_weight_head_tab/page_head_offal.dart';
 
-class TabMainImportWeight extends StatefulWidget {
-  const TabMainImportWeight({Key? key}) : super(key: key);
+class TabMainSaveWeightHead extends StatefulWidget {
+  const TabMainSaveWeightHead({Key? key}) : super(key: key);
 
   @override
-  _TabMainImportWeightState createState() => _TabMainImportWeightState();
+  _TabMainSaveWeightHeadState createState() => _TabMainSaveWeightHeadState();
 }
 
-class _TabMainImportWeightState extends State<TabMainImportWeight> with SingleTickerProviderStateMixin {
+class _TabMainSaveWeightHeadState extends State<TabMainSaveWeightHead> with SingleTickerProviderStateMixin {
   late TabController _tabController;
   @override
   void initState() {
@@ -87,7 +88,7 @@ class _TabMainImportWeightState extends State<TabMainImportWeight> with SingleTi
             controller: _tabController,
             children: [
               PageHeadOffal(),
-              Container(),
+              PageDonate(),
             ],
           ),
         ),

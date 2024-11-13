@@ -1,6 +1,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:mumu_project/ETC/ButtonComponent.dart';
 import 'package:mumu_project/ETC/colors_palette.dart';
 import 'package:mumu_project/ETC/mediaQuery_set.dart';
 
@@ -92,7 +93,7 @@ class _PageAllOrderCustomerState extends State<PageAllOrderCustomer> {
                             "สถานที่ จ.นครราชสีมา",
                             style: TextStyle(
                               fontSize: setHeight(context, 0.02),
-                              color: const Color(0xFF637D92),
+                              color: Palette.greyText,
                             ),
                           ),
                           const SizedBox(height: 10),
@@ -148,7 +149,7 @@ class _PageAllOrderCustomerState extends State<PageAllOrderCustomer> {
                                                 "รายการสินค้าที่ $i",
                                                 style: TextStyle(
                                                   fontSize: setHeight(context, 0.02),
-                                                  color: const Color(0xFF637D92),
+                                                  color: Palette.greyText,
                                                 ),
                                               ),
                                             ),
@@ -160,7 +161,7 @@ class _PageAllOrderCustomerState extends State<PageAllOrderCustomer> {
                                                   "${i}00/1000 กก.",
                                                   style: TextStyle(
                                                     fontSize: setHeight(context, 0.02),
-                                                    color: const Color(0xFF637D92),
+                                                    color: Palette.greyText,
                                                   ),
                                                 ),
                                               ),
@@ -273,7 +274,7 @@ class _PageAllOrderCustomerState extends State<PageAllOrderCustomer> {
                                                   fontStyle: FontStyle.normal,
                                                   fontSize: setFontSize(context, 0.014),
                                                   fontWeight: FontWeight.bold,
-                                                  color: const Color(0xFF637D92),
+                                                  color: Palette.greyText,
                                                 ),
                                                 dataTextStyle:
                                                     TextStyle(fontSize: setFontSize(context, 0.013), fontWeight: FontWeight.bold),
@@ -402,7 +403,7 @@ class _PageAllOrderCustomerState extends State<PageAllOrderCustomer> {
                                                   Text(
                                                     "เลือกทะเบียนรถ",
                                                     style: TextStyle(
-                                                      color: const Color(0xFF637D92),
+                                                      color: Palette.greyText,
                                                       fontSize: setFontSize(context, 0.015),
                                                       fontWeight: FontWeight.bold,
                                                     ),
@@ -422,7 +423,7 @@ class _PageAllOrderCustomerState extends State<PageAllOrderCustomer> {
                                                   Text(
                                                     "ชื่อพนักงานขับรถ",
                                                     style: TextStyle(
-                                                      color: const Color(0xFF637D92),
+                                                      color: Palette.greyText,
                                                       fontSize: setFontSize(context, 0.015),
                                                       fontWeight: FontWeight.bold,
                                                     ),
@@ -442,7 +443,7 @@ class _PageAllOrderCustomerState extends State<PageAllOrderCustomer> {
                                                   Text(
                                                     "เวลาออกจากโรงงาน",
                                                     style: TextStyle(
-                                                      color: const Color(0xFF637D92),
+                                                      color: Palette.greyText,
                                                       fontSize: setFontSize(context, 0.015),
                                                       fontWeight: FontWeight.bold,
                                                     ),
@@ -462,38 +463,8 @@ class _PageAllOrderCustomerState extends State<PageAllOrderCustomer> {
                                                   Row(
                                                     children: [
                                                       Expanded(
-                                                        child: ElevatedButton(
-                                                          style: ElevatedButton.styleFrom(
-                                                            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
-                                                            backgroundColor: const Color(0xFFFAFAFA),
-                                                            shape: RoundedRectangleBorder(
-                                                              borderRadius: BorderRadius.circular(10),
-                                                              side: const BorderSide(
-                                                                color: Color(0xFF757575),
-                                                                width: 2.0,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          onPressed: () {
-                                                            Navigator.of(context).pop();
-                                                          },
-                                                          child: Row(
-                                                            mainAxisAlignment: MainAxisAlignment.center,
-                                                            children: [
-                                                              const Icon(
-                                                                FontAwesomeIcons.xmark,
-                                                                color: Color(0xFF757575),
-                                                              ),
-                                                              Text(
-                                                                'ยกเลิก',
-                                                                style: TextStyle(
-                                                                  color: const Color(0xFF757575),
-                                                                  fontWeight: FontWeight.bold,
-                                                                  fontSize: setFontSize(context, 0.02),
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
+                                                        child: CancelButtonComponent(
+                                                          onPressed: () => Navigator.pop(context),
                                                         ),
                                                       ),
                                                       const SizedBox(width: 20),

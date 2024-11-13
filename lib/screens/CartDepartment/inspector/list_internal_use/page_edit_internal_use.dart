@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mumu_project/ETC/ButtonComponent.dart';
+import 'package:mumu_project/ETC/colors_palette.dart';
 import 'package:mumu_project/ETC/formdropdown.dart';
 import 'package:mumu_project/ETC/mediaQuery_set.dart';
 
@@ -99,7 +101,7 @@ class _PageEditInternalUseState extends State<PageEditInternalUse> {
                               fontSize: setFontSize(context, 0.025),
                               fontWeight: FontWeight.bold,
                               fontFamily: 'Prompt',
-                              color: const Color(0xFF637D92),
+                              color: Palette.greyText,
                             ),
                           ),
                           const SizedBox(height: 8),
@@ -165,7 +167,7 @@ class _PageEditInternalUseState extends State<PageEditInternalUse> {
                         fontSize: setFontSize(context, 0.025),
                         fontWeight: FontWeight.bold,
                         fontFamily: 'Prompt',
-                        color: const Color(0xFF637D92),
+                        color: Palette.greyText,
                       ),
                     ),
                     const SizedBox(height: 8),
@@ -207,7 +209,7 @@ class _PageEditInternalUseState extends State<PageEditInternalUse> {
                         fontSize: setFontSize(context, 0.025),
                         fontWeight: FontWeight.bold,
                         fontFamily: 'Prompt',
-                        color: const Color(0xFF637D92),
+                        color: Palette.greyText,
                       ),
                     ),
                     const SizedBox(height: 8),
@@ -271,40 +273,8 @@ class _PageEditInternalUseState extends State<PageEditInternalUse> {
               SizedBox(
                 width: setWidth(context, 0.45),
                 height: 140,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    backgroundColor: const Color(0xFFF7F5F5),
-                    side: const BorderSide(
-                      width: 2.0,
-                      color: Color(0xFF757575),
-                    ),
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(
-                        Icons.close,
-                        size: 35,
-                        color: Color(0xFF757575),
-                      ),
-                      const SizedBox(width: 8),
-                      Text(
-                        "ยกเลิก",
-                        style: TextStyle(
-                          fontSize: setFontSize(context, 0.04),
-                          fontWeight: FontWeight.bold,
-                          color: const Color(0xFF757575),
-                        ),
-                      ),
-                    ],
-                  ),
+                child: CancelButtonComponent(
+                  onPressed: () => Navigator.pop(context),
                 ),
               ),
               SizedBox(
