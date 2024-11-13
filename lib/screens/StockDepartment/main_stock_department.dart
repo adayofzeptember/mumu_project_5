@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:mumu_project/ETC/appbar_component.dart';
 import 'package:mumu_project/ETC/colors_palette.dart';
 import 'package:mumu_project/ETC/mediaQuery_set.dart';
 import 'package:mumu_project/screens/StockDepartment/Disbursement/tab_disbursement.dart';
 import 'package:mumu_project/screens/StockDepartment/Management_shipping/tab_manage_shipping.dart';
 import 'package:mumu_project/screens/StockDepartment/Receive_return/page_receive_return.dart';
 import 'package:mumu_project/screens/StockDepartment/Report_stock/page_report_stock.dart';
-import 'package:mumu_project/screens/Trim%20Department/main_trim.dart';
 import 'package:page_transition/page_transition.dart';
 
 class MainStockDepartment extends StatelessWidget {
@@ -55,65 +55,11 @@ class MainStockDepartment extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
-        elevation: 0,
-        backgroundColor: Colors.white, // Set background color to white
-        toolbarHeight: setHeight(context, 0.06),
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            // Spacing between avatar and text
-            const Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Text(
-                  'รจเรข พินสายออ',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                  ),
-                ),
-                Text(
-                  'แผนกเชือด', // User's role or position
-                  style: TextStyle(
-                    color: Palette.someGrey,
-                    fontSize: 20,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(width: 8),
-            const CircleAvatar(
-              maxRadius: 30,
-              backgroundColor: Color.fromARGB(255, 54, 28, 32),
-              child: Icon(
-                Icons.person,
-                size: 40,
-                color: Colors.white,
-              ),
-            ),
-            const SizedBox(width: 16),
-            ElevatedButton.icon(
-              onPressed: () {
-                logoutAlert(context);
-              },
-              icon: const Icon(Icons.logout, color: Colors.black),
-              label: const Text(
-                'ออกจากระบบ', // Logout text
-                style: TextStyle(color: Color.fromARGB(255, 38, 38, 38), fontSize: 25),
-              ),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
-                side: const BorderSide(color: Color.fromARGB(255, 23, 23, 23), width: 1),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10), // Rounded corners
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
+          automaticallyImplyLeading: false,
+          elevation: 0,
+          backgroundColor: Colors.white, // Set background color to white
+          toolbarHeight: setHeight(context, 0.06),
+          title: const AppBarNameLastNameRoleAndLogout()),
       body: Container(
         height: size.height,
         width: size.width,

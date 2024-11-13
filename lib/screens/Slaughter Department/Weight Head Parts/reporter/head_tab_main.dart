@@ -1,12 +1,15 @@
 // ignore_for_file: camel_case_types
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:mumu_project/ETC/appbar_component.dart';
 import 'package:mumu_project/ETC/colors_palette.dart';
 import 'package:mumu_project/ETC/mediaQuery_set.dart';
+import 'package:mumu_project/screens/Slaughter%20Department/Weight%20Head%20Parts/inspector/inspactor_tab_main.dart';
 import 'package:mumu_project/screens/Slaughter%20Department/Weight%20Head%20Parts/reporter/history_weight/tab_main_history_weight.dart';
 import 'package:mumu_project/screens/Slaughter%20Department/Weight%20Head%20Parts/reporter/process_report/page_process_report.dart';
 import 'package:mumu_project/screens/Slaughter%20Department/Weight%20Head%20Parts/reporter/save_weight_head_tab/tab_main_save_weight_head.dart';
-import 'package:mumu_project/screens/Trim%20Department/main_trim.dart';
+import 'package:page_transition/page_transition.dart';
 
 class Head_tab extends StatefulWidget {
   const Head_tab({super.key});
@@ -39,89 +42,25 @@ class _Head_tabState extends State<Head_tab> with SingleTickerProviderStateMixin
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween, // Align items to the right
           children: [
-            Row(
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: Palette.mainRed,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: const Icon(
-                      Icons.house,
-                      color: Colors.white,
-                      size: 40,
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 8),
-                const Text(
-                  "บันทึกน้ำหนักหัวหมู/เครื่องใน ",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
+            const AppBarHomeMenu(
+              title: "บันทึกน้ำหนักหัวหมู/เครื่องใน ",
             ),
-            Row(
-              children: [
-                // Spacing between avatar and text
-                const Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text(
-                      'รจเรข พินสายออ',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
-                    ),
-                    Text(
-                      'แผนกเชือด', // User's role or position
-                      style: TextStyle(
-                        color: Palette.someGrey,
-                        fontSize: 20,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(width: 8),
-                const CircleAvatar(
-                  maxRadius: 30,
-                  backgroundColor: Color.fromARGB(255, 54, 28, 32),
-                  child: Icon(
-                    Icons.person,
-                    size: 40,
-                    color: Colors.white,
+            GestureDetector(
+              onDoubleTap: () {
+                Navigator.push(
+                  context,
+                  PageTransition(
+                    type: PageTransitionType.fade,
+                    child: const InspactorTabMain(),
                   ),
-                ),
-                const SizedBox(width: 16),
-                ElevatedButton.icon(
-                  onPressed: () {
-                    logoutAlert(context);
-                  },
-                  icon: const Icon(Icons.logout, color: Colors.black),
-                  label: const Text(
-                    'ออกจากระบบ', // Logout text
-                    style: TextStyle(color: Color.fromARGB(255, 38, 38, 38), fontSize: 18),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.all(12),
-                    backgroundColor: Colors.white,
-                    side: const BorderSide(color: Color.fromARGB(255, 23, 23, 23), width: 1),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30), // Rounded corners
-                    ),
-                  ),
-                ),
-              ],
+                );
+              },
+              child: Icon(
+                FontAwesomeIcons.user,
+                color: Colors.blue,
+              ),
             ),
+            AppBarNameLastNameRoleAndLogout(),
           ],
         ),
       ),

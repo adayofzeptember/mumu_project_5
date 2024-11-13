@@ -10,6 +10,7 @@ class ButtonComponent extends StatelessWidget {
     this.textStyle,
     required this.onPressed,
     this.side,
+    this.borderRadius,
   });
   final Widget? icon;
   final String title;
@@ -17,12 +18,13 @@ class ButtonComponent extends StatelessWidget {
   final TextStyle? textStyle;
   final Function()? onPressed;
   final BorderSide? side;
+  final double? borderRadius;
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(borderRadius ?? 12),
           side: side ?? BorderSide.none,
         ),
         minimumSize: const Size(double.infinity, 70),

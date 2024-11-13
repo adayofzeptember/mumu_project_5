@@ -11,7 +11,7 @@ import 'package:mumu_project/bloc/Slaughter/LSQ/lsq_bloc.dart';
 import 'package:mumu_project/bloc/Slaughter/Line%20Slaughter/line_bloc.dart';
 import 'package:mumu_project/screens/Login/login_screen.dart';
 import 'package:mumu_project/screens/Slaughter%20Department/main_slaughter.dart';
-import 'package:mumu_project/select_role.dart';
+import 'package:mumu_project/screens/select_role_test.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:mumu_project/ETC/ButtonComponent.dart';
 import 'package:mumu_project/ETC/FormSearch.dart';
 import 'package:mumu_project/ETC/colors_palette.dart';
 import 'package:mumu_project/ETC/mediaQuery_set.dart';
-import 'package:mumu_project/ETC/section_count.dart';
+import 'package:mumu_project/alert_components/showEmployeeAndHour.dart';
 import 'package:mumu_project/screens/CartDepartment/inspector/list_cart_in/page_edit_cart_in.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -216,154 +217,19 @@ class _PageListCartInState extends State<PageListCartIn> {
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 28),
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-              backgroundColor: const Color(0xFF52C41A),
-            ),
+          child: ButtonComponent(
+            icon: const Icon(FontAwesomeIcons.circleCheck, size: 25, color: Colors.white),
+            title: "ยืนยันข้อมูล",
+            bg: const Color(0xFF52C41A),
             onPressed: () {
-              showModalBottomSheet(
-                context: context,
-                backgroundColor: Colors.transparent,
-                isScrollControlled: true,
-                builder: (BuildContext context) {
-                  String countEmployee = '0', countHour = '0';
-
-                  return StatefulBuilder(
-                    builder: (BuildContext context, StateSetter setState) {
-                      return Container(
-                        height: setHeight(context, 0.5),
-                        padding: const EdgeInsets.fromLTRB(30, 60, 30, 30),
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(30),
-                            topRight: Radius.circular(30),
-                          ),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "จำนวนพนักงานและเวลาการทำงาน",
-                                  style: TextStyle(
-                                    fontSize: setFontSize(context, 0.04),
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                const SizedBox(height: 45),
-                                SizedBox(
-                                  width: setWidth(context, 0.6),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "จำนวนพนักงาน (คน)",
-                                        style: TextStyle(
-                                          fontSize: setFontSize(context, 0.03),
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 12),
-                                      SectionCount(
-                                        countText: countEmployee,
-                                        onRemove: () {
-                                          setState(() {
-                                            print("object");
-                                            countEmployee = (int.parse(countEmployee) - 1).toString();
-                                          });
-                                        },
-                                        onAdd: () {
-                                          setState(() {
-                                            countEmployee = (int.parse(countEmployee) + 1).toString();
-                                          });
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                const SizedBox(height: 45),
-                                SizedBox(
-                                  width: setWidth(context, 0.6),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "เวลาการทำงาน (ชั่วโมง)",
-                                        style: TextStyle(
-                                          fontSize: setFontSize(context, 0.03),
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 12),
-                                      SectionCount(
-                                        countText: countHour,
-                                        onRemove: () {
-                                          setState(() {
-                                            countHour = (int.parse(countHour) - 1).toString();
-                                          });
-                                        },
-                                        onAdd: () {
-                                          setState(() {
-                                            countHour = (int.parse(countHour) + 1).toString();
-                                          });
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              width: double.infinity,
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  padding: const EdgeInsets.all(18),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                  backgroundColor: const Color(0xFF52C41A),
-                                ),
-                                onPressed: () {},
-                                child: Text(
-                                  "ตกลง",
-                                  style: TextStyle(
-                                    fontSize: setFontSize(context, 0.04),
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  );
+              showEmployeeAndHourModal(
+                context,
+                onConfirm: (countEmployee, countHour) {
+                  // ทำสิ่งที่ต้องการหลังจากได้ค่าจำนวนพนักงานและชั่วโมงการทำงาน
+                  print('จำนวนพนักงาน: $countEmployee, ชั่วโมงการทำงาน: $countHour');
                 },
               );
             },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Icon(FontAwesomeIcons.circleCheck, size: 30, color: Colors.white),
-                const SizedBox(width: 8),
-                Text(
-                  "พร้อมใช้งาน",
-                  style: TextStyle(
-                    fontSize: setFontSize(context, 0.04),
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
           ),
         ),
       ),

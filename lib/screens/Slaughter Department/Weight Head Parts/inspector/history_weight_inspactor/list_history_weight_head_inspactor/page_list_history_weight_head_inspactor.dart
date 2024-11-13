@@ -1,61 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mumu_project/ETC/ButtonComponent.dart';
-import 'package:mumu_project/ETC/FormSearch.dart';
 import 'package:mumu_project/ETC/colors_palette.dart';
-import 'package:mumu_project/ETC/mediaQuery_set.dart';
+import 'package:mumu_project/ETC/mediaQuery_set%202.dart';
 import 'package:mumu_project/alert_components/showEmployeeAndHour.dart';
-import 'package:mumu_project/screens/CartDepartment/inspector/list_internal_use/page_edit_internal_use.dart';
+import 'package:mumu_project/screens/Slaughter%20Department/Weight%20Head%20Parts/inspector/history_weight_inspactor/list_history_weight_head_inspactor/page_edit_history_weight_head_inspactor.dart';
 import 'package:page_transition/page_transition.dart';
 
-class PageListInternalUse extends StatefulWidget {
-  const PageListInternalUse({Key? key}) : super(key: key);
+class PageListHistoryWeightHeadInspactor extends StatefulWidget {
+  const PageListHistoryWeightHeadInspactor({Key? key}) : super(key: key);
 
   @override
-  _PageListInternalUseState createState() => _PageListInternalUseState();
+  _PageListHistoryWeightHeadInspactorState createState() => _PageListHistoryWeightHeadInspactorState();
 }
 
-class _PageListInternalUseState extends State<PageListInternalUse> {
+class _PageListHistoryWeightHeadInspactorState extends State<PageListHistoryWeightHeadInspactor> {
   List<Map<String, dynamic>> mockData = [
-    {
-      "id": 1,
-      "dateSave": "2021-09-01 09:00:00",
-      "department": "แผนก A",
-      "count": 10,
-      "note": "หมายเหตุ 1",
-    },
-    {
-      "id": 2,
-      "dateSave": "2021-09-02 09:00:00",
-      "department": "แผนก B",
-      "count": 20,
-      "note": "หมายเหตุ 2",
-    },
-    {
-      "id": 3,
-      "dateSave": "2021-09-03 09:00:00",
-      "department": "แผนก C",
-      "count": 30,
-      "note": "หมายเหตุ 3",
-    },
-    {
-      "id": 4,
-      "dateSave": "2021-09-04 09:00:00",
-      "department": "แผนก D",
-      "count": 40,
-      "note": "หมายเหตุ 4",
-    },
-    {
-      "id": 5,
-      "dateSave": "2021-09-05 09:00:00",
-      "department": "แผนก E",
-      "count": 50,
-      "note": "หมายเหตุ 5",
-    },
+    {"id": "1", "name": "สันคอ", "department": "หัว", "type": "เครื่องใน", "count": "4", "weight": "532.1", "action": "edit"},
+    {"id": "2", "name": "สะโพก", "department": "หัว", "type": "เครื่องใน", "count": "3", "weight": "450.2", "action": "edit"},
+    {"id": "3", "name": "ซี่โครง", "department": "หัว", "type": "เครื่องใน", "count": "5", "weight": "600.3", "action": "edit"},
+    {"id": "4", "name": "ขาหลัง", "department": "หัว", "type": "เครื่องใน", "count": "2", "weight": "300.4", "action": "edit"},
+    {"id": "5", "name": "ขาหน้า", "department": "หัว", "type": "เครื่องใน", "count": "4", "weight": "520.5", "action": "edit"},
+    {"id": "6", "name": "ซี่โครง", "department": "หัว", "type": "เครื่องใน", "count": "6", "weight": "650.6", "action": "edit"},
+    {"id": "7", "name": "สะโพก", "department": "หัว", "type": "เครื่องใน", "count": "3", "weight": "470.7", "action": "edit"},
   ];
 
   List<Map<String, dynamic>> filteredData = [];
-  final List labelTable = ['ลำดับ', 'วันเวลาที่บันทึก', 'แผนก', 'จำนวน(แลก)', 'หมายเหตุ', ''];
+
+  final List labelTable = ['ลำดับ', 'ชื่อสินค้า', 'รายการ', 'ประเภทสินค้า', 'จำนวนถุง(ชิ้น/ถุง)', 'น้ำหนักรวม(กก.)', 'จัดการข้อมูล'];
 
   @override
   void initState() {
@@ -66,11 +38,7 @@ class _PageListInternalUseState extends State<PageListInternalUse> {
   void _filterData(String value) {
     setState(() {
       filteredData = mockData.where((item) {
-        return item['dateSave'].contains(value) ||
-            item['origin'].contains(value) ||
-            item['sizeCart'].contains(value) ||
-            item['colorCart'].contains(value) ||
-            item['countCart'].toString().contains(value);
+        return item['name'].toLowerCase().contains(value.toLowerCase());
       }).toList();
     });
   }
@@ -81,18 +49,6 @@ class _PageListInternalUseState extends State<PageListInternalUse> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(30, 30, 30, 0),
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: SizedBox(
-                  width: setWidth(context, 0.45),
-                  child: FormSearch(
-                    onChanged: (value) => _filterData(value),
-                  ),
-                ),
-              ),
-            ),
             Container(
               width: double.infinity,
               padding: const EdgeInsets.fromLTRB(30, 30, 30, 0),
@@ -100,7 +56,7 @@ class _PageListInternalUseState extends State<PageListInternalUse> {
                 horizontalMargin: 15,
                 headingRowColor: WidgetStateProperty.resolveWith<Color>(
                   (Set<WidgetState> states) {
-                    return const Color(0xFFECF6FF);
+                    return const Color(0xFFF5F5F5);
                   },
                 ),
                 dividerThickness: 0.8,
@@ -108,7 +64,7 @@ class _PageListInternalUseState extends State<PageListInternalUse> {
                   fontStyle: FontStyle.normal,
                   fontSize: setFontSize(context, 0.022),
                   fontWeight: FontWeight.bold,
-                  color: const Color(0xFF757575),
+                  color: Palette.greyText,
                 ),
                 dataTextStyle: TextStyle(fontSize: setFontSize(context, 0.021), fontWeight: FontWeight.bold),
                 columnSpacing: 18,
@@ -127,25 +83,19 @@ class _PageListInternalUseState extends State<PageListInternalUse> {
                     DataRow(
                       cells: <DataCell>[
                         DataCell(Text((i + 1).toString())),
-                        DataCell(Text(filteredData[i]['dateSave'])),
+                        DataCell(Text(filteredData[i]['name'])),
                         DataCell(Text(filteredData[i]['department'])),
-                        DataCell(Text(filteredData[i]['count'].toString())),
-                        DataCell(Text(filteredData[i]['note'])),
+                        DataCell(Text(filteredData[i]['type'])),
+                        DataCell(Text(filteredData[i]['count'])),
+                        DataCell(Text(filteredData[i]['weight'])),
                         DataCell(
                           GestureDetector(
                             onTap: () {
                               Navigator.push(
                                 context,
                                 PageTransition(
-                                  duration: Duration(milliseconds: 500),
-                                  type: PageTransitionType.rightToLeft,
-                                  child: PageEditInternalUse(
-                                    getId: filteredData[i]['id'].toString(),
-                                    getDateTime: filteredData[i]['dateSave'],
-                                    getDepartment: filteredData[i]['department'],
-                                    getGetIn: filteredData[i]['count'].toString(),
-                                    getNote: filteredData[i]['note'],
-                                  ),
+                                  type: PageTransitionType.fade,
+                                  child: PageEditHistoryWeightHeadInspactor(),
                                 ),
                               );
                             },
@@ -153,21 +103,13 @@ class _PageListInternalUseState extends State<PageListInternalUse> {
                               height: setWidth(context, 0.05),
                               width: setWidth(context, 0.05),
                               decoration: BoxDecoration(
-                                color: const Color(0xFFFF4D4F),
+                                color: Palette.blue,
                                 borderRadius: BorderRadius.circular(10),
                               ),
-                              child: Container(
-                                height: setWidth(context, 0.05),
-                                width: setWidth(context, 0.05),
-                                decoration: BoxDecoration(
-                                  color: Palette.blue,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: Icon(
-                                  FontAwesomeIcons.solidPenToSquare,
-                                  color: Colors.white,
-                                  size: setWidth(context, 0.03),
-                                ),
+                              child: Icon(
+                                FontAwesomeIcons.solidPenToSquare,
+                                color: Colors.white,
+                                size: setWidth(context, 0.03),
                               ),
                             ),
                           ),

@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:mumu_project/ETC/FormSearch.dart';
 import 'package:mumu_project/ETC/colors_palette.dart';
-import 'package:mumu_project/ETC/mediaQuery_set.dart';
-import 'package:mumu_project/screens/Slaughter%20Department/Weight%20Head%20Parts/reporter/history_weight/page_list_weight_donate.dart';
-import 'package:mumu_project/screens/Slaughter%20Department/Weight%20Head%20Parts/reporter/history_weight/page_list_weight_head.dart';
+import 'package:mumu_project/ETC/mediaQuery_set%202.dart';
+import 'package:mumu_project/screens/Slaughter%20Department/Weight%20Head%20Parts/inspector/history_weight_inspactor/list_history_weight_head_inspactor/page_list_history_weight_head_inspactor.dart';
+import 'package:mumu_project/screens/Slaughter%20Department/Weight%20Head%20Parts/inspector/history_weight_inspactor/list_weight_donate_inspactor/page_list_weight_donate_inspactor.dart';
 
-class TabMainHistoryWeight extends StatefulWidget {
-  const TabMainHistoryWeight({Key? key}) : super(key: key);
+class TabMainHistoryInspactor extends StatefulWidget {
+  const TabMainHistoryInspactor({Key? key}) : super(key: key);
 
   @override
-  _TabMainHistoryWeightState createState() => _TabMainHistoryWeightState();
+  _TabMainHistoryInspactorState createState() => _TabMainHistoryInspactorState();
 }
 
-class _TabMainHistoryWeightState extends State<TabMainHistoryWeight> with SingleTickerProviderStateMixin {
+class _TabMainHistoryInspactorState extends State<TabMainHistoryInspactor> with SingleTickerProviderStateMixin {
   late TabController _tabController;
   @override
   void initState() {
@@ -149,8 +149,8 @@ class _TabMainHistoryWeightState extends State<TabMainHistoryWeight> with Single
           child: TabBarView(
             controller: _tabController,
             children: [
-              PageListWeightHead(),
-              PageListWeightDonate(),
+              PageListHistoryWeightHeadInspactor(),
+              PageListWeightDonateInspactor(),
             ],
           ),
         ),
