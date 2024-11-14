@@ -544,7 +544,7 @@ class _PageManageOrderState extends State<PageManageOrder> {
                                   ],
                                 ),
                               ),
-                            )
+                            ),
                           ],
                         ),
                         const SizedBox(height: 18),

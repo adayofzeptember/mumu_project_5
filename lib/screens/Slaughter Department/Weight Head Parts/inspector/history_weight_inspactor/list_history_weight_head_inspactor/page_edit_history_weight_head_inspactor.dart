@@ -1,10 +1,13 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mumu_project/ETC/ButtonComponent.dart';
 import 'package:mumu_project/ETC/FormShowDialog.dart';
+import 'package:mumu_project/ETC/TextFormFieldComponent.dart';
 import 'package:mumu_project/ETC/appbar_component.dart';
 import 'package:mumu_project/ETC/colors_palette.dart';
 import 'package:mumu_project/ETC/formdropdown.dart';
 import 'package:mumu_project/ETC/mediaQuery_set%202.dart';
+import 'package:mumu_project/ETC/section_count.dart';
 import 'package:mumu_project/alert_components/showImageGirdForSelect.dart';
 
 class PageEditHistoryWeightHeadInspactor extends StatefulWidget {
@@ -16,6 +19,7 @@ class PageEditHistoryWeightHeadInspactor extends StatefulWidget {
 
 class _PageEditHistoryWeightHeadInspactorState extends State<PageEditHistoryWeightHeadInspactor> {
   String? lotNo, weightNo, nameProduct, sizeBag;
+  bool? omega = true;
 
   @override
   Widget build(BuildContext context) {
@@ -251,7 +255,168 @@ class _PageEditHistoryWeightHeadInspactorState extends State<PageEditHistoryWeig
                           });
                         },
                       ),
-                    )
+                    ),
+                    const SizedBox(height: 28),
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: setWidth(context, 0.45),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "จำนวนถุง/ตะกร้า",
+                                style: TextStyle(fontSize: setFontSize(context, 0.025), fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(height: 8),
+                              SectionCount(
+                                countText: "จำนวนถุง/ตะกร้า",
+                                onAdd: () {},
+                                onRemove: () {},
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: 20),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "น้ำหนักถุง 1 ใบ(กรัม)",
+                                style: TextStyle(fontSize: setFontSize(context, 0.025), fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(height: 8),
+                              TextFormFieldComponent(
+                                disable: true,
+                                textAlign: TextAlign.end,
+                                controllerString: "Auto",
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 28),
+                    ButtonComponent(
+                      title: "พิมพ์ QR Code",
+                      icon: const Icon(
+                        Icons.print_outlined,
+                        size: 35,
+                        color: Palette.blue,
+                      ),
+                      textStyle: TextStyle(
+                        fontSize: setFontSize(context, 0.03),
+                        fontWeight: FontWeight.bold,
+                        color: Palette.blue,
+                      ),
+                      bg: Palette.lightBlue,
+                      onPressed: () {},
+                      side: const BorderSide(
+                        color: Palette.blue,
+                        width: 2,
+                      ),
+                    ),
+                    const SizedBox(height: 60),
+                    Text(
+                      "บันทึกชั่งน้ำหนักตะกร้า",
+                      style: TextStyle(
+                        fontSize: setFontSize(context, 0.035),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 28),
+                    FormDropdown(
+                      onChanged: (value) {},
+                      title: "ชื่อฟาร์ม",
+                      titleColor: Colors.black,
+                      title2: "",
+                      hintText: "เลือกฟาร์ม",
+                      value: "",
+                      items: [""],
+                    ),
+                    const SizedBox(height: 28),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: setWidth(context, 0.7),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "ชื่อเล้า",
+                                style: TextStyle(
+                                  fontSize: setFontSize(context, 0.025),
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              FormShowDialog(
+                                value: nameProduct,
+                                onTap: () async {
+                                  nameProduct = await showImageGirdForSelect(context, "สินค้า");
+                                  print(nameProduct);
+
+                                  setState(() {});
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: 20),
+                        Expanded(
+                          child: Container(
+                            width: 200,
+                            height: 100,
+                            alignment: Alignment.centerLeft,
+                            child: Column(
+                              children: [
+                                Text(
+                                  "โอเมก้า",
+                                  style: TextStyle(
+                                    fontSize: setFontSize(context, 0.025),
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const SizedBox(height: 20),
+                                Stack(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 30.0),
+                                      child: Transform.scale(
+                                        scaleX: 2.2,
+                                        scaleY: 2.0,
+                                        child: CupertinoSwitch(
+                                          value: omega!,
+                                          onChanged: (val) {
+                                            setState(() {
+                                              omega = val;
+                                            });
+                                          },
+                                          activeColor: Palette.mainRed,
+                                        ),
+                                      ),
+                                    ),
+                                    if (omega!)
+                                      const Positioned(
+                                        top: 2,
+                                        left: 12,
+                                        child: Icon(
+                                          Icons.check,
+                                          color: Colors.white,
+                                          size: 30,
+                                        ),
+                                      ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),

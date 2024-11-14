@@ -8,17 +8,22 @@ class TextFormFieldComponent extends StatelessWidget {
     this.keyboardType,
     this.valueSize,
     this.textAlign,
+    this.disable,
   });
 
   final String? controllerString;
   final TextInputType? keyboardType;
   final double? valueSize;
   final TextAlign? textAlign;
+  final bool? disable;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      readOnly: disable ?? false,
       decoration: InputDecoration(
+        fillColor: Colors.grey.shade100,
+        filled: disable,
         isCollapsed: true,
         contentPadding: const EdgeInsets.symmetric(vertical: 18.0, horizontal: 18),
         border: OutlineInputBorder(

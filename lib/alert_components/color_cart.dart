@@ -92,15 +92,43 @@ Future<Map<String, dynamic>> showColorCart(BuildContext context, Map<String, dyn
                             },
                             child: Column(
                               children: [
-                                Container(
-                                  margin: const EdgeInsets.only(right: 30.0),
-                                  width: setWidth(context, 0.15),
-                                  height: setWidth(context, 0.15),
-                                  decoration: BoxDecoration(
-                                    color: mockDataColor[i],
-                                    borderRadius: BorderRadius.circular(90.0),
-                                    border: selectedColor == mockDataColor[i] ? Border.all(color: Palette.mainRed, width: 5.0) : null,
-                                  ),
+                                Stack(
+                                  children: [
+                                    Container(
+                                      margin: const EdgeInsets.symmetric(horizontal: 30),
+                                      width: setWidth(context, 0.15),
+                                      height: setWidth(context, 0.15),
+                                      decoration: BoxDecoration(
+                                        // color: Colors.grey,
+                                        shape: BoxShape.circle,
+                                        border: selectedColor == mockDataColor[i]
+                                            ? Border.all(color: Palette.greyText, width: 4.0)
+                                            : null,
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(4.0),
+                                        child: Container(
+                                          padding: const EdgeInsets.all(22),
+                                          decoration: BoxDecoration(
+                                            color: mockDataColor[i],
+                                            shape: BoxShape.circle,
+                                            border: Border.all(color: Colors.white, width: 5.0),
+                                          ),
+                                          child: selectedColor == mockDataColor[i]
+                                              ? CircleAvatar(
+                                                  backgroundColor: Colors.white,
+                                                  radius: 15.0,
+                                                  child: Icon(
+                                                    Icons.check,
+                                                    color: mockDataColor[i],
+                                                    size: setFontSize(context, 0.05),
+                                                  ),
+                                                )
+                                              : null,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                                 const SizedBox(height: 18.0),
                                 Text(
@@ -108,7 +136,7 @@ Future<Map<String, dynamic>> showColorCart(BuildContext context, Map<String, dyn
                                   style: TextStyle(
                                     fontSize: setFontSize(context, 0.03),
                                     fontWeight: FontWeight.bold,
-                                    color: selectedColor == mockDataColor[i] ? Palette.mainRed : Colors.black,
+                                    color: Colors.black,
                                   ),
                                 ),
                                 const SizedBox(height: 18.0),
@@ -150,16 +178,16 @@ Future<Map<String, dynamic>> showColorCart(BuildContext context, Map<String, dyn
                               height: setWidth(context, 0.15),
                               padding: const EdgeInsets.all(30.0),
                               decoration: BoxDecoration(
-                                border: Border.all(color: Colors.black),
+                                border: Border.all(color: Palette.mainRed, width: 2),
                                 borderRadius: BorderRadius.circular(18.0),
-                                color: selectedSize == mockDataSize[i] ? Colors.black : Colors.white,
+                                color: selectedSize == mockDataSize[i] ? Palette.mainRed : Colors.white,
                               ),
                               child: Text(
                                 mockDataSize[i],
                                 style: TextStyle(
                                   fontSize: setFontSize(context, 0.03),
                                   fontWeight: FontWeight.bold,
-                                  color: selectedSize == mockDataSize[i] ? Colors.white : Colors.black,
+                                  color: selectedSize == mockDataSize[i] ? Colors.white : Palette.mainRed,
                                 ),
                               ),
                             ),
