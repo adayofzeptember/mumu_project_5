@@ -105,7 +105,7 @@ class _Import_Page2State extends State<Import_Page2> {
                                 children: [
                                   Expanded(
                                     child: Container(
-                                       height: 60,
+                                      height: 60,
                                       child: TextFormField(
                                         initialValue:
                                             state.lsq_lot_num.toString(),
@@ -116,8 +116,8 @@ class _Import_Page2State extends State<Import_Page2> {
                                             borderRadius: BorderRadius.circular(
                                                 8), // Rounded corners
                                             borderSide: BorderSide(
-                                              color: Colors
-                                                  .grey.shade400, // Border color
+                                              color: Colors.grey
+                                                  .shade400, // Border color
                                             ),
                                           ),
                                           contentPadding:
@@ -674,14 +674,23 @@ class _Import_Page2State extends State<Import_Page2> {
                                 builder: (context, state) {
                                   return Row(
                                     children: [
+                                      buildCustomBox('ลำดับ',
+                                          state.last_weight.id, context, 0.025),
                                       buildCustomBox(
-                                          'ลำดับ', state.last_weight.id, context, 0.025),
-                                      buildCustomBox('น้ำหนักที่ชั่ง', state.last_weight.weight,
-                                          context, 0.025),
+                                          'น้ำหนักที่ชั่ง',
+                                          state.last_weight.weight,
+                                          context,
+                                          0.025),
                                       buildCustomBox(
-                                          'ลักษณะสุกร', state.last_weight.pig_type, context, 0.025),
+                                          'ลักษณะสุกร',
+                                          state.last_weight.pig_type,
+                                          context,
+                                          0.025),
                                       buildCustomBox(
-                                          'ประเภทชั่ง', state.last_weight.weight_type, context, 0.025),
+                                          'ประเภทชั่ง',
+                                          state.last_weight.weight_type,
+                                          context,
+                                          0.025),
                                     ],
                                   );
                                 },

@@ -7,8 +7,9 @@ import 'package:mumu_project/ETC/mediaQuery_set.dart';
 import 'package:mumu_project/ETC/progessHUD.dart';
 import 'package:mumu_project/bloc/Arrival%20Daily/arrival_daily_bloc.dart';
 import 'package:mumu_project/bloc/Slaughter/LSQ/lsq_bloc.dart';
-import 'package:mumu_project/screens/Trim%20Department/1.%20Cold%20Part%20Weight/page1.dart';
 import 'package:sliding_switch/sliding_switch.dart';
+
+import '../../../ETC/Components/customBox_component.dart';
 
 class LSQ_Page1 extends StatefulWidget {
   LSQ_Page1({super.key});

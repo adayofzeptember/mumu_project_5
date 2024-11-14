@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mumu_project/ETC/colors_palette.dart';
 import 'package:mumu_project/ETC/mediaQuery_set.dart';
-import 'package:mumu_project/screens/Trim%20Department/1.%20Cold%20Part%20Weight/page1.dart';
+import '../../../ETC/Components/customBox_component.dart';
 
 var _deviceNo = TextEditingController();
 var _grade = TextEditingController();

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mumu_project/ETC/colors_palette.dart';
 import 'package:mumu_project/ETC/mediaQuery_set.dart';
-import 'package:mumu_project/screens/Slaughter%20Department/Import/import_page1.dart';
-import 'package:mumu_project/screens/Slaughter%20Department/Import/import_page2.dart';
-import 'package:mumu_project/screens/Slaughter%20Department/Import/import_page3.dart';
+import 'package:mumu_project/screens/Slaughter%20Department/Import%20UI2-2/import_page1.dart';
+import 'package:mumu_project/screens/Slaughter%20Department/Import%20UI2-2/import_page2.dart';
+import 'package:mumu_project/screens/Slaughter%20Department/Import%20UI2-2/import_page3.dart';
 
 class Import_Tab extends StatefulWidget {
   const Import_Tab({super.key});

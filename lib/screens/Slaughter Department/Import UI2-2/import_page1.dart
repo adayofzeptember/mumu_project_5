@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mumu_project/ETC/Components/date_time_component.dart';
+import 'package:mumu_project/ETC/Components/dateformat_converter.dart';
 import 'package:mumu_project/ETC/Components/image_picker_component.dart';
 import 'package:mumu_project/ETC/colors_palette.dart';
 import 'package:mumu_project/ETC/mediaQuery_set.dart';
@@ -23,6 +24,7 @@ class _Import_Page1State extends State<Import_Page1> {
   final _formKeyImportpage1 = GlobalKey<FormState>();
   var _dateController = TextEditingController();
   var _carPlate = TextEditingController();
+  
   var _farmName;
   var _coopName = TextEditingController();
   bool _isOmega = false;
@@ -307,7 +309,9 @@ class _Import_Page1State extends State<Import_Page1> {
                               child: TextFormField(
                                 keyboardType: TextInputType.text,
                                 controller: _coopName,
+                                
                                 decoration: InputDecoration(
+                                  hintText: 'กรอกชื่อเล้า',
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(
                                         8), // Rounded corners
@@ -1707,7 +1711,10 @@ class _Import_Page1State extends State<Import_Page1> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               )),
-                          onPressed: () {},
+                          onPressed: () {
+                            
+                            print(convertDate(_dateController.text));
+                          },
                           child: Padding(
                             padding: const EdgeInsets.all(15.0),
                             child: Container(

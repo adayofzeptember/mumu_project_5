@@ -1,24 +1,22 @@
-// ignore_for_file: camel_case_types
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mumu_project/ETC/colors_palette.dart';
 import 'package:mumu_project/ETC/mediaQuery_set.dart';
-import 'package:mumu_project/screens/Slaughter%20Department/Slaughter%20Line/line_page1.dart';
-import 'package:mumu_project/screens/Slaughter%20Department/Slaughter%20Line/line_page2.dart';
+import 'package:mumu_project/screens/Slaughter%20Department/LSQ%20UI2-8/lsq_page1.dart';
+import 'package:mumu_project/screens/Slaughter%20Department/LSQ%20UI2-8/lsq_page2.dart';
+import 'package:mumu_project/screens/Slaughter%20Department/LSQ%20UI2-8/lsq_page3.dart';
 
-class Line_Tab extends StatefulWidget {
-  const Line_Tab({super.key});
+class LSQ_Tab extends StatefulWidget {
+  const LSQ_Tab({super.key});
   @override
-  State<Line_Tab> createState() => _Line_TabState();
+  State<LSQ_Tab> createState() => _LSQ_TabState();
 }
 
-class _Line_TabState extends State<Line_Tab>
-    with SingleTickerProviderStateMixin {
+class _LSQ_TabState extends State<LSQ_Tab> with SingleTickerProviderStateMixin {
   late TabController _tabController;
   @override
   void initState() {
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(length: 3, vsync: this);
     super.initState();
   }
 
@@ -54,7 +52,7 @@ class _Line_TabState extends State<Line_Tab>
         centerTitle: true,
 
         title: Text(
-          'ไลน์การเชือด',
+          'ซีกร้อนและLSQ',
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
@@ -71,7 +69,7 @@ class _Line_TabState extends State<Line_Tab>
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(
-                  30,
+                  50,
                 ),
               ),
               child: Padding(
@@ -89,14 +87,17 @@ class _Line_TabState extends State<Line_Tab>
                   unselectedLabelColor: Palette.mainRed,
                   indicatorSize: TabBarIndicatorSize.tab,
                   indicator: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
+                      borderRadius: BorderRadius.circular(50),
                       color: Palette.mainRed),
                   tabs: const [
                     Tab(
-                      text: 'บันทึกมาตรฐานไลน์การเชือด',
+                      text: 'บันทึกซีกร้อน/LSQ',
                     ),
                     Tab(
-                      text: 'ประวัติมาตรฐานไลน์การเชือด',
+                      text: 'ประวัติการชั่ง',
+                    ),
+                    Tab(
+                      text: 'รายงานตรวจซาก',
                     ),
                   ],
                 ),
@@ -106,12 +107,14 @@ class _Line_TabState extends State<Line_Tab>
           SizedBox(
             height: 20,
           ),
+          
           Expanded(
             child: TabBarView(
               controller: _tabController,
               children: [
-                Line_Page1(),
-                Line_Page2(),
+                LSQ_Page1(),
+                LSQ_Page2(),
+                LSQ_Page3()
               ],
             ),
           ),

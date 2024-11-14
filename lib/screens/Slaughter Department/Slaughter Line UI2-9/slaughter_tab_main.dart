@@ -1,22 +1,24 @@
+// ignore_for_file: camel_case_types
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mumu_project/ETC/colors_palette.dart';
 import 'package:mumu_project/ETC/mediaQuery_set.dart';
-import 'package:mumu_project/screens/Slaughter%20Department/LSQ/lsq_page1.dart';
-import 'package:mumu_project/screens/Slaughter%20Department/LSQ/lsq_page2.dart';
-import 'package:mumu_project/screens/Slaughter%20Department/LSQ/lsq_page3.dart';
+import 'package:mumu_project/screens/Slaughter%20Department/Slaughter%20Line%20UI2-9/line_page1.dart';
+import 'package:mumu_project/screens/Slaughter%20Department/Slaughter%20Line%20UI2-9/line_page2.dart';
 
-class LSQ_Tab extends StatefulWidget {
-  const LSQ_Tab({super.key});
+class Line_Tab extends StatefulWidget {
+  const Line_Tab({super.key});
   @override
-  State<LSQ_Tab> createState() => _LSQ_TabState();
+  State<Line_Tab> createState() => _Line_TabState();
 }
 
-class _LSQ_TabState extends State<LSQ_Tab> with SingleTickerProviderStateMixin {
+class _Line_TabState extends State<Line_Tab>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
   @override
   void initState() {
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 2, vsync: this);
     super.initState();
   }
 
@@ -52,7 +54,7 @@ class _LSQ_TabState extends State<LSQ_Tab> with SingleTickerProviderStateMixin {
         centerTitle: true,
 
         title: Text(
-          'ซีกร้อนและLSQ',
+          'ไลน์การเชือด',
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
@@ -69,7 +71,7 @@ class _LSQ_TabState extends State<LSQ_Tab> with SingleTickerProviderStateMixin {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(
-                  50,
+                  30,
                 ),
               ),
               child: Padding(
@@ -87,17 +89,14 @@ class _LSQ_TabState extends State<LSQ_Tab> with SingleTickerProviderStateMixin {
                   unselectedLabelColor: Palette.mainRed,
                   indicatorSize: TabBarIndicatorSize.tab,
                   indicator: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
+                      borderRadius: BorderRadius.circular(30),
                       color: Palette.mainRed),
                   tabs: const [
                     Tab(
-                      text: 'บันทึกซีกร้อน/LSQ',
+                      text: 'บันทึกมาตรฐานไลน์การเชือด',
                     ),
                     Tab(
-                      text: 'ประวัติการชั่ง',
-                    ),
-                    Tab(
-                      text: 'รายงานตรวจซาก',
+                      text: 'ประวัติมาตรฐานไลน์การเชือด',
                     ),
                   ],
                 ),
@@ -107,14 +106,12 @@ class _LSQ_TabState extends State<LSQ_Tab> with SingleTickerProviderStateMixin {
           SizedBox(
             height: 20,
           ),
-          
           Expanded(
             child: TabBarView(
               controller: _tabController,
               children: [
-                LSQ_Page1(),
-                LSQ_Page2(),
-                LSQ_Page3()
+                Line_Page1(),
+                Line_Page2(),
               ],
             ),
           ),
