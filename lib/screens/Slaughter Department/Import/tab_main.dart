@@ -93,7 +93,7 @@ class _Import_TabState extends State<Import_Tab>
                         text: 'ตรวจรับก่อนเชือด',
                       ),
                       Tab(
-                        text: 'บันทึกการแปรสภาพ',
+                        text: 'บันทึกการชั่งน้ำหนักสุกรรายตัว',
                       ),
                       Tab(
                         text: 'ประวัติการชั่ง',

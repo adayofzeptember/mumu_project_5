@@ -18,9 +18,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    statusBarColor: Palette.mainRed, // Set the status bar color to white
-    statusBarIconBrightness: Brightness
-        .light, // Set status bar icons to dark (to be visible on white background)
+    statusBarColor: Palette.mainRed,
+    statusBarIconBrightness: Brightness.light,
   ));
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then(
     (value) => runApp(
@@ -41,7 +40,6 @@ class MumuProject extends StatelessWidget {
         BlocProvider(create: (context) => LineBloc()),
         BlocProvider(create: (context) => LsqBloc()),
         BlocProvider(create: (context) => ArrivalDailyBloc()),
-
       ],
       child: MaterialApp(
         theme: ThemeData(

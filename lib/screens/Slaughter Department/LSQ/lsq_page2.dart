@@ -36,21 +36,24 @@ class LSQ_Page2 extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Text(
-                                      "รายละเอียดการชั่ง: "+state.balance_num,
+                                      "รายละเอียดการชั่ง: " + state.balance_num,
                                       style: TextStyle(
                                           color: Palette.someGrey,
                                           fontWeight: FontWeight.bold,
-                                          fontSize: setFontSize(context, 0.025)),
+                                          fontSize:
+                                              setFontSize(context, 0.025)),
                                     ),
                                     SizedBox(
                                       height: 10,
                                     ),
                                     Text(
-                                      "หมายเลขเครื่องชั่ง: "+state.lsq_lot_num,
+                                      "หมายเลขเครื่องชั่ง: " +
+                                          state.lsq_lot_num,
                                       style: TextStyle(
                                           color: Palette.someGrey,
                                           fontWeight: FontWeight.bold,
-                                          fontSize: setFontSize(context, 0.025)),
+                                          fontSize:
+                                              setFontSize(context, 0.025)),
                                     ),
                                   ],
                                 ),
@@ -174,8 +177,6 @@ class LSQ_Page2 extends StatelessWidget {
                                 ),
                               ),
                             ),
-
-// Table Content
                             ListView.builder(
                               primary: true,
                               itemCount: state.lsq_history.length,
