@@ -9,10 +9,12 @@ class ImportState extends Equatable {
   String lsq_lot_num;
   String balance_num;
   bool isLoading;
+  List farmName_dropDown;
   dynamic last_weight;
   ImportState(
       {required this.deadPigs,
       required this.lsq_lot_num,
+      required this.farmName_dropDown,
       required this.isLoading,
       required this.last_weight,
       required this.balance_num,
@@ -26,6 +28,7 @@ class ImportState extends Equatable {
       String? balance_num,
       dynamic last_weight,
       bool? isLoading,
+      List? farmName_dropDown,
       abnormalPigsListCount,
       List? abnormalPigsList,
       List? weight_history_list}) {
@@ -34,6 +37,7 @@ class ImportState extends Equatable {
         isLoading: isLoading ?? this.isLoading,
         balance_num: balance_num ?? this.balance_num,
         lsq_lot_num: lsq_lot_num ?? this.lsq_lot_num,
+        farmName_dropDown: farmName_dropDown ?? this.farmName_dropDown,
         weight_history_list: weight_history_list ?? this.weight_history_list,
         deadPigs: deadPigs ?? this.deadPigs,
         abnormalPigsList: abnormalPigsList ?? this.abnormalPigsList,
@@ -45,7 +49,6 @@ class ImportState extends Equatable {
   List<Object> get props => [
         deadPigs,
         abnormalPigsListCount,
-
         last_weight,
         abnormalPigsList!,
         isLoading,

@@ -7,6 +7,7 @@ import 'package:mumu_project/ETC/colors_palette.dart';
 import 'package:mumu_project/ETC/mediaQuery_set.dart';
 import 'package:mumu_project/bloc/Arrival%20Daily/arrival_daily_bloc.dart';
 import 'package:mumu_project/bloc/Login_Greetings/login_bloc.dart';
+import 'package:mumu_project/bloc/Master%20Data/master_data_bloc.dart';
 import 'package:mumu_project/bloc/Slaughter/Import/import_bloc.dart';
 import 'package:mumu_project/bloc/Slaughter/LSQ/lsq_bloc.dart';
 import 'package:mumu_project/bloc/Slaughter/Line%20Slaughter/line_bloc.dart';
@@ -37,6 +38,7 @@ class MumuProject extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => LoginBloc()),
         BlocProvider(create: (context) => ImportBloc()),
+        BlocProvider(create: (context) => MasterDataBloc()),
         BlocProvider(create: (context) => LineBloc()),
         BlocProvider(create: (context) => LsqBloc()),
         BlocProvider(create: (context) => ArrivalDailyBloc()),

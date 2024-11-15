@@ -8,7 +8,10 @@ import 'package:mumu_project/ETC/Components/date_time_component.dart';
 import 'package:mumu_project/ETC/Components/dateformat_converter.dart';
 import 'package:mumu_project/ETC/Components/image_picker_component.dart';
 import 'package:mumu_project/ETC/colors_palette.dart';
+import 'package:mumu_project/ETC/double_converter.dart';
 import 'package:mumu_project/ETC/mediaQuery_set.dart';
+import 'package:mumu_project/bloc/Master%20Data/master_data_bloc.dart';
+import 'package:mumu_project/bloc/Slaughter/Import/Model.dart';
 import 'package:mumu_project/bloc/Slaughter/Import/import_bloc.dart';
 
 class Import_Page1 extends StatefulWidget {
@@ -20,12 +23,21 @@ class Import_Page1 extends StatefulWidget {
 
 class _Import_Page1State extends State<Import_Page1> {
   //! form controller
+  List<String> availableOptions = [
+    'ใบอนุญาตเคลื่อนย้าย',
+    'ใบรายงานจากฟาร์ม',
+    'ใบตรวจสอบสุขภาพ',
+    'ใบเสร็จรับเงิน',
+  ];
 
+  List<String> _docs = [];
   final _formKeyImportpage1 = GlobalKey<FormState>();
   var _dateController = TextEditingController();
   var _carPlate = TextEditingController();
-  
+
   var _farmName;
+  int? _farmID;
+  List<File> selectedImages = [];
   var _coopName = TextEditingController();
   bool _isOmega = false;
 
@@ -37,28 +49,22 @@ class _Import_Page1State extends State<Import_Page1> {
   var _pigsAmount = TextEditingController();
   var _pigsMaleAmount = TextEditingController();
   var _pigsFemaleAmount = TextEditingController();
-
   var _pigsAvgWeight = TextEditingController();
   var _pigsAllWeight = TextEditingController();
-
   // การพักก่อนเชือด
   var _restTime_Start = TextEditingController();
   var _restTime_End = TextEditingController();
   var _killTime_Start = TextEditingController();
   var _killTime_End = TextEditingController();
-
   var _highestWeight = TextEditingController();
   var _lowestWeight = TextEditingController();
   //หมูตาย state
-
-  final List<String> _docsOption = ['sdf', 'sdf'];
-
   var _killLenght = TextEditingController();
   var _restLenght = TextEditingController();
-
   var _konlaiScore = TextEditingController();
   var _konlongScore = TextEditingController();
-  List<File> selectedImages = [];
+  List<Abnormal> _abnormals = [];
+
   final picker = ImagePicker();
   Future<void> _selectTime(
       BuildContext context, TextEditingController getControl) async {
@@ -247,49 +253,84 @@ class _Import_Page1State extends State<Import_Page1> {
                         SizedBox(
                           height: setHeight(context, 0.01),
                         ),
-                        Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey.shade400),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(8),
-                              )),
-                          child: Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButton2(
-                                alignment: AlignmentDirectional.center,
-                                style: TextStyle(
-                                    fontSize: setFontSize(context, 0.025),
-                                    fontFamily: 'Prompt'),
-                                items: ['farm name test1, farm name test2']
-                                    .map((item) => DropdownMenuItem<String>(
-                                          value: item,
-                                          child: Text(
-                                            item,
-                                            style: const TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 20,
-                                                color: Palette.mainRed),
-                                          ),
-                                        ))
-                                    .toList(),
-                                onChanged: (value) {
-                                  setState(() {
-                                    _farmName = value;
-                                  });
-                                },
-                                value: _farmName,
-                                buttonStyleData: const ButtonStyleData(
-                                  height: 40,
-                                  width: 120,
-                                ),
-                                menuItemStyleData: const MenuItemStyleData(
-                                  height: 40,
-                                ),
-                              ),
-                            ),
-                          ),
+                        // BlocBuilder<MasterDataBloc, MasterDataState>(
+                        //   builder: (context, state) {
+                        //     return ListView.builder(
+                        //       primary: true,
+                        //       itemCount: state.farmname_dropdown.length,
+                        //       shrinkWrap: true,
+                        //       physics: const ClampingScrollPhysics(),
+                        //       itemBuilder: (context, index) {
+                        //         return Text(
+                        //             state.farmname_dropdown[index].farm_name);
+                        //       },
+                        //     );
+                        //   },
+                        // ),
+                        BlocBuilder<MasterDataBloc, MasterDataState>(
+                          builder: (context, state) {
+                            return Container(
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                    border:
+                                        Border.all(color: Colors.grey.shade400),
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(8),
+                                    )),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: DropdownButtonHideUnderline(
+                                    child: DropdownButton2(
+                                      alignment: AlignmentDirectional.center,
+                                      style: TextStyle(
+                                        fontSize: setFontSize(context, 0.025),
+                                        fontFamily: 'Prompt',
+                                      ),
+                                      items: state.farmname_dropdown
+                                          .map((item) =>
+                                              DropdownMenuItem<String>(
+                                                value: item
+                                                    .farm_name, // Use farm_name as the value
+                                                child: Text(
+                                                  item.farm_name, // Display farm_name in the dropdown
+                                                  style: const TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20,
+                                                    color: Palette.mainRed,
+                                                  ),
+                                                ),
+                                              ))
+                                          .toList(),
+                                      onChanged: (value) {
+                                        // Find the selected item based on farm_name
+                                        final selectedItem =
+                                            state.farmname_dropdown.firstWhere(
+                                          (item) => item.farm_name == value,
+                                        );
+
+                                        print(
+                                            "Selected ID: ${selectedItem.id}, Farm Name: ${selectedItem.farm_name}");
+
+                                        setState(() {
+                                          _farmID = int.parse(selectedItem.id);
+                                          _farmName = value
+                                              as String; // Update selected farm name
+                                        });
+                                      },
+                                      value:
+                                          _farmName, // This should be a String to hold the selected farm name
+                                      buttonStyleData: const ButtonStyleData(
+                                        height: 40,
+                                        width: 120,
+                                      ),
+                                      menuItemStyleData:
+                                          const MenuItemStyleData(
+                                        height: 40,
+                                      ),
+                                    ),
+                                  ),
+                                ));
+                          },
                         ),
                         SizedBox(
                           height: setHeight(context, 0.02),
@@ -309,7 +350,6 @@ class _Import_Page1State extends State<Import_Page1> {
                               child: TextFormField(
                                 keyboardType: TextInputType.text,
                                 controller: _coopName,
-                                
                                 decoration: InputDecoration(
                                   hintText: 'กรอกชื่อเล้า',
                                   border: OutlineInputBorder(
@@ -348,7 +388,7 @@ class _Import_Page1State extends State<Import_Page1> {
                                     value: _isOmega,
                                     onChanged: (bool value) {
                                       setState(() {
-                                        _isOmega = value;
+                                        _isOmega = value as bool;
                                       });
                                     },
                                   ),
@@ -1259,49 +1299,74 @@ class _Import_Page1State extends State<Import_Page1> {
                           height: setHeight(context, 0.01),
                         ),
                         Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 12.0, vertical: 8.0),
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey),
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Wrap(
-                                  spacing: 8.0,
-                                  runSpacing: 4.0,
-                                  children: _docsOption.map((option) {
-                                    return Chip(
-                                      label: Text(
-                                        option,
-                                      ),
-                                      labelStyle: TextStyle(fontSize: 20),
-                                      deleteIcon: Icon(Icons.close, size: 16),
-                                      onDeleted: () {
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey.shade400),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Wrap(
+                                spacing: 8,
+                                children: _docs
+                                    .map((option) => Chip(
+                                          label: Text(
+                                            option,
+                                            style: TextStyle(
+                                                fontSize: setFontSize(
+                                                    context, 0.025)),
+                                          ),
+                                          deleteIcon: Icon(Icons.close),
+                                          onDeleted: () {
+                                            setState(() {
+                                              _docs.remove(option);
+                                            });
+                                          },
+                                        ))
+                                    .toList(),
+                              ),
+                              BlocBuilder<MasterDataBloc, MasterDataState>(
+                                builder: (context, state) {
+                                  return DropdownButton<String>(
+                                    isExpanded: true,
+                                    hint: Text(
+                                      "เลือกเอกสาร",
+                                      style: TextStyle(
+                                          fontSize:
+                                              setFontSize(context, 0.025)),
+                                    ),
+                                    value: null,
+                                    icon: Icon(Icons.arrow_drop_down),
+                                    onChanged: (String? newValue) {
+                                      if (newValue != null &&
+                                          !_docs.contains(newValue)) {
                                         setState(() {
-                                          _docsOption.remove(option);
+                                          _docs.add(newValue);
                                         });
-                                      },
-                                    );
-                                  }).toList(),
-                                ),
-                                TextField(
-                                  decoration: InputDecoration(
-                                    labelStyle: TextStyle(fontSize: 25),
-                                    border: InputBorder.none,
-                                    hintText: 'ระบุเอกสาร',
-                                  ),
-                                  onSubmitted: (value) {
-                                    setState(() {
-                                      if (value.isNotEmpty) {
-                                        _docsOption.add(value);
                                       }
-                                    });
-                                  },
-                                ),
-                              ],
-                            )),
+                                    },
+                                    items: state.docs_dropdown
+                                        .where(
+                                            (option) => !_docs.contains(option))
+                                        .map<DropdownMenuItem<String>>(
+                                            (String option) {
+                                      return DropdownMenuItem<String>(
+                                          value: option,
+                                          child: Text(
+                                            option,
+                                            style: TextStyle(
+                                                fontSize: setFontSize(
+                                                    context, 0.025)),
+                                          ));
+                                    }).toList(),
+                                  );
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
                         SizedBox(
                           height: setHeight(context, 0.02),
                         ),
@@ -1712,8 +1777,39 @@ class _Import_Page1State extends State<Import_Page1> {
                                 borderRadius: BorderRadius.circular(10),
                               )),
                           onPressed: () {
-                            
-                            print(convertDate(_dateController.text));
+                            print(_isOmega);
+                            print(_docs);
+
+                            context.read<ImportBloc>().add(Import_Check(
+                                arrival_date: convertDate(_dateController.text),
+                                is_omega: false,
+                                car_plate: _carPlate.text.toString(),
+                                farm_id: int.parse(_farmID.toString()),
+                                fold_name: _coopName.text.toString(),
+                                arrival_time: _time_CarIn.text.toString(),
+                                start_time: _timeSubmit.text.toString(),
+                                end_time: _timeSubmit_End.text.toString(),
+                                duration: int.parse(_pigsAmount.text),
+                                total_pigs: int.parse(_pigsAmount.text),
+                                total_weight: double.parse(
+                                    convertToDouble(_pigsAllWeight.text)),
+                                avg_weight: double.parse(
+                                    convertToDouble(_pigsAvgWeight.text)),
+                                male_pig: int.parse(_pigsMaleAmount.text),
+                                female_pig: int.parse(_pigsFemaleAmount.text),
+                                rest_time: _restTime_Start.text.toString(),
+                                end_rest_time: _restTime_End.text.toString(),
+                                rest_duration: int.parse(_restLenght.text),
+                                killing_start: _killTime_Start.text.toString(),
+                                killing_stop: _killTime_End.text.toString(),
+                                killing_duration: int.parse(_killLenght.text),
+                                rest_dead: int.parse(state.deadPigs.toString()),
+                                docs: _docs,
+                                arrival_marks:
+                                    int.parse(_konlongScore.text.toString()),
+                                pigpen_marks: int.parse(_konlaiScore.text),
+                                picsFiles: selectedImages,
+                                context: null));
                           },
                           child: Padding(
                             padding: const EdgeInsets.all(15.0),

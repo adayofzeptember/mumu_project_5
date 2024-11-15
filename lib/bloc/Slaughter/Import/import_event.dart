@@ -21,6 +21,64 @@ class CheckBeforeKillI2_2 extends ImportEvent {
       required this.getPig_abnormal});
 }
 
+class Import_Check extends ImportEvent {
+  String? arrival_date;
+  String? car_plate;
+  int? farm_id;
+  String? fold_name;
+  bool? is_omega;
+  String? arrival_time;
+  String? start_time;
+  String? end_time;
+  int? duration;
+  int? total_pigs;
+  double? total_weight;
+  double? avg_weight;
+  int? male_pig;
+  int? female_pig;
+  String? rest_time;
+  String? end_rest_time;
+  int? rest_duration;
+  String? killing_start;
+  String? killing_stop;
+  int? killing_duration;
+  int? rest_dead;
+  List? docs;
+  int? arrival_marks;
+  int? pigpen_marks;
+  List<File>? picsFiles;
+  var context;
+
+  Import_Check({
+    this.arrival_date,
+    this.car_plate,
+    this.farm_id,
+    this.fold_name,
+    this.is_omega,
+    this.arrival_time,
+    this.start_time,
+    this.end_time,
+    this.duration,
+    this.total_pigs,
+    this.total_weight,
+    this.avg_weight,
+    this.male_pig,
+    this.female_pig,
+    this.rest_time,
+    this.end_rest_time,
+    this.rest_duration,
+    this.killing_start,
+    this.killing_stop,
+    this.killing_duration,
+    this.rest_dead,
+    this.docs,
+    this.arrival_marks,
+    this.pigpen_marks,
+    this.picsFiles,
+    this.context,
+  });
+}
+
 class Weight_SendUI2_3 extends ImportEvent {
   String balance_id, getWeight, getPig_type, getWeight_type;
   List<File>? picsFiles;

@@ -50,7 +50,7 @@ class DateTimePickerHelper_Component {
         pickedTime.minute,
       );
 
-      String formattedTime = DateFormat('HH:mm').format(fullDateTime);
+      String formattedTime = DateFormat('HH:mm:ss').format(fullDateTime);
       onTimeSelected(formattedTime);
     }
   }

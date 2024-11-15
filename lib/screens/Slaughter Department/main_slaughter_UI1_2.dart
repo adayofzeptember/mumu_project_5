@@ -7,6 +7,7 @@ import 'package:mumu_project/ETC/colors_palette.dart';
 import 'package:mumu_project/ETC/mediaQuery_set.dart';
 import 'package:mumu_project/bloc/Arrival%20Daily/arrival_daily_bloc.dart';
 import 'package:mumu_project/bloc/Login_Greetings/login_bloc.dart';
+import 'package:mumu_project/bloc/Master%20Data/master_data_bloc.dart';
 import 'package:mumu_project/bloc/Slaughter/Import/import_bloc.dart';
 import 'package:mumu_project/bloc/Slaughter/LSQ/lsq_bloc.dart';
 import 'package:mumu_project/bloc/Slaughter/Line%20Slaughter/line_bloc.dart';
@@ -28,17 +29,18 @@ class _Main_SlaughterState extends State<Main_Slaughter> {
   void initState() {
     context.read<LoginBloc>().add(Load_GreetingBoard(context: context));
     //*---------------------LSQ-------------------------------
-    context.read<LsqBloc>().add(Fetch_CarcassHistory());
-    context.read<LsqBloc>().add(Fetch_LSQHistory());
-    context.read<LsqBloc>().add(Fetch_LastedBody());
-    //*---------------------import-------------------------------
-    context.read<ImportBloc>().add(Fetch_Weight_History());
-    context.read<ImportBloc>().add(Fetch_LastedWeight());
+    // context.read<LsqBloc>().add(Fetch_CarcassHistory());
+    // context.read<LsqBloc>().add(Fetch_LSQHistory());
+    // context.read<LsqBloc>().add(Fetch_LastedBody());
+    // //*---------------------import-------------------------------
+    //  context.read<ImportBloc>().add(Fetch_Weight_History());
+    //  context.read<ImportBloc>().add(Fetch_LastedWeight());
+
     //*-----------------------------------------------------------
-
-    context.read<LineBloc>().add(FetchLine_Lot());
-
-    context.read<ArrivalDailyBloc>().add(Fetch_DailyArrival());
+    // context.read<LineBloc>().add(FetchLine_Lot());
+    // context.read<ArrivalDailyBloc>().add(Fetch_DailyArrival());
+    context.read<MasterDataBloc>().add(Fetch_Docs());
+    context.read<MasterDataBloc>().add(Fetch_Farmname());
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Future.delayed(Duration(seconds: 1), () {
@@ -89,7 +91,7 @@ class _Main_SlaughterState extends State<Main_Slaughter> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'ชชช ฟฟฟ',
+                          'Chawan T',
                           style: TextStyle(
                             color: Palette.mainRed,
                             fontWeight: FontWeight.bold,
@@ -182,6 +184,10 @@ class _Main_SlaughterState extends State<Main_Slaughter> {
                       children: [
                         GestureDetector(
                           onTap: () {
+                            context
+                                .read<MasterDataBloc>()
+                                .add(Fetch_Farmname());
+
                             Navigator.push(
                               context,
                               PageTransition(

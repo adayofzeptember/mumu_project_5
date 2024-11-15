@@ -24,3 +24,17 @@ class Weight_History {
       required this.weight_type,
       required this.pig_discount});
 }
+
+class Abnormal {
+  int id;
+  int amount;
+
+  Abnormal({required this.id, required this.amount});
+
+  Map<String, dynamic> toJson() {
+    return {
+      "id": id,
+      "amount": amount,
+    };
+  }
+}

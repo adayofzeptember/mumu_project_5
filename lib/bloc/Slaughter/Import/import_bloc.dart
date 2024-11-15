@@ -19,6 +19,7 @@ class ImportBloc extends Bloc<ImportEvent, ImportState> {
             weight_history_list: [],
             last_weight: '',
             deadPigs: 0,
+            farmName_dropDown: [],
             isLoading: false,
             abnormalPigsListCount: 0,
             abnormalPigsList: [],
@@ -168,7 +169,7 @@ class ImportBloc extends Bloc<ImportEvent, ImportState> {
 
     on<Fetch_LastedWeight>((event, emit) async {
       //? ดึงล่าสุด
-      
+
       SharedPreferences prefs = await SharedPreferences.getInstance();
       String tokenAuth = prefs.getString('userToken').toString();
 
@@ -200,6 +201,108 @@ class ImportBloc extends Bloc<ImportEvent, ImportState> {
           print('fetched lasted body failed');
         }
       } on DioException catch (e) {
+        print(e.response!.data);
+      }
+    });
+    //?
+    on<Import_Check>((event, emit) async {
+      emit(state.copyWith(isLoading: true));
+
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String tokenAuth = prefs.getString('userToken').toString();
+      //* ---------------------------------รูป-------------------
+      List<MultipartFile> multipleImages = [];
+
+      for (final imageFiles in event.picsFiles!) {
+        String fileName = imageFiles.path.split('/').last;
+
+        MultipartFile file =
+            await MultipartFile.fromFile(imageFiles.path, filename: fileName);
+        multipleImages.add(file);
+      }
+
+      final formDataPics = FormData.fromMap(
+          {'type[images]': 'image', 'files[images][]': multipleImages});
+
+      try {
+        final responseUpload = await dio.post(api_url + "upload-files",
+            options: Options(
+              headers: {
+                "Authorization": "Bearer $tokenAuth",
+              },
+            ),
+            data: formDataPics);
+        //* ---------------------------------รูป---------------------------------
+        if (responseUpload.statusCode == 200) {
+          print('อัปรุปเสร็จสิ้น');
+          final formData;
+          formData = {
+            "arrival_date":
+                event.arrival_date, // วันที่มาถึงในรูปแบบ Date Y-m-d
+            "car_plate": event.car_plate, // เลขทะเบียนรถตัวอย่าง
+            "farm_id": event.farm_id, // รหัส ID ฟาร์ม ตัวอย่างคือ 1
+            "fold_name": event.fold_name, // ชื่อ Fold ของฟาร์ม
+            "is_omega": event.is_omega, // สถานะ Omega
+            "arrival_time": event.arrival_time, // เวลามาถึงในรูปแบบ H:i:s
+            "start_time": event.start_time, // เวลาเริ่มต้นการทำงาน
+            "end_time": event.end_time, // เวลาสิ้นสุดการทำงาน
+            "duration": event.duration, // ระยะเวลาในนาที (3 ชั่วโมง)
+            "total_pigs": event.total_pigs, // จำนวนสุกรทั้งหมด
+            "total_weight": event.total_weight, // น้ำหนักรวมของสุกรทั้งหมด
+            "avg_weight": event.avg_weight, // น้ำหนักเฉลี่ยของสุกรต่อหัว
+            "male_pig": event.male_pig, // จำนวนสุกรเพศผู้
+            "female_pig": event.female_pig, // จำนวนสุกรเพศเมีย
+            "rest_time": event.rest_time, // เวลาเริ่มพัก
+            "end_rest_time": event.end_rest_time, // เวลาสิ้นสุดการพัก
+            "rest_duration": event.rest_duration, // ระยะเวลาการพัก (30 นาที)
+            "killing_start": event.killing_start, // เวลาเริ่มต้นการเชือด
+            "killing_stop": event.killing_stop, // เวลาสิ้นสุดการเชือด
+            "killing_duration":
+                event.killing_duration, // ระยะเวลาการเชือด (90 นาที)
+            "rest_dead": event.rest_dead, // จำนวนสุกรที่เสียชีวิตขณะพัก
+            "documents": event
+                .docs, // masters document-types -> document_name  : array[string]
+            "arrival_marks": event.arrival_marks, // คะแนนการมาถึง (เต็ม 5)
+            "pigpen_marks": event.pigpen_marks, // คะแน
+            "files": responseUpload.data['data']
+          };
+          final responseSendPost = await dio.post(api_url + "add-pig-arrival",
+              options: Options(
+                headers: {
+                  "Authorization": "Bearer $tokenAuth",
+                },
+              ),
+              data: formData);
+          if (responseSendPost.statusCode == 200) {
+            emit(state.copyWith(isLoading: false));
+
+            print(
+                '-------------------success check before kill import-------------------');
+
+            print(responseSendPost.data['data']);
+
+            SuccessMessage_Dialog(
+              event.context,
+              'เพิ่มข้อมูลเสร็จสิ้น',
+            );
+          } else {
+            emit(state.copyWith(isLoading: false));
+
+            print('-------------------failed post-------------------');
+            print(responseSendPost.data['data']);
+          }
+        } else {
+          emit(state.copyWith(isLoading: false));
+
+          print('-------------------failed upload-------------------');
+          print(responseUpload.data['data']);
+        }
+
+        // add(Fetch_Weight_History());
+        // add(Fetch_LastedWeight());
+      } on DioException catch (e) {
+        emit(state.copyWith(isLoading: false));
+
         print(e.response!.data);
       }
     });
