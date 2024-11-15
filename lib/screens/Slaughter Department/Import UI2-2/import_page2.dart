@@ -8,6 +8,7 @@ import 'package:mumu_project/ETC/Components/image_picker_component.dart';
 import 'package:mumu_project/ETC/colors_palette.dart';
 import 'package:mumu_project/ETC/mediaQuery_set.dart';
 import 'package:mumu_project/ETC/progessHUD.dart';
+import 'package:mumu_project/bloc/Master%20Data/master_data_bloc.dart';
 import 'package:mumu_project/bloc/Slaughter/Import/import_bloc.dart';
 import 'package:sliding_switch/sliding_switch.dart';
 
@@ -24,8 +25,10 @@ class _Import_Page2State extends State<Import_Page2> {
   final _formKeyImportpage2 = GlobalKey<FormState>();
   String value2 = 'really';
   String valueNO = '';
-  var _deviceNo;
+  var _balanceName;
+  var _balanceID;
   var _reason;
+  var estimateName;
   var _weight = TextEditingController();
   final List<bool> _selected_pigsDetail = <bool>[true, false, false];
   final List<String> _pigsDetail_Options = ['ปกติ', '9 นิ้ว', 'หมูท้อง'];
@@ -54,7 +57,7 @@ class _Import_Page2State extends State<Import_Page2> {
             thickness: 7,
             thumbColor: Palette.mainRed,
             radius: Radius.circular(20),
-            child: BlocBuilder<ImportBloc, ImportState>(
+            child: BlocBuilder<MasterDataBloc, MasterDataState>(
               builder: (context, state) {
                 return SingleChildScrollView(
                   child: Padding(
@@ -107,8 +110,7 @@ class _Import_Page2State extends State<Import_Page2> {
                                     child: Container(
                                       height: 60,
                                       child: TextFormField(
-                                        initialValue:
-                                            state.lsq_lot_num.toString(),
+                                        initialValue: 'Auto',
                                         readOnly: true,
                                         // controller: _dateController,
                                         decoration: InputDecoration(
@@ -151,29 +153,50 @@ class _Import_Page2State extends State<Import_Page2> {
                                           child: DropdownButton2(
                                             alignment:
                                                 AlignmentDirectional.center,
-                                            items: [
-                                              '${state.balance_num.toString()}'
-                                            ]
+                                            style: TextStyle(
+                                              fontSize:
+                                                  setFontSize(context, 0.025),
+                                              fontFamily: 'Prompt',
+                                            ),
+                                            items: state
+                                                .balance_id_device_dropdown
                                                 .map((item) =>
                                                     DropdownMenuItem<String>(
-                                                      value: item,
+                                                      value: item
+                                                          .balance_name, // Use farm_name as the value
                                                       child: Text(
-                                                        item,
+                                                        item.balance_name, // Display farm_name in the dropdown
                                                         style: const TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: 20,
-                                                            color: Palette
-                                                                .mainRed),
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 20,
+                                                          color:
+                                                              Palette.mainRed,
+                                                        ),
                                                       ),
                                                     ))
                                                 .toList(),
                                             onChanged: (value) {
+                                              final selectedItem = state
+                                                  .balance_id_device_dropdown
+                                                  .firstWhere(
+                                                (item) =>
+                                                    item.balance_name == value,
+                                              );
+                                              // print(
+                                              //     "  balance Name: ${selectedItem.balance_name}");
+                                              print(
+                                                  "Selected ID: ${selectedItem.id}, Farm Name: ${selectedItem.balance_name}");
+
                                               setState(() {
-                                                _deviceNo = value;
+                                                _balanceID =
+                                                    int.parse(selectedItem.id);
+                                                _balanceName = value
+                                                    as String; // Update selected farm name
                                               });
                                             },
-                                            value: _deviceNo,
+                                            value:
+                                                _balanceName, // This should be a String to hold the selected farm name
                                             buttonStyleData:
                                                 const ButtonStyleData(
                                               height: 40,
@@ -332,8 +355,10 @@ class _Import_Page2State extends State<Import_Page2> {
                               SizedBox(
                                 height: setHeight(context, 0.01),
                               ),
+
                               Container(
                                 width: double.infinity,
+                                height: 80,
                                 decoration: BoxDecoration(
                                     border:
                                         Border.all(color: Colors.grey.shade400),
@@ -346,28 +371,44 @@ class _Import_Page2State extends State<Import_Page2> {
                                     child: DropdownButton2(
                                       alignment: AlignmentDirectional.center,
                                       style: TextStyle(
-                                          fontSize: setFontSize(context, 0.025),
-                                          fontFamily: 'Prompt'),
-                                      items: ['ประมาณน้ำหนัก']
+                                        fontSize: setFontSize(context, 0.025),
+                                        fontFamily: 'Prompt',
+                                      ),
+                                      items: state.estimateType_dropdown
                                           .map((item) =>
                                               DropdownMenuItem<String>(
-                                                value: item,
+                                                value: item
+                                                    .type, // Use farm_name as the value
                                                 child: Text(
-                                                  item,
+                                                  item.type, // Display farm_name in the dropdown
                                                   style: const TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 20,
-                                                      color: Palette.mainRed),
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20,
+                                                    color: Palette.mainRed,
+                                                  ),
                                                 ),
                                               ))
                                           .toList(),
                                       onChanged: (value) {
+                                        final selectedItem = state
+                                            .estimateType_dropdown
+                                            .firstWhere(
+                                          (item) => item.type == value,
+                                        );
+                                        // print(
+                                        //     "  balance Name: ${selectedItem.balance_name}");
+                                        print(
+                                            "Selected ID: ${selectedItem.id}, Farm Name: ${selectedItem.type}");
+
                                         setState(() {
-                                          _reason = value;
+                                          // _balanceID =
+                                          //     int.parse(selectedItem.id);
+                                          estimateName = value
+                                              as String; // Update selected farm name
                                         });
                                       },
-                                      value: _reason,
+                                      value:
+                                          estimateName, // This should be a String to hold the selected farm name
                                       buttonStyleData: const ButtonStyleData(
                                         height: 40,
                                         width: 120,
@@ -380,6 +421,54 @@ class _Import_Page2State extends State<Import_Page2> {
                                   ),
                                 ),
                               ),
+                              // Container(
+                              //   width: double.infinity,
+                              //   decoration: BoxDecoration(
+                              //       border:
+                              //           Border.all(color: Colors.grey.shade400),
+                              //       borderRadius: BorderRadius.all(
+                              //         Radius.circular(8),
+                              //       )),
+                              //   child: Padding(
+                              //     padding: const EdgeInsets.all(12.0),
+                              //     child: DropdownButtonHideUnderline(
+                              //       child: DropdownButton2(
+                              //         alignment: AlignmentDirectional.center,
+                              //         style: TextStyle(
+                              //             fontSize: setFontSize(context, 0.025),
+                              //             fontFamily: 'Prompt'),
+                              //         items: ['ประมาณน้ำหนัก']
+                              //             .map((item) =>
+                              //                 DropdownMenuItem<String>(
+                              //                   value: item,
+                              //                   child: Text(
+                              //                     item,
+                              //                     style: const TextStyle(
+                              //                         fontWeight:
+                              //                             FontWeight.bold,
+                              //                         fontSize: 20,
+                              //                         color: Palette.mainRed),
+                              //                   ),
+                              //                 ))
+                              //             .toList(),
+                              //         onChanged: (value) {
+                              //           setState(() {
+                              //             _reason = value;
+                              //           });
+                              //         },
+                              //         value: _reason,
+                              //         buttonStyleData: const ButtonStyleData(
+                              //           height: 40,
+                              //           width: 120,
+                              //         ),
+                              //         menuItemStyleData:
+                              //             const MenuItemStyleData(
+                              //           height: 40,
+                              //         ),
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
                               SizedBox(
                                 height: setHeight(context, 0.03),
                               ),
@@ -625,12 +714,12 @@ class _Import_Page2State extends State<Import_Page2> {
                                       borderRadius: BorderRadius.circular(50),
                                     )),
                                 onPressed: () {
-                                  // context.read<ImportBloc>().add(
-                                  //     Upload_Pics(picsFiles: selectedImages));
-                                  //  print(_getPigDetail);
+                                  //    print(_balanceID);
                                   context.read<ImportBloc>().add(
                                       Weight_SendUI2_3(
-                                          balance_id: '1',
+                                          getEstimateType:
+                                              estimateName.toString(),
+                                          balance_id: _balanceID.toString(),
                                           context: context,
                                           picsFiles: selectedImages,
                                           getWeight_type: value2.toString(),

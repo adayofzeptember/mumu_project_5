@@ -77,7 +77,8 @@ class ImportBloc extends Bloc<ImportEvent, ImportState> {
             "weight": event.getWeight,
             "pig_type": event.getPig_type,
             "weight_type": event.getWeight_type,
-            "files": responseUpload.data['data']
+            "files": responseUpload.data['data'],
+            "estimate_type": event.getEstimateType
           });
           final responseSendPost =
               await dio.post(api_url + "add-pig-arrival-list",
@@ -92,8 +93,6 @@ class ImportBloc extends Bloc<ImportEvent, ImportState> {
 
             print(
                 '-------------------success post weight import-------------------');
-
-            print(responseSendPost.data['data']);
 
             SuccessMessage_Dialog(
               event.context,
@@ -168,8 +167,6 @@ class ImportBloc extends Bloc<ImportEvent, ImportState> {
     });
 
     on<Fetch_LastedWeight>((event, emit) async {
-      //? ดึงล่าสุด
-
       SharedPreferences prefs = await SharedPreferences.getInstance();
       String tokenAuth = prefs.getString('userToken').toString();
 
@@ -184,23 +181,39 @@ class ImportBloc extends Bloc<ImportEvent, ImportState> {
         );
 
         dynamic data = '';
-        dynamic nestedData = response.data['data'];
+        dynamic nestedData;
         if (response.statusCode == 200) {
-          print('do fetched lasted weight');
-          data = Weight_History(
-            order: await nestedData['order'].toString(),
-            id: await nestedData['id'].toString(),
-            weight:
-                await convertToDouble(await nestedData['weight'].toString()),
-            pig_type: await nestedData['pig_type'].toString(),
-            weight_type: await nestedData['weight_type'].toString(),
-            pig_discount: '',
-          );
-          emit(state.copyWith(last_weight: data));
+          if (response.data['data'].isEmpty) {
+            print('empty');
+            data = Weight_History(
+              order: '-',
+              id: '-',
+              weight: '-',
+              pig_type: '-',
+              weight_type: '-',
+              pig_discount: '',
+            );
+            emit(state.copyWith(last_weight: data));
+          } else {
+            print('do fetched lasted weight');
+            nestedData = response.data['data'];
+            data = Weight_History(
+              order: await nestedData['order'].toString(),
+              id: await nestedData['id'].toString(),
+              weight:
+                  await convertToDouble(await nestedData['weight'].toString()),
+              pig_type: await nestedData['pig_type'].toString(),
+              weight_type: await nestedData['weight_type'].toString(),
+              pig_discount: '',
+            );
+            emit(state.copyWith(last_weight: data));
+          }
         } else {
           print('fetched lasted body failed');
         }
       } on DioException catch (e) {
+        print('fetched lasted body failed');
+
         print(e.response!.data);
       }
     });
@@ -263,7 +276,10 @@ class ImportBloc extends Bloc<ImportEvent, ImportState> {
             "documents": event
                 .docs, // masters document-types -> document_name  : array[string]
             "arrival_marks": event.arrival_marks, // คะแนนการมาถึง (เต็ม 5)
-            "pigpen_marks": event.pigpen_marks, // คะแน
+            "pigpen_marks": event.pigpen_marks,
+
+            "abnormals": event.abnormals,
+            // คะแน
             "files": responseUpload.data['data']
           };
           final responseSendPost = await dio.post(api_url + "add-pig-arrival",
@@ -281,10 +297,10 @@ class ImportBloc extends Bloc<ImportEvent, ImportState> {
 
             print(responseSendPost.data['data']);
 
-            SuccessMessage_Dialog(
-              event.context,
-              'เพิ่มข้อมูลเสร็จสิ้น',
-            );
+            // SuccessMessage_Dialog(
+            //   event.context,
+            //   'เพิ่มข้อมูลเสร็จสิ้น',
+            // );
           } else {
             emit(state.copyWith(isLoading: false));
 
@@ -298,13 +314,15 @@ class ImportBloc extends Bloc<ImportEvent, ImportState> {
           print(responseUpload.data['data']);
         }
 
-        // add(Fetch_Weight_History());
-        // add(Fetch_LastedWeight());
+        add(Fetch_Weight_History());
+        add(Fetch_LastedWeight());
       } on DioException catch (e) {
         emit(state.copyWith(isLoading: false));
 
         print(e.response!.data);
       }
     });
+
+    //!
   }
 }

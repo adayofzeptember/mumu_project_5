@@ -47,6 +47,7 @@ class Import_Check extends ImportEvent {
   int? arrival_marks;
   int? pigpen_marks;
   List<File>? picsFiles;
+  List? abnormals;
   var context;
 
   Import_Check({
@@ -60,6 +61,7 @@ class Import_Check extends ImportEvent {
     this.end_time,
     this.duration,
     this.total_pigs,
+    this.abnormals,
     this.total_weight,
     this.avg_weight,
     this.male_pig,
@@ -80,14 +82,17 @@ class Import_Check extends ImportEvent {
 }
 
 class Weight_SendUI2_3 extends ImportEvent {
-  String balance_id, getWeight, getPig_type, getWeight_type;
+  String getWeight, getPig_type, getWeight_type;
   List<File>? picsFiles;
   var context;
+  String? getEstimateType;
+  String balance_id;
 
   Weight_SendUI2_3(
       {required this.balance_id,
       required this.getWeight,
       this.picsFiles,
+      this.getEstimateType,
       required this.context,
       required this.getWeight_type,
       required this.getPig_type});
@@ -103,12 +108,12 @@ class Upload_Pics extends ImportEvent {
 
 class Weight_HistoryUI2_4 extends ImportEvent {}
 
+class Fetched_Lot_UI2_3 extends ImportEvent {}
+
 class DeadPigs_Plus extends ImportEvent {}
 
 class DeadPigs_Minus extends ImportEvent {}
 
 class AbnormalPigs_Add extends ImportEvent {}
 
-class Fetch_LastedWeight extends ImportEvent {
-  Fetch_LastedWeight();
-}
+class Fetch_LastedWeight extends ImportEvent {}

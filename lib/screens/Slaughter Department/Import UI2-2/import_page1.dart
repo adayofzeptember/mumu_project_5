@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
@@ -5,13 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mumu_project/ETC/Components/date_time_component.dart';
-import 'package:mumu_project/ETC/Components/dateformat_converter.dart';
 import 'package:mumu_project/ETC/Components/image_picker_component.dart';
 import 'package:mumu_project/ETC/colors_palette.dart';
-import 'package:mumu_project/ETC/double_converter.dart';
 import 'package:mumu_project/ETC/mediaQuery_set.dart';
 import 'package:mumu_project/bloc/Master%20Data/master_data_bloc.dart';
-import 'package:mumu_project/bloc/Slaughter/Import/Model.dart';
 import 'package:mumu_project/bloc/Slaughter/Import/import_bloc.dart';
 
 class Import_Page1 extends StatefulWidget {
@@ -63,7 +61,35 @@ class _Import_Page1State extends State<Import_Page1> {
   var _restLenght = TextEditingController();
   var _konlaiScore = TextEditingController();
   var _konlongScore = TextEditingController();
-  List<Abnormal> _abnormals = [];
+
+  List<Map<String, dynamic>> selectedAbnormalities = [];
+
+  void _addItem() {
+    setState(() {
+      selectedAbnormalities.add({"id": null, "amount": 1});
+    });
+  }
+  // void x() {
+  //   print('ssss');
+
+  // }
+  void _updateAmount(int index, int change) {
+    setState(() {
+      int newAmount = selectedAbnormalities[index]["amount"] + change;
+      selectedAbnormalities[index]["amount"] = newAmount > 0 ? newAmount : 1;
+    });
+  }
+
+  void _updateSelection(int index, String? selectedId) {
+    setState(() {
+      selectedAbnormalities[index]["id"] = selectedId;
+    });
+  }
+
+  void printSelectedAbnormalities() {
+    String jsonData = jsonEncode(selectedAbnormalities);
+    print("Selected Abnormalities JSON: $jsonData");
+  }
 
   final picker = ImagePicker();
   Future<void> _selectTime(
@@ -182,7 +208,7 @@ class _Import_Page1State extends State<Import_Page1> {
                                 controller: _dateController,
                                 decoration: InputDecoration(
                                   suffixIcon: IconButton(
-                                    icon: Icon(Icons.calendar_today),
+                                    icon: const Icon(Icons.calendar_today),
                                     onPressed: () {
                                       DateTimePickerHelper_Component.selectDate(
                                         context,
@@ -253,20 +279,6 @@ class _Import_Page1State extends State<Import_Page1> {
                         SizedBox(
                           height: setHeight(context, 0.01),
                         ),
-                        // BlocBuilder<MasterDataBloc, MasterDataState>(
-                        //   builder: (context, state) {
-                        //     return ListView.builder(
-                        //       primary: true,
-                        //       itemCount: state.farmname_dropdown.length,
-                        //       shrinkWrap: true,
-                        //       physics: const ClampingScrollPhysics(),
-                        //       itemBuilder: (context, index) {
-                        //         return Text(
-                        //             state.farmname_dropdown[index].farm_name);
-                        //       },
-                        //     );
-                        //   },
-                        // ),
                         BlocBuilder<MasterDataBloc, MasterDataState>(
                           builder: (context, state) {
                             return Container(
@@ -274,7 +286,7 @@ class _Import_Page1State extends State<Import_Page1> {
                                 decoration: BoxDecoration(
                                     border:
                                         Border.all(color: Colors.grey.shade400),
-                                    borderRadius: BorderRadius.all(
+                                    borderRadius: const BorderRadius.all(
                                       Radius.circular(8),
                                     )),
                                 child: Padding(
@@ -434,7 +446,7 @@ class _Import_Page1State extends State<Import_Page1> {
                                 readOnly: true,
                                 decoration: InputDecoration(
                                   suffixIcon: IconButton(
-                                    icon: Icon(Icons.access_time),
+                                    icon: const Icon(Icons.access_time),
                                     onPressed: () {
                                       DateTimePickerHelper_Component.selectTime(
                                         context,
@@ -531,7 +543,7 @@ class _Import_Page1State extends State<Import_Page1> {
                                 readOnly: true,
                                 decoration: InputDecoration(
                                   suffixIcon: IconButton(
-                                    icon: Icon(Icons.access_time),
+                                    icon: const Icon(Icons.access_time),
                                     onPressed: () {
                                       DateTimePickerHelper_Component.selectTime(
                                         context,
@@ -568,10 +580,11 @@ class _Import_Page1State extends State<Import_Page1> {
                             Expanded(
                               child: TextFormField(
                                 controller: _timeSubmit_End,
+                                readOnly: true,
                                 keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
                                   suffixIcon: IconButton(
-                                    icon: Icon(Icons.access_time),
+                                    icon: const Icon(Icons.access_time),
                                     onPressed: () {
                                       DateTimePickerHelper_Component.selectTime(
                                         context,
@@ -765,8 +778,9 @@ class _Import_Page1State extends State<Import_Page1> {
                             Expanded(
                               child: TextFormField(
                                 controller: _pigsAllWeight,
-                                keyboardType: TextInputType.numberWithOptions(
-                                    decimal: true),
+                                keyboardType:
+                                    const TextInputType.numberWithOptions(
+                                        decimal: true),
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(
@@ -793,8 +807,9 @@ class _Import_Page1State extends State<Import_Page1> {
                             Expanded(
                               child: TextFormField(
                                 controller: _pigsAvgWeight,
-                                keyboardType: TextInputType.numberWithOptions(
-                                    decimal: true),
+                                keyboardType:
+                                    const TextInputType.numberWithOptions(
+                                        decimal: true),
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(
@@ -864,7 +879,7 @@ class _Import_Page1State extends State<Import_Page1> {
                                 readOnly: true,
                                 decoration: InputDecoration(
                                   suffixIcon: IconButton(
-                                    icon: Icon(Icons.access_time),
+                                    icon: const Icon(Icons.access_time),
                                     onPressed: () {
                                       DateTimePickerHelper_Component.selectTime(
                                         context,
@@ -904,7 +919,7 @@ class _Import_Page1State extends State<Import_Page1> {
                                 readOnly: true,
                                 decoration: InputDecoration(
                                   suffixIcon: IconButton(
-                                      icon: Icon(Icons.access_time),
+                                      icon: const Icon(Icons.access_time),
                                       onPressed: () =>
                                           DateTimePickerHelper_Component
                                               .selectTime(
@@ -974,7 +989,7 @@ class _Import_Page1State extends State<Import_Page1> {
                                 readOnly: true,
                                 decoration: InputDecoration(
                                   suffixIcon: IconButton(
-                                      icon: Icon(Icons.access_time),
+                                      icon: const Icon(Icons.access_time),
                                       onPressed: () {
                                         DateTimePickerHelper_Component
                                             .selectTime(context,
@@ -1012,7 +1027,7 @@ class _Import_Page1State extends State<Import_Page1> {
                                 readOnly: true,
                                 decoration: InputDecoration(
                                   suffixIcon: IconButton(
-                                      icon: Icon(Icons.access_time),
+                                      icon: const Icon(Icons.access_time),
                                       onPressed: () {
                                         DateTimePickerHelper_Component
                                             .selectTime(context,
@@ -1161,8 +1176,9 @@ class _Import_Page1State extends State<Import_Page1> {
                             Expanded(
                               child: TextFormField(
                                 controller: _lowestWeight,
-                                keyboardType: TextInputType.numberWithOptions(
-                                    decimal: true),
+                                keyboardType:
+                                    const TextInputType.numberWithOptions(
+                                        decimal: true),
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(
@@ -1189,8 +1205,9 @@ class _Import_Page1State extends State<Import_Page1> {
                             Expanded(
                               child: TextFormField(
                                 controller: _highestWeight,
-                                keyboardType: TextInputType.numberWithOptions(
-                                    decimal: true),
+                                keyboardType:
+                                    const TextInputType.numberWithOptions(
+                                        decimal: true),
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(
@@ -1299,8 +1316,8 @@ class _Import_Page1State extends State<Import_Page1> {
                           height: setHeight(context, 0.01),
                         ),
                         Container(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 4),
                           decoration: BoxDecoration(
                             border: Border.all(color: Colors.grey.shade400),
                             borderRadius: BorderRadius.circular(8),
@@ -1318,7 +1335,7 @@ class _Import_Page1State extends State<Import_Page1> {
                                                 fontSize: setFontSize(
                                                     context, 0.025)),
                                           ),
-                                          deleteIcon: Icon(Icons.close),
+                                          deleteIcon: const Icon(Icons.close),
                                           onDeleted: () {
                                             setState(() {
                                               _docs.remove(option);
@@ -1338,7 +1355,7 @@ class _Import_Page1State extends State<Import_Page1> {
                                               setFontSize(context, 0.025)),
                                     ),
                                     value: null,
-                                    icon: Icon(Icons.arrow_drop_down),
+                                    icon: const Icon(Icons.arrow_drop_down),
                                     onChanged: (String? newValue) {
                                       if (newValue != null &&
                                           !_docs.contains(newValue)) {
@@ -1478,9 +1495,11 @@ class _Import_Page1State extends State<Import_Page1> {
                                       borderRadius: BorderRadius.circular(50),
                                     )),
                                 onPressed: () {
-                                  context
-                                      .read<ImportBloc>()
-                                      .add(AbnormalPigs_Add());
+                                  _addItem();
+
+                                  // context
+                                  //     .read<ImportBloc>()
+                                  //     .add(AbnormalPigs_Add());
                                 },
                                 child: Padding(
                                   padding: const EdgeInsets.all(15.0),
@@ -1528,129 +1547,53 @@ class _Import_Page1State extends State<Import_Page1> {
                             ),
                           ],
                         ),
-                        SizedBox(
-                          height: setHeight(context, 0.01),
-                        ),
-                        ListView.builder(
-                          itemCount: state.abnormalPigsListCount,
-                          shrinkWrap: true,
-                          itemBuilder: (BuildContext context, int index) {
-                            return Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
-                              child: Row(
+                        ...selectedAbnormalities.asMap().entries.map((entry) {
+                          int index = entry.key;
+                          Map<String, dynamic> selected = entry.value;
+
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              BlocBuilder<MasterDataBloc, MasterDataState>(
+                                builder: (context, state) {
+                                  return Expanded(
+                                    child: DropdownButton<String>(
+                                      value: selected["id"],
+                                      hint: const Text("เลือกอาการผิดปกติ"),
+                                      isExpanded: true,
+                                      items: state.abNormals_dropdown
+                                          .map((abnormal) {
+                                        return DropdownMenuItem<String>(
+                                          value: abnormal.id.toString(),
+                                          child: Text(abnormal.abnormal_name),
+                                        );
+                                      }).toList(),
+                                      onChanged: (value) {
+                                        _updateSelection(index, value);
+                                      },
+                                    ),
+                                  );
+                                },
+                              ),
+                              Row(
                                 children: [
-                                  Expanded(
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                              color: Colors.grey.shade400),
-                                          borderRadius: const BorderRadius.all(
-                                            Radius.circular(8),
-                                          )),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(12.0),
-                                        child: DropdownButtonHideUnderline(
-                                          child: DropdownButton2(
-                                            alignment:
-                                                AlignmentDirectional.center,
-                                            items: ['test']
-                                                .map((item) =>
-                                                    DropdownMenuItem<String>(
-                                                      value: item,
-                                                      child: Text(
-                                                        item,
-                                                        style: const TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: 20,
-                                                            color: Palette
-                                                                .mainRed),
-                                                      ),
-                                                    ))
-                                                .toList(),
-                                            onChanged: (value) {
-                                              setState(() {});
-                                              print(value);
-                                            },
-                                            buttonStyleData:
-                                                const ButtonStyleData(
-                                              height: 40,
-                                              width: 120,
-                                            ),
-                                            menuItemStyleData:
-                                                const MenuItemStyleData(
-                                              height: 40,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
+                                  IconButton(
+                                    icon: const Icon(Icons.remove,
+                                        color: Colors.red),
+                                    onPressed: () => _updateAmount(index, -1),
                                   ),
-                                  const SizedBox(
-                                    width: 15,
-                                  ),
-                                  Expanded(
-                                    child: Row(
-                                      children: [
-                                        FloatingActionButton(
-                                            heroTag: '2sdfsdf',
-                                            onPressed: () {
-                                              state.abnormalPigsListCount;
-                                            },
-                                            child: Text('-',
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: setFontSize(
-                                                        context, 0.045))),
-                                            backgroundColor: Palette.mainRed),
-                                        const SizedBox(
-                                          width: 20,
-                                        ),
-                                        Expanded(
-                                          child: Container(
-                                            width: setWidth(context, 0.1),
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    const BorderRadius.all(
-                                                        Radius.circular(8)),
-                                                border: Border.all(
-                                                    color:
-                                                        Colors.grey.shade400)),
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(14),
-                                              child: Center(
-                                                child: Text(
-                                                  '1',
-                                                  style: TextStyle(
-                                                    fontSize: setFontSize(
-                                                        context, 0.025),
-                                                    color: Colors.black,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          width: 20,
-                                        ),
-                                        FloatingActionButton(
-                                            heroTag: '1sdf',
-                                            onPressed: () {},
-                                            child: Text('+',
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: setFontSize(
-                                                        context, 0.045))),
-                                            backgroundColor: Palette.mainRed),
-                                      ],
-                                    ),
+                                  Text('${selected["amount"]}'),
+                                  IconButton(
+                                    icon: const Icon(Icons.add,
+                                        color: Colors.red),
+                                    onPressed: () => _updateAmount(index, 1),
                                   ),
                                 ],
                               ),
-                            );
-                          },
-                        ),
+                            ],
+                          );
+                        }).toList(),
+                        SizedBox(height: setHeight(context, 0.01)),
                         SizedBox(
                           height: setHeight(context, 0.03),
                         ),
@@ -1693,7 +1636,7 @@ class _Import_Page1State extends State<Import_Page1> {
                                 ),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 5,
                             ),
                             Expanded(
@@ -1725,7 +1668,7 @@ class _Import_Page1State extends State<Import_Page1> {
                             ),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 5,
                         ),
                         Container(
@@ -1733,8 +1676,8 @@ class _Import_Page1State extends State<Import_Page1> {
                               ? null
                               : BoxDecoration(
                                   border: Border.all(color: Colors.grey),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10))),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(10))),
                           width: double.infinity,
                           child: SizedBox(
                             child: selectedImages.isEmpty
@@ -1777,39 +1720,48 @@ class _Import_Page1State extends State<Import_Page1> {
                                 borderRadius: BorderRadius.circular(10),
                               )),
                           onPressed: () {
-                            print(_isOmega);
-                            print(_docs);
+                            if (_formKeyImportpage1.currentState!.validate()) {
+                              // ScaffoldMessenger.of(context).showSnackBar(
+                              //   const SnackBar(
+                              //       content: Text('Processing Data')),
+                              // );
+                            } else {
+                              print('object');
+                            }
 
-                            context.read<ImportBloc>().add(Import_Check(
-                                arrival_date: convertDate(_dateController.text),
-                                is_omega: false,
-                                car_plate: _carPlate.text.toString(),
-                                farm_id: int.parse(_farmID.toString()),
-                                fold_name: _coopName.text.toString(),
-                                arrival_time: _time_CarIn.text.toString(),
-                                start_time: _timeSubmit.text.toString(),
-                                end_time: _timeSubmit_End.text.toString(),
-                                duration: int.parse(_pigsAmount.text),
-                                total_pigs: int.parse(_pigsAmount.text),
-                                total_weight: double.parse(
-                                    convertToDouble(_pigsAllWeight.text)),
-                                avg_weight: double.parse(
-                                    convertToDouble(_pigsAvgWeight.text)),
-                                male_pig: int.parse(_pigsMaleAmount.text),
-                                female_pig: int.parse(_pigsFemaleAmount.text),
-                                rest_time: _restTime_Start.text.toString(),
-                                end_rest_time: _restTime_End.text.toString(),
-                                rest_duration: int.parse(_restLenght.text),
-                                killing_start: _killTime_Start.text.toString(),
-                                killing_stop: _killTime_End.text.toString(),
-                                killing_duration: int.parse(_killLenght.text),
-                                rest_dead: int.parse(state.deadPigs.toString()),
-                                docs: _docs,
-                                arrival_marks:
-                                    int.parse(_konlongScore.text.toString()),
-                                pigpen_marks: int.parse(_konlaiScore.text),
-                                picsFiles: selectedImages,
-                                context: null));
+                            print(selectedAbnormalities);
+
+                            // context.read<ImportBloc>().add(Import_Check(
+                            //     abnormals: selectedAbnormalities,
+                            //     arrival_date: convertDate(_dateController.text),
+                            //     is_omega: false,
+                            //     car_plate: _carPlate.text.toString(),
+                            //     farm_id: int.parse(_farmID.toString()),
+                            //     fold_name: _coopName.text.toString(),
+                            //     arrival_time: _time_CarIn.text.toString(),
+                            //     start_time: _timeSubmit.text.toString(),
+                            //     end_time: _timeSubmit_End.text.toString(),
+                            //     duration: int.parse(_pigsAmount.text),
+                            //     total_pigs: int.parse(_pigsAmount.text),
+                            //     total_weight: double.parse(
+                            //         convertToDouble(_pigsAllWeight.text)),
+                            //     avg_weight: double.parse(
+                            //         convertToDouble(_pigsAvgWeight.text)),
+                            //     male_pig: int.parse(_pigsMaleAmount.text),
+                            //     female_pig: int.parse(_pigsFemaleAmount.text),
+                            //     rest_time: _restTime_Start.text.toString(),
+                            //     end_rest_time: _restTime_End.text.toString(),
+                            //     rest_duration: int.parse(_restLenght.text),
+                            //     killing_start: _killTime_Start.text.toString(),
+                            //     killing_stop: _killTime_End.text.toString(),
+                            //     killing_duration: int.parse(_killLenght.text),
+                            //     rest_dead: int.parse(state.deadPigs.toString()),
+                            //     docs: _docs,
+                            //     arrival_marks:
+                            //         int.parse(_konlongScore.text.toString()),
+                            //     pigpen_marks: int.parse(_konlaiScore.text),
+                            //     picsFiles: selectedImages,
+                            //     context: null));
                           },
                           child: Padding(
                             padding: const EdgeInsets.all(15.0),

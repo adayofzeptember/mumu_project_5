@@ -12,7 +12,11 @@ class MasterDataBloc extends Bloc<MasterDataEvent, MasterDataState> {
   final dio = Dio();
   MasterDataBloc()
       : super(MasterDataState(
-            farmname_dropdown: [], docs_dropdown: [], abNormals_dropdown: [])) {
+            estimateType_dropdown: [],
+            farmname_dropdown: [],
+            docs_dropdown: [],
+            abNormals_dropdown: [],
+            balance_id_device_dropdown: [])) {
     on<Fetch_Farmname>((event, emit) async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       String tokenAuth = prefs.getString('userToken').toString();
@@ -35,11 +39,8 @@ class MasterDataBloc extends Bloc<MasterDataEvent, MasterDataState> {
               farm_name: element['label'].toString(),
             ));
           }
-          print(data);
-          emit(state.copyWith(farmname_dropdown: data));
 
-          print("-------------------->" +
-              state.farmname_dropdown.length.toString());
+          emit(state.copyWith(farmname_dropdown: data));
         } else {
           print('fetch master data farm name error status ');
         }
@@ -63,16 +64,10 @@ class MasterDataBloc extends Bloc<MasterDataEvent, MasterDataState> {
           ),
         );
 
-        var data = [];
         if (response.statusCode == 200) {
           for (var element in response.data['data']) {
             state.docs_dropdown.add(element['document_name'].toString());
-            // data.add(FarmName_Data(
-            //     farm_name: element['farm_name'].toString(),
-            //     id: element['id'].toString()));
           }
-          emit(state.copyWith(farmname_dropdown: data));
-          // print("-------------------->" + state.docs_dropdown.toString());
         } else {
           print('fetch master data docs error status ');
         }
@@ -95,9 +90,6 @@ class MasterDataBloc extends Bloc<MasterDataEvent, MasterDataState> {
             },
           ),
         );
-
-        // Check response data structure
-        print(response.data);
 
         List<Abnormal_Data> data = [];
         if (response.statusCode == 200) {
@@ -123,6 +115,77 @@ class MasterDataBloc extends Bloc<MasterDataEvent, MasterDataState> {
         if (e.response != null) {
           print(e.response!.data);
         }
+      }
+    });
+
+    //?/
+    on<Fetch_BalanceID>((event, emit) async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String tokenAuth = prefs.getString('userToken').toString();
+
+      try {
+        final response = await dio.get(
+          api_url + "masters/balances?isDropdown=true",
+          options: Options(
+            headers: {
+              "Authorization": "Bearer $tokenAuth",
+            },
+          ),
+        );
+
+        var data = [];
+        if (response.statusCode == 200) {
+          for (var element in response.data['data']) {
+            data.add(BalanceID_Data(
+              id: element['value'].toString(),
+              balance_name: element['label'].toString(),
+            ));
+          }
+
+          emit(state.copyWith(balance_id_device_dropdown: data));
+          print('balance' + state.balance_id_device_dropdown.length.toString());
+        } else {
+          print('fetch master data balance id  error status ');
+        }
+      } on DioException catch (e) {
+        print('fetch master data farm  balance id  error status != 200');
+        print("" + e.response!.data);
+      }
+    });
+
+    //?
+    on<Fetch_EstimateType>((event, emit) async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String tokenAuth = prefs.getString('userToken').toString();
+
+      try {
+        final response = await dio.get(
+          api_url + "masters/estimate-types?isDropdown=true",
+          options: Options(
+            headers: {
+              "Authorization": "Bearer $tokenAuth",
+            },
+          ),
+        );
+
+        var data = [];
+        if (response.statusCode == 200) {
+          for (var element in response.data['data']) {
+            data.add(EstimateTypes_Data(
+              id: element['value'].toString(),
+              type: element['label'].toString(),
+            ));
+          }
+
+          emit(state.copyWith(estimateType_dropdown: data));
+          print(
+              'estimates type' + state.estimateType_dropdown.length.toString());
+        } else {
+          print('fetch master data balance id  error status ');
+        }
+      } on DioException catch (e) {
+        print('fetch master data farm  balance id  error status != 200');
+        print("" + e.response!.data);
       }
     });
   }

@@ -40,7 +40,7 @@ class _AbnormalitiesSelectionPageState
 
   @override
   void initState() {
-    context.read<MasterDataBloc>().add(Fetch_Abnormals());
+    // context.read<MasterDataBloc>().add(Fetch_Abnormals());
     super.initState();
   }
 
