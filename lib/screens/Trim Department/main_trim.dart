@@ -64,7 +64,7 @@ class _Main_TrimState extends State<Main_Trim> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'รจเรข พินสายออ',
+                          'FA',
                           style: TextStyle(
                             color: Palette.mainRed,
                             fontWeight: FontWeight.bold,

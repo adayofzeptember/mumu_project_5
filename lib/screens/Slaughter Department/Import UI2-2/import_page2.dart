@@ -139,7 +139,8 @@ class _Import_Page2State extends State<Import_Page2> {
                                     width: 10,
                                   ),
                                   Expanded(
-                                    child: Container(
+                                    child: 
+                                    Container(
                                       height: 60,
                                       decoration: BoxDecoration(
                                           border: Border.all(

@@ -15,8 +15,35 @@ class MasterDataBloc extends Bloc<MasterDataEvent, MasterDataState> {
             estimateType_dropdown: [],
             farmname_dropdown: [],
             docs_dropdown: [],
+            lineLot_dropDown: [],
             abNormals_dropdown: [],
             balance_id_device_dropdown: [])) {
+    on<Fetch_Lot>((event, emit) async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String tokenAuth = prefs.getString('userToken').toString();
+
+      try {
+        final response = await dio.get(
+          api_url + "pig-arrival?toDay=true",
+          options: Options(
+            headers: {
+              "Authorization": "Bearer $tokenAuth",
+            },
+          ),
+        );
+
+        if (response.statusCode == 200) {
+          for (var elements in response.data['data']) {
+            state.lineLot_dropDown.add(elements['lot_num']);
+          }
+        } else {
+          print('error status != 200');
+        }
+      } on DioException catch (e) {
+        print(e.response!.data);
+      }
+    });
+
     on<Fetch_Farmname>((event, emit) async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       String tokenAuth = prefs.getString('userToken').toString();

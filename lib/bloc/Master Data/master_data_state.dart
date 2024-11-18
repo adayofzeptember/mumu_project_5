@@ -9,9 +9,11 @@ class MasterDataState extends Equatable {
   List<Abnormal_Data> abNormals_dropdown;
   List<String> docs_dropdown;
   List balance_id_device_dropdown;
+  List lineLot_dropDown;
   MasterDataState(
       {required this.farmname_dropdown,
       required this.abNormals_dropdown,
+      required this.lineLot_dropDown,
       required this.estimateType_dropdown,
       required this.balance_id_device_dropdown,
       required this.docs_dropdown});
@@ -19,10 +21,12 @@ class MasterDataState extends Equatable {
   MasterDataState copyWith(
       {List? farmname_dropdown,
       List? estimateType_dropdown,
+      List? lineLot_dropDown,
       List<String>? docs_dropdown,
       List<Abnormal_Data>? abNormals_dropdown,
       List? balance_id_device_dropdown}) {
     return MasterDataState(
+        lineLot_dropDown: lineLot_dropDown ?? this.lineLot_dropDown,
         balance_id_device_dropdown:
             balance_id_device_dropdown ?? this.balance_id_device_dropdown,
         farmname_dropdown: farmname_dropdown ?? this.farmname_dropdown,
@@ -38,6 +42,7 @@ class MasterDataState extends Equatable {
         estimateType_dropdown,
         docs_dropdown,
         abNormals_dropdown,
+        lineLot_dropDown,
         balance_id_device_dropdown
       ];
 }

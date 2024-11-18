@@ -22,3 +22,7 @@ class Fetch_Docs extends MasterDataEvent {
 class Fetch_Abnormals extends MasterDataEvent {
   Fetch_Abnormals();
 }
+
+class Fetch_Lot extends MasterDataEvent {
+  Fetch_Lot();
+}

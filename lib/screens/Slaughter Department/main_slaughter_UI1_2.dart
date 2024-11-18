@@ -12,9 +12,10 @@ import 'package:mumu_project/bloc/Slaughter/Line%20Slaughter/line_bloc.dart';
 import 'package:mumu_project/screens/Slaughter%20Department/Import%20UI2-2/tab_main.dart';
 import 'package:mumu_project/screens/Slaughter%20Department/LSQ%20UI2-8/lsq_tab_main.dart';
 import 'package:mumu_project/screens/Slaughter%20Department/Slaughter%20Line%20UI2-9/slaughter_tab_main.dart';
-import 'package:mumu_project/screens/Slaughter%20Department/Weight%20Head%20Parts/head_tab_main.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'Weight Head Parts/reporter/head_tab_main.dart';
 
 class Main_Slaughter extends StatefulWidget {
   const Main_Slaughter({super.key});
@@ -39,6 +40,7 @@ class _Main_SlaughterState extends State<Main_Slaughter> {
     context.read<MasterDataBloc>().add(Fetch_Docs());
     context.read<MasterDataBloc>().add(Fetch_Farmname());
     context.read<MasterDataBloc>().add(Fetch_Abnormals());
+    context.read<MasterDataBloc>().add(Fetch_Lot());
     context.read<MasterDataBloc>().add(Fetch_BalanceID());
     context.read<MasterDataBloc>().add(Fetch_EstimateType());
 

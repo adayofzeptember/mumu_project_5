@@ -319,10 +319,8 @@ class _Import_Page1State extends State<Import_Page1> {
                                             state.farmname_dropdown.firstWhere(
                                           (item) => item.farm_name == value,
                                         );
-
                                         print(
                                             "Selected ID: ${selectedItem.id}, Farm Name: ${selectedItem.farm_name}");
-
                                         setState(() {
                                           _farmID = int.parse(selectedItem.id);
                                           _farmName = value
