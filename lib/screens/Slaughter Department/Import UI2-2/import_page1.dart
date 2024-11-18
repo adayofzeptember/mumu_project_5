@@ -6,8 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mumu_project/ETC/Components/date_time_component.dart';
+import 'package:mumu_project/ETC/Components/dateformat_converter.dart';
 import 'package:mumu_project/ETC/Components/image_picker_component.dart';
 import 'package:mumu_project/ETC/colors_palette.dart';
+import 'package:mumu_project/ETC/double_converter.dart';
 import 'package:mumu_project/ETC/mediaQuery_set.dart';
 import 'package:mumu_project/bloc/Master%20Data/master_data_bloc.dart';
 import 'package:mumu_project/bloc/Slaughter/Import/import_bloc.dart';
@@ -1727,39 +1729,39 @@ class _Import_Page1State extends State<Import_Page1> {
                               print('object');
                             }
 
-                            print(selectedAbnormalities);
+                            // print(selectedAbnormalities);
 
-                            // context.read<ImportBloc>().add(Import_Check(
-                            //     abnormals: selectedAbnormalities,
-                            //     arrival_date: convertDate(_dateController.text),
-                            //     is_omega: false,
-                            //     car_plate: _carPlate.text.toString(),
-                            //     farm_id: int.parse(_farmID.toString()),
-                            //     fold_name: _coopName.text.toString(),
-                            //     arrival_time: _time_CarIn.text.toString(),
-                            //     start_time: _timeSubmit.text.toString(),
-                            //     end_time: _timeSubmit_End.text.toString(),
-                            //     duration: int.parse(_pigsAmount.text),
-                            //     total_pigs: int.parse(_pigsAmount.text),
-                            //     total_weight: double.parse(
-                            //         convertToDouble(_pigsAllWeight.text)),
-                            //     avg_weight: double.parse(
-                            //         convertToDouble(_pigsAvgWeight.text)),
-                            //     male_pig: int.parse(_pigsMaleAmount.text),
-                            //     female_pig: int.parse(_pigsFemaleAmount.text),
-                            //     rest_time: _restTime_Start.text.toString(),
-                            //     end_rest_time: _restTime_End.text.toString(),
-                            //     rest_duration: int.parse(_restLenght.text),
-                            //     killing_start: _killTime_Start.text.toString(),
-                            //     killing_stop: _killTime_End.text.toString(),
-                            //     killing_duration: int.parse(_killLenght.text),
-                            //     rest_dead: int.parse(state.deadPigs.toString()),
-                            //     docs: _docs,
-                            //     arrival_marks:
-                            //         int.parse(_konlongScore.text.toString()),
-                            //     pigpen_marks: int.parse(_konlaiScore.text),
-                            //     picsFiles: selectedImages,
-                            //     context: null));
+                            context.read<ImportBloc>().add(Import_Check(
+                                abnormals: selectedAbnormalities,
+                                arrival_date: convertDate(_dateController.text),
+                                is_omega: false,
+                                car_plate: _carPlate.text.toString(),
+                                farm_id: int.parse(_farmID.toString()),
+                                fold_name: _coopName.text.toString(),
+                                arrival_time: _time_CarIn.text.toString(),
+                                start_time: _timeSubmit.text.toString(),
+                                end_time: _timeSubmit_End.text.toString(),
+                                duration: int.parse(_pigsAmount.text),
+                                total_pigs: int.parse(_pigsAmount.text),
+                                total_weight: double.parse(
+                                    convertToDouble(_pigsAllWeight.text)),
+                                avg_weight: double.parse(
+                                    convertToDouble(_pigsAvgWeight.text)),
+                                male_pig: int.parse(_pigsMaleAmount.text),
+                                female_pig: int.parse(_pigsFemaleAmount.text),
+                                rest_time: _restTime_Start.text.toString(),
+                                end_rest_time: _restTime_End.text.toString(),
+                                rest_duration: int.parse(_restLenght.text),
+                                killing_start: _killTime_Start.text.toString(),
+                                killing_stop: _killTime_End.text.toString(),
+                                killing_duration: int.parse(_killLenght.text),
+                                rest_dead: int.parse(state.deadPigs.toString()),
+                                docs: _docs,
+                                arrival_marks:
+                                    int.parse(_konlongScore.text.toString()),
+                                pigpen_marks: int.parse(_konlaiScore.text),
+                                picsFiles: selectedImages,
+                                context: null));
                           },
                           child: Padding(
                             padding: const EdgeInsets.all(15.0),
